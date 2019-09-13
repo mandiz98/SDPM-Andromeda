@@ -19,6 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!-- TODO: Add these activities or change them or something? //AMANDA
+        <activity android:name=".ClockedIOActivity">
+
+        </activity>
+
+        <activity android:name=".ClothesActivity">
+
+        </activity>
+-->
     </application>
 
 </manifest>

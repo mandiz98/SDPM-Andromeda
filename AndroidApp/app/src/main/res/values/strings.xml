@@ -2,4 +2,7 @@
     <string name="app_name">Andromeda</string>
     <string name="andromeda_power_plant">Andromeda Power Plant</string>
     <string name="clock_in_please">Clock in please</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
