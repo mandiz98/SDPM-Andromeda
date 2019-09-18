@@ -6,10 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5dd3e440-6760-40e4-a86b-d068971e4678" name="Default Changelist" comment="Added radiation exposure unit per second function">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/models/User.java" afterDir="false" />
-    </list>
+    <list default="true" id="5dd3e440-6760-40e4-a86b-d068971e4678" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568792967065</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added radiation exposure unit per second function">
+      <created>1568793030684</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568793030684</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
