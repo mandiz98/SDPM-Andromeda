@@ -26,6 +26,10 @@ public class User {
         this.hazmatSuite = hazmatSuite;
     }
 
+    public String getRFID() {
+        return rfid;
+    }
+
     /**
      * Calculate the current radiation exposure unit per second
      * @param reactorRadiation Reactor radiation units output per second
