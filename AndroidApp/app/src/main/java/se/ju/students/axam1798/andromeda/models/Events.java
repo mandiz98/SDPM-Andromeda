@@ -25,4 +25,6 @@ public class Events {
 
     @DatabaseField()
     private Date dateCreated;
+
+    public Events() {}
 }
