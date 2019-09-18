@@ -1,4 +1,4 @@
-# Andromada nuclear safety system
+# Andromeda nuclear safety system
 
 ## Event code standard
 - 5xxx - Hardware events
