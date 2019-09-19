@@ -20,14 +20,16 @@ public class MainActivity extends AppCompatActivity {
         mTestBtBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            clockIn();
+                clockIn();
             }
         });
     }
 
-    private void clockIn(){
+    //Go to clocked in fragment
+    private void clockIn() {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
     }
+
 }

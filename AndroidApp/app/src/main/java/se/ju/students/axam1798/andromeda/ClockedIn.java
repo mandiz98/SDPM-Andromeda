@@ -37,9 +37,11 @@ public class ClockedIn extends Fragment {
         return view;
     }
 
+    //Go to clocked out fragment
     private void clockOut(){
         FragmentTransaction fragmentManager = getFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
     }
+
 }
