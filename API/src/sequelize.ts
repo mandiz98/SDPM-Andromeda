@@ -7,12 +7,9 @@ const sequelize = new Sequelize({
     username: 'root',
     //password: '123123123',
     //port: 3306,
-    storage: ":memory:",
+    storage: "database.sqlite",
     models: [ __dirname + '/data-layer/models/*.model.js' ]
 })
 sequelize.sync()
-
-console.log( './data-layer/models/*.model.ts');
-
 
 export default sequelize

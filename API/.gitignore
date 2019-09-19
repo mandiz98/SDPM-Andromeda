@@ -93,3 +93,6 @@ public
 
 # Compiled typescript files
 dist/
+
+# Sqlite db
+database.sqlite
