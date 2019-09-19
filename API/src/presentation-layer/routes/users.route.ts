@@ -41,7 +41,7 @@ export default class UserRoutes {
             res.json(await this.userManager.createUser(req.body))
         }catch(error) {
             console.log(error)
-            res.status(500).json(error)
+            res.status(400).json({ status: 400, message: "Invalid body blabla", name: "Bad Request" })
         }
     }
 }
