@@ -2,22 +2,30 @@
   "name": "andromeda-api",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "src/app.ts",
   "scripts": {
-    "compile": "tsc && node app.js",
-    "dev": "tsc-watch --onSuccess \"node app.js\""
+    "compile": "tsc && node dist/app.js",
+    "dev": "tsc-watch --onSuccess \"node dist/app.js\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bluebird": "^3.5.27",
     "@types/node": "^12.7.5",
+    "@types/validator": "^10.11.3",
     "awilix": "^4.2.2",
     "awilix-express": "^2.1.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mysql2": "^1.7.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.19.0",
+    "sequelize-typescript": "^1.0.0",
+    "sqlite3": "^4.1.0",
     "ts-node-dev": "^1.0.0-pre.42",
+    "tsc": "^1.20150623.0",
     "tsc-watch": "^4.0.0",
     "typescript": "^3.6.3"
   }
