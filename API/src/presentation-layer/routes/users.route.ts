@@ -18,7 +18,7 @@ export default class UserRoutes {
         try {
             res.json(await this.userManager.getUsers())
         }catch(error) {
-            console.log(error);
+            console.log(error)
             res.json(error)
         }
     }
@@ -29,7 +29,18 @@ export default class UserRoutes {
         try {
             res.json(await this.userManager.getUser(req.params.id))
         }catch(error) {
-            console.log(error);
+            console.log(error)
+            res.json(error)
+        }
+    }
+
+    @route("/")
+    @POST()
+    async createUser(req, res) {
+        try {
+            res.json(await this.userManager.createUser(req.body))
+        }catch(error) {
+            console.log(error)
             res.json(error)
         }
     }

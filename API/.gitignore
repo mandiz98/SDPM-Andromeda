@@ -90,3 +90,6 @@ public
 
 # DynamoDB Local files
 .dynamodb/
+
+# Compiled typescript files
+dist/

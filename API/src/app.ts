@@ -10,6 +10,7 @@ import sequelize from "./sequelize"
 const container = createContainer()
 container.register({ 
     userRepository: asClass(repositories.UserRepository).scoped(),
+    CRUDRepository: asClass(repositories.CRUDRepository).scoped(),
 
     // UserManager
     userManager: asClass(managers.UserManager).scoped()

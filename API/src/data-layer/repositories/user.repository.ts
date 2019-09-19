@@ -10,4 +10,8 @@ export class UserRepository {
         return await User.findByPk(id)
     }
 
+    async createUser(userData: any) {
+        return await new User(userData).save()
+    }
+
 }
