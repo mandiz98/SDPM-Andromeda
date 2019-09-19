@@ -19,10 +19,6 @@ android {
 }
 
 repositories {
-    maven {
-        // Used to get access to JDBC repo
-        url "http://nexus.saas.hand-china.com/content/repositories/rdc"
-    }
 }
 
 dependencies {
@@ -33,10 +29,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    // Database mapper library
-    implementation group: 'com.j256.ormlite', name: 'ormlite-core', version: '4.48'
-    implementation group: 'com.j256.ormlite', name: 'ormlite-jdbc', version: '4.48'
-
-    // Database connection library
-    implementation group: 'com.oracle', name: 'ojdbc7', version: '12.1.0.2'
+    // HTTP Client library
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 }

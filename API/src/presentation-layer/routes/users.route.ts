@@ -19,7 +19,7 @@ export default class UserRoutes {
             res.json(await this.userManager.getUsers())
         }catch(error) {
             console.log(error)
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 
@@ -30,7 +30,7 @@ export default class UserRoutes {
             res.json(await this.userManager.getUser(req.params.id))
         }catch(error) {
             console.log(error)
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 
@@ -41,7 +41,7 @@ export default class UserRoutes {
             res.json(await this.userManager.createUser(req.body))
         }catch(error) {
             console.log(error)
-            res.json(error)
+            res.status(500).json(error)
         }
     }
 }

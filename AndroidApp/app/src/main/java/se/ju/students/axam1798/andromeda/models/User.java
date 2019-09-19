@@ -1,23 +1,10 @@
 package se.ju.students.axam1798.andromeda.models;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
-@DatabaseTable(tableName = "users")
 public class User {
-    @DatabaseField(id = true)
     private int id;
-
-    @DatabaseField(canBeNull = false)
     private String rfid;
-
-    @DatabaseField()
     private boolean clockedIn;
-
-    @DatabaseField()
     private boolean hazmatSuite;
-
-    public User() {}
 
     public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite) {
         this.id = id;
@@ -26,8 +13,20 @@ public class User {
         this.hazmatSuite = hazmatSuite;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getRFID() {
         return rfid;
+    }
+
+    public boolean isClockedIn() {
+        return clockedIn;
+    }
+
+    public boolean isHazmatSuite() {
+        return hazmatSuite;
     }
 
     /**
