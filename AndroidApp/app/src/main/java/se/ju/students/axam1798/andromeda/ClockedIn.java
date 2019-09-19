@@ -75,7 +75,7 @@ public class ClockedIn extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_clock_in, container, false);
+        return inflater.inflate(R.layout.fragment_clocked_in, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
