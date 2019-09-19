@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,11 +17,18 @@ import android.widget.Button;
 public class ClockOut extends Fragment {
 
     private Button mOkBtn;
+    final Handler mHandler = new Handler();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clock_out, container, false);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                okClicked();
+            }
+        }, 10000);
 
         mOkBtn = view.findViewById(R.id.ok_btn);
 

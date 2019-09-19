@@ -25,6 +25,7 @@ public class ClockedIn extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_clocked_in, container, false);
 
+
         mTestClockOutBtn = view.findViewById(R.id.test_clockout_btn);
 
         mTestClockOutBtn.setOnClickListener(new View.OnClickListener() {
