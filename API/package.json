@@ -1,0 +1,24 @@
+{
+  "name": "andromeda-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.ts",
+  "scripts": {
+    "compile": "tsc && node app.js",
+    "dev": "tsc-watch --onSuccess \"node app.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.7.5",
+    "awilix": "^4.2.2",
+    "awilix-express": "^2.1.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "ts-node-dev": "^1.0.0-pre.42",
+    "tsc-watch": "^4.0.0",
+    "typescript": "^3.6.3"
+  }
+}
