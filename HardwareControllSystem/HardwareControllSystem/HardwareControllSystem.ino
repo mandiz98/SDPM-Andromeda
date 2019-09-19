@@ -6,6 +6,9 @@
 
 // the setup function runs once when you press reset or power the board
 
+/*#include <require_cpp11.h>
+#include <MFRC522Extended.h>
+#include <deprecated.h>*/
 #include <SPI.h>
 #include <MFRC522.h>
 
@@ -45,7 +48,7 @@ void loop()
 		return;
 	}
 
-	tone(buzzer_Pin, 2000, 250);
+	tone(buzzer_Pin, 1000, 250);
 	//Show UID on serial monitor
 	Serial.print("UID tag :");
 	String content = "";
