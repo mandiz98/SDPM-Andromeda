@@ -15,9 +15,8 @@ public class BluetoothConnection extends Thread
 
     private final String TAG = "BluetoothConnection";
 
-    // TODO
     // m_uuid is the app's UUID string, also used in the server code.
-    private final UUID m_uuid = new UUID(0, 0);
+    private final UUID m_uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     public BluetoothConnection(BluetoothDevice device) {
         // Use a temporary object that is later assigned to mmSocket
@@ -50,6 +49,8 @@ public class BluetoothConnection extends Thread
             } catch (IOException closeException) {
                 Log.e(TAG, "Could not close the client socket", closeException);
             }
+
+            Log.e(TAG, "Could not connect to socket.");
             return;
         }
 
@@ -58,7 +59,7 @@ public class BluetoothConnection extends Thread
 
         // TODO
         // https://developer.android.com/guide/topics/connectivity/bluetooth#ManageAConnection
-        manageMyConnectedSocket(m_socket);
+        //manageMyConnectedSocket(m_socket);
     }
 
     // Closes the client socket and causes the thread to finish.

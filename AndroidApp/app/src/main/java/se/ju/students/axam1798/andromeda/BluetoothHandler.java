@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
 
 import java.util.Set;
 
@@ -51,16 +52,19 @@ public class BluetoothHandler
         {
             for(BluetoothDevice device : bondedDevices)
             {
-                if(device.getName() == name)
+                if(device.getName().equals(name))
                 {
                     target = device;
+
+                    Log.i("BLUETOOTH_DEVICE", device.getName());
                 }
             }
         }
 
         if(target != null)
         {
-
+            BluetoothConnection connection = new BluetoothConnection(target);
+            connection.run();
         }
         else
         {

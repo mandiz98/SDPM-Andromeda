@@ -22,14 +22,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableAdapter, 0);
             }
+
+            boolean success = m_bluetoothHandler.connect("HC-06");
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-
     }
 
     @Override
