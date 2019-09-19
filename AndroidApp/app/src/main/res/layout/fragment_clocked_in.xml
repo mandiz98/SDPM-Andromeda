@@ -3,8 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBlack"
     tools:context=".ClockedIn">
+
+
+
 
     <TextView
         android:id="@+id/clocked_in_timer_txt"
@@ -25,6 +29,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="24sp" />
+
 
     <TextView
         android:id="@+id/textView4"
@@ -70,4 +75,14 @@
         android:indeterminate="false"
         android:max="100"
     />
+
+
+    <Button
+        android:id="@+id/test_clockout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="test clockout"
+        />
+
 </FrameLayout>
