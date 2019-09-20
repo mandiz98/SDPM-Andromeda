@@ -38,10 +38,6 @@ public class BluetoothConnection extends Thread
                         Log.i(TAG, new String("TIMESTAMP:").concat(Long.toString(statement.timestamp)));
                         Log.i(TAG, new String("DATA:").concat(statement.data));
                     }
-                    else
-                    {
-                        Log.i(TAG, new String("MESSAGE:").concat(readMessage));
-                    }
                 }
                 catch (Exception e)
                 {
@@ -227,7 +223,23 @@ public class BluetoothConnection extends Thread
         // https://developer.android.com/guide/topics/connectivity/bluetooth#ManageAConnection
         ConnectedThread connectedThread = new ConnectedThread(m_socket);
         connectedThread.start();
-        connectedThread.write(new String("4011;123;Here is data!\n").getBytes());
+
+        BluetoothProtocolParser parser = new BluetoothProtocolParser();
+        BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
+
+        statement.eventKey = 3001;
+        Log.i(TAG, parser.parse(statement));
+        connectedThread.write(parser.parse(statement).getBytes());
+
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        statement.eventKey = 3000;
+        Log.i(TAG, parser.parse(statement));
+        connectedThread.write(parser.parse(statement).getBytes());
     }
 
     // Closes the client socket and causes the thread to finish.

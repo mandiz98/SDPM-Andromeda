@@ -5,7 +5,7 @@ import android.util.Log;
 public class BluetoothProtocolParser
 {
 
-    public class Statement
+    public static class Statement
     {
         public boolean isComplete = false;
         public int eventKey;
@@ -42,7 +42,6 @@ public class BluetoothProtocolParser
             if(c == m_seperator || c == m_endOfStatement)
             {
                 statementCounter++;
-
                 if(statementCounter == 1)
                 {
                     // EventKey found
@@ -88,5 +87,19 @@ public class BluetoothProtocolParser
         }
 
         return statement;
+    }
+
+    String parse(Statement statement)
+    {
+        String newStatement =
+                "" +
+                Integer.toString(statement.eventKey) +
+                m_seperator +
+                Long.toString(statement.timestamp) +
+                m_seperator +
+                statement.data +
+                m_endOfStatement;
+
+        return newStatement;
     }
 }
