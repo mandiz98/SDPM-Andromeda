@@ -17,7 +17,6 @@
     <list default="true" id="07941d28-d73b-4e55-93d7-d06512f811fc" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/ClockOut.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/ClockOut.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/ClockedIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/ClockedIn.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,13 +56,13 @@
       <file leaf-file-name="ClockOut.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/ClockOut.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+            <state relative-caret-position="57">
+              <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
               <folding>
-                <element signature="e#822#945#0" expanded="true" />
-                <element signature="e#944#945#0" expanded="true" />
-                <element signature="e#693#837#0" expanded="true" />
-                <element signature="e#836#837#0" expanded="true" />
+                <element signature="e#867#1140#0" expanded="true" />
+                <element signature="e#1139#1140#0" expanded="true" />
+                <element signature="e#1236#1381#0" expanded="true" />
+                <element signature="e#1380#1381#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2534,7 +2533,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568881670169</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Go back to main activity automatically 10s after clocking out.">
+      <created>1568912617560</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1568912617560</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2561,11 +2567,11 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.3290993" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3290993" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Logcat" order="7" visible="true" weight="0.3290993" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="7" visible="true" weight="0.3290993" />
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24969475" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24969475" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.3290993" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3290993" />
       <window_info anchor="right" id="Gradle" order="3" />
@@ -2588,7 +2594,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changed the fragments. Added functions to change fragment." />
     <MESSAGE value="Added &quot;Ok&quot; button to clocked out fragment. Removes current fragment and returns to main activity." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added &quot;Ok&quot; button to clocked out fragment. Removes current fragment and returns to main activity." />
+    <MESSAGE value="Go back to main activity automatically 10s after clocking out." />
+    <option name="LAST_COMMIT_MESSAGE" value="Go back to main activity automatically 10s after clocking out." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
@@ -2646,10 +2653,10 @@
         <state relative-caret-position="195">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
           <folding>
-            <element signature="e#822#945#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-            <element signature="e#693#837#0" expanded="true" />
-            <element signature="e#836#837#0" expanded="true" />
+            <element signature="e#867#1140#0" expanded="true" />
+            <element signature="e#1139#1140#0" expanded="true" />
+            <element signature="e#1236#1381#0" expanded="true" />
+            <element signature="e#1380#1381#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2726,13 +2733,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/se/ju/students/axam1798/andromeda/ClockOut.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="57">
+          <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
           <folding>
-            <element signature="e#822#945#0" expanded="true" />
-            <element signature="e#944#945#0" expanded="true" />
-            <element signature="e#693#837#0" expanded="true" />
-            <element signature="e#836#837#0" expanded="true" />
+            <element signature="e#867#1140#0" expanded="true" />
+            <element signature="e#1139#1140#0" expanded="true" />
+            <element signature="e#1236#1381#0" expanded="true" />
+            <element signature="e#1380#1381#0" expanded="true" />
           </folding>
         </state>
       </provider>

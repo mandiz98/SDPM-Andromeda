@@ -18,17 +18,24 @@ public class ClockOut extends Fragment {
 
     private Button mOkBtn;
     final Handler mHandler = new Handler();
+    private boolean mOkClicked = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_clock_out, container, false);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                okClicked();
-            }
-        }, 10000);
+
+            //Change back to main activity after a delay
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        okClicked();
+                    } catch(NullPointerException e){
+                        System.out.println("Caught the NullPointerException");
+                    }
+                }
+            }, 3000);
 
         mOkBtn = view.findViewById(R.id.ok_btn);
 
@@ -38,17 +45,16 @@ public class ClockOut extends Fragment {
                 okClicked();
             }
         });
-
         return view;
     }
-
     //Remove fragment and return to main activity
     private void okClicked() {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.remove(this);
-        transaction.commit();
-        fragmentManager.popBackStack();
-    }
 
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.remove(this);
+            transaction.commit();
+            fragmentManager.popBackStack();
+
+    }
 }
