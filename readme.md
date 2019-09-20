@@ -1,5 +1,8 @@
 # Andromada nuclear safety system
 
+## API documenation
+[Link to API documentation](https://documenter.getpostman.com/view/4362009/SVmyPwfK?version=latest)
+
 ## Event code standard
 - 5xxx - Hardware events
 - 4xxx - User events
