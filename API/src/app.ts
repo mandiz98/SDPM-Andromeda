@@ -17,8 +17,10 @@ const container = createContainer()
 container.register({ 
     // Repositories
     crudRepository: asFunction(makeCrudRepo),
+    userRepository: asClass(repositories.UserRepository),
     // Managers
     userManager: asClass(managers.UserManager).scoped(),
+    eventManager: asClass(managers.EventManager).scoped(),
 })
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

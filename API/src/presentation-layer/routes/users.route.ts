@@ -1,5 +1,4 @@
-import bodyParser from "body-parser"
-import { route, GET, POST, before } from "awilix-express"
+import { route, GET, POST, before, PUT } from "awilix-express"
 import { UserManager } from "../../business-layer/managers"
 
 
@@ -41,7 +40,17 @@ export default class UserRoutes {
             res.json(await this.userManager.createUser(req.body))
         }catch(error) {
             console.log(error)
-            res.status(400).json({ status: 400, message: "Invalid body blabla", name: "Bad Request" })
+            res.status(400).json({ status: 400, message: error, name: "Bad Request" })
+        }
+    }
+
+    @route("/:id/clock")
+    @PUT()
+    async clockInOut(req, res) {
+        try {
+            res.json(await this.userManager.clockInOut(req.params.id, req.body.clockInOut))
+        }catch(error) {
+            res.status(500).json({ status: 500, message: "Ett fel: " + error, name: "Error" })
         }
     }
 }

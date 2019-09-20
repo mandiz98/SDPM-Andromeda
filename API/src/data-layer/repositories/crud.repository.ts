@@ -8,8 +8,8 @@ export class CRUDRepository {
         this.model = model
     }
 
-    async getAll() {
-        return await sequelize.model(this.model).findAll()
+    async getAll(query: any = null) {
+        return await sequelize.model(this.model).findAll(query ? { where: query } : {})
     }
 
     async getByPk(primaryKey: any) {

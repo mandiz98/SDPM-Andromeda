@@ -1,23 +1,27 @@
-import { CRUDRepository } from "../../data-layer/repositories"
+import { UserRepository } from "../../data-layer/repositories"
 
 export class UserManager {
 
-    private crudRepository: CRUDRepository
+    private userRepository: UserRepository
 
-    constructor({ crudRepository }) {
-        this.crudRepository = crudRepository("User")
+    constructor({ userRepository }) {
+        this.userRepository = userRepository
     }
 
     async getUsers() {
-        return await this.crudRepository.getAll()
+        return await this.userRepository.getAll()
     }
 
     async getUser(id: any) {
-        return await this.crudRepository.getByPk("User", id)
+        return await this.userRepository.getByPk(id)
     }
 
     async createUser(userData: any) {
-        return await this.crudRepository.create("User", userData)
+        return await this.userRepository.create(userData)
+    }
+
+    async clockInOut(id: any, clockIn: boolean) {
+        return clockIn ? await this.userRepository.clockIn(id) : await this.userRepository.clockOut(id)
     }
 
 }
