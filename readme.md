@@ -6,6 +6,7 @@
 ## Event code standard
 - 5xxx - Hardware events
 - 4xxx - User events
+- 3xxx - Application events
 - 2xxx - Normal events
 
 ## SAD document
