@@ -21,6 +21,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".RadiationTimerService"
+            android:enabled="true">
+        </service>
+
+        <receiver
+            android:name=".RadiationTimerRestarterBroadcastReciever"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped">
+        </receiver>
+
+
+
+<!-- TODO: Add these activities or change them or something? //AMANDA
+        <activity android:name=".ClockedIOActivity">
+
+        </activity>
+
+        <activity android:name=".ClothesActivity">
+
+        </activity>
+-->
     </application>
 
 </manifest>

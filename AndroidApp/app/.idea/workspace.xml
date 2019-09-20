@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="info" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aad47bc5-6253-4d16-bd3c-865b0d6fda08" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_customview_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_documentfile_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_interpolator_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_loader_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_print_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_support_compat_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_test_runner_1_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/Gradle__com_android_support_viewpager_28_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_28_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_28_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_5_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_converter_gson_2_6_1_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_retrofit_2_6_1_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/ClockOut.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/ClockedIn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerRestarterBroadcastReciever.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_clocked_io.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/activity_clothes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/styles.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="621817736">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages">
+        <counts>
+          <entry key="git.branch.checkout.remote" value="3" />
+          <entry key="git.branch.compare" value="1" />
+          <entry key="git.branch.merge" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="14" />
+          <entry key="properties" value="1" />
+          <entry key="xml" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="14" />
+          <entry key="Properties" value="1" />
+          <entry key="XML" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="2532" />
+          <entry key="txt" value="215" />
+          <entry key="xml" value="186" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="2532" />
+          <entry key="PLAIN_TEXT" value="215" />
+          <entry key="XML" value="186" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-90">
+              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#557#558#0" expanded="true" />
+                <element signature="e#582#583#0" expanded="true" />
+                <element signature="e#1020#1163#0" expanded="true" />
+                <element signature="e#1162#1163#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="41" column="39" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1451#1610#0" expanded="true" />
+                <element signature="e#1609#1610#0" expanded="true" />
+                <element signature="e#1950#1951#0" expanded="true" />
+                <element signature="e#1976#1977#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerRestarterBroadcastReciever.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="78" selection-start-line="12" selection-start-column="78" selection-end-line="12" selection-end-column="78" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="43" column="50" lean-forward="true" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="32" column="36" lean-forward="true" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
+              <folding>
+                <element signature="e#414#415#0" expanded="true" />
+                <element signature="e#439#440#0" expanded="true" />
+                <element signature="e#470#471#0" expanded="true" />
+                <element signature="e#497#498#0" expanded="true" />
+                <element signature="e#533#534#0" expanded="true" />
+                <element signature="e#565#566#0" expanded="true" />
+                <element signature="e#637#638#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>onReceive</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="development" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java" />
+        <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerRestarterBroadcastReciever.java" />
+        <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="950" />
+    <option name="width" value="979" />
+    <option name="height" value="525" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="andromeda" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="andromeda" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="API" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="andromeda" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="android.sdk.path" value="$PROJECT_DIR$/../../../../../Public/Android/Sdk" />
+    <property name="device.picker.selection" value="9WV4C18619009059" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="se.ju.students.axam1798.andromeda" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="se.ju.students.axam1798.andromeda" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aad47bc5-6253-4d16-bd3c-865b0d6fda08" name="Default Changelist" comment="" />
+      <created>1568960330405</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1568960330405</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added unversioned files">
+      <created>1568961526675</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1568961526675</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="4">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Captures" order="0" sideWeight="0.5005821" side_tool="true" weight="0.3298887" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49941793" weight="0.3298887" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info anchor="bottom" id="Run" weight="0.3299532" />
+      <window_info anchor="bottom" id="Debug" />
+      <window_info anchor="bottom" id="Find" />
+      <window_info anchor="bottom" id="Messages" weight="0.3299532" />
+      <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49841017" visible="true" weight="0.3299532" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49960256" weight="0.3299532" />
+      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49920508" weight="0.3299532" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49960256" weight="0.3299532" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="4" sideWeight="0.50158983" side_tool="true" visible="true" weight="0.3299532" />
+      <window_info anchor="bottom" id="Build" order="5" sideWeight="0.49920508" weight="0.3299532" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" />
+      <window_info anchor="right" id="Preview" weight="0.3298887" />
+      <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Captures" order="0" sideWeight="0.5005821" side_tool="true" weight="0.3298887" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49941793" visible="true" weight="0.3298887" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.3299532" />
+      <window_info anchor="bottom" id="Debug" order="1" />
+      <window_info anchor="bottom" id="Find" order="2" />
+      <window_info anchor="bottom" id="Messages" order="3" weight="0.3299532" />
+      <window_info anchor="bottom" id="Version Control" order="4" sideWeight="0.49880764" weight="0.3299532" />
+      <window_info anchor="bottom" id="Logcat" order="5" sideWeight="0.49960256" weight="0.3299532" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49920508" visible="true" weight="0.3299532" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49960256" weight="0.3299532" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5011924" side_tool="true" weight="0.3299532" />
+      <window_info anchor="bottom" id="Build" order="9" sideWeight="0.49920508" weight="0.3299532" />
+      <window_info anchor="bottom" id="Android Profiler" order="10" />
+      <window_info active="true" anchor="right" id="Preview" order="0" visible="true" weight="0.3298887" />
+      <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="right" id="Gradle" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added unversioned files" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/Layouts' into radEstTime&#10;&#10;# Conflicts:&#10;#&#9;AndroidApp/.idea/caches/build_file_checksums.ser&#10;#&#9;AndroidApp/.idea/gradle.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/workspace.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java&#10;#&#9;AndroidApp/local.properties&#10;&#10;&#10;I don't know what ^ that is, but i added a BackgroundService and a function in User that should calculate the time left." />
+    <MESSAGE value="Merge remote-tracking branch 'origin/Layouts' into radEstTime&#10;&#10;# Conflicts:&#10;#&#9;AndroidApp/.idea/caches/build_file_checksums.ser&#10;#&#9;AndroidApp/.idea/gradle.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/workspace.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java&#10;#&#9;AndroidApp/local.properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/Layouts' into radEstTime&#10;&#10;# Conflicts:&#10;#&#9;AndroidApp/.idea/caches/build_file_checksums.ser&#10;#&#9;AndroidApp/.idea/gradle.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/workspace.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java&#10;#&#9;AndroidApp/local.properties" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../local.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_clocked_io.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="112" column="19" selection-start-line="112" selection-start-column="19" selection-end-line="112" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/API/APIClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/API/APIService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/ClockOut.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+          <folding>
+            <element signature="e#822#945#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#557#558#0" expanded="true" />
+            <element signature="e#582#583#0" expanded="true" />
+            <element signature="e#1020#1163#0" expanded="true" />
+            <element signature="e#1162#1163#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/appwidget/AppWidgetProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="56" column="16" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="41" column="39" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1451#1610#0" expanded="true" />
+            <element signature="e#1609#1610#0" expanded="true" />
+            <element signature="e#1950#1951#0" expanded="true" />
+            <element signature="e#1976#1977#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/os/Handler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/os/Looper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="220" lean-forward="true" selection-start-line="220" selection-end-line="220" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/ClockedIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="60" column="8" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="32" column="36" lean-forward="true" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
+          <folding>
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+            <element signature="e#470#471#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#533#534#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+            <element signature="e#637#638#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="43" column="50" lean-forward="true" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/content/BroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="334" column="46" selection-start-line="334" selection-start-column="46" selection-end-line="334" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerRestarterBroadcastReciever.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="78" selection-start-line="12" selection-start-column="78" selection-end-line="12" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>Android API 28 Platform</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
