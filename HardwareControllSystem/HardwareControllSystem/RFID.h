@@ -11,11 +11,14 @@ class RFID
 public:
 	RFID(byte pinSS,byte pinRST);
 	~RFID();
-	void Init();
+	void init();
 
-	void Run();
+	//main machine for handeling rfid scan
+	void run();
 
-	void SetOnReciveEvent(void(*onRecive)(String));
+	//set a callback function that will be called in the event of a rfid scan.
+	//NOTE: only one callback can de set at any given time, new callbacks will overide old ones
+	void setOnReciveEvent(void(*onRecive)(String));
 
 private:
 	byte _pinSS;
@@ -24,4 +27,3 @@ private:
 
 	void(*_onRecive)(String);
 };
-
