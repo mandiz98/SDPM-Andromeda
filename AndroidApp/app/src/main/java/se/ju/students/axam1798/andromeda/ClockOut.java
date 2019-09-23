@@ -18,7 +18,6 @@ public class ClockOut extends Fragment {
 
     private Button mOkBtn;
     final Handler mHandler = new Handler();
-    private boolean mOkClicked = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
