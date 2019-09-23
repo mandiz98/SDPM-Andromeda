@@ -22,5 +22,8 @@ DSDM advocates the use of several proven practices, including:
 - MoSCoW Prioritisation
 - Time boxing
 
+## Iterative schema
+![The iterative schema of DSDM](https://slideplayer.com/slide/3890402/13/images/8/DSDM+lifecycle+model+From+software+engineering.jpg "The iterative schema of DSDM")
+
 ## Source
 https://www.agilebusiness.org/page/whatisdsdm
