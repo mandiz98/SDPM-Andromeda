@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-public class RadiationTimerRestarterBroadcastReciever extends BroadcastReceiver {
+public class RadiationTimerRestarterBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(RadiationTimerRestarterBroadcastReciever.class.getSimpleName(),"SERVICE STOPS! NOT GOOD!!!");
+        Log.i(RadiationTimerRestarterBroadcastReceiver.class.getSimpleName(),"SERVICE STOPS! NOT GOOD!!!");
         context.startService(new Intent(context,RadiationTimerService.class));
     }
 }

@@ -10,20 +10,28 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import se.ju.students.axam1798.andromeda.models.User;
+
 public class RadiationTimerService extends Service {
 
     public int counter = 0;
     private Timer timer;
     private TimerTask timerTask;
-    long oldTime=0;
+    private long m_oldTime=0;
+    private double m_safetyLimit = 0;
+
+    //TODO: Thesse variables should be fetched from the db.
+    private int id = 2;
+    private String rfid = "123547gigif745324";
+    private User m_user = new User(id,rfid,false,false);
+
+    public RadiationTimerService(){
+        return;
+    }
 
     public RadiationTimerService(Context applicationContext) {
         super();
         Log.i("This is the","RadiationTimerService");
-    }
-
-    public RadiationTimerService(){
-
     }
 
     @Override
@@ -33,15 +41,17 @@ public class RadiationTimerService extends Service {
         return START_STICKY;
     }
 
+    /*
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        m_oldTime = counter;
         Log.i("EXIT","onDestroy!");
-        Intent broadcastIntent = new Intent(this,RadiationTimerRestarterBroadcastReciever.class);
+        Intent broadcastIntent = new Intent(this,RadiationTimerRestarterBroadcastReceiver.class);
 
         sendBroadcast(broadcastIntent);
         stopTimerTask();
-    }
+        super.onDestroy();
+    }*/
 
     public void startTimer() {
         //set a new Timer
@@ -60,6 +70,9 @@ public class RadiationTimerService extends Service {
             @Override
             public void run() {
                 Log.i("in timer", "in timer ++++++ " + (counter++));
+                //TODO: reactorRadiation should be a variable from somewhere
+                m_safetyLimit = m_user.getSafetyLimit(0.2);
+                Log.i("safety limit","Limit is: " + (m_safetyLimit));
             }
         };
     }

@@ -2,6 +2,8 @@ package se.ju.students.axam1798.andromeda.models;
 
 import java.util.Timer;
 
+import se.ju.students.axam1798.andromeda.RadiationTimerService;
+
 public class User {
     private int id;
     private String rfid;
@@ -42,6 +44,7 @@ public class User {
 
     // TODO: roomCoefficient variable instead of hardcoded value
     public double getSafetyLimit(double reactorRadiation) {
+        double m_currentSafetyLimit;
         double m_currentExposure = getCurrentRadiationExposure(reactorRadiation,0.5,getProtectiveCoefficient());
 
         safetyLimit = safetyLimit - m_currentExposure;
