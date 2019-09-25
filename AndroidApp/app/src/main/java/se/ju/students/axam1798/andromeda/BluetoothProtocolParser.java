@@ -76,7 +76,10 @@ public class BluetoothProtocolParser
                 {
                     // Data found
                     String withoutSeparator = currentStatementPart.substring(0, currentStatementPart.length() - 1);
-                    statement.data = withoutSeparator;
+                    statement.data = parseData(
+                            statement.eventKey,
+                            withoutSeparator
+                    );
                     toBeRemoved = toBeRemoved.concat(currentStatementPart);
 
                     m_currentState = m_currentState.substring(toBeRemoved.length(), m_currentState.length());
@@ -101,5 +104,18 @@ public class BluetoothProtocolParser
                 m_endOfStatement;
 
         return newStatement;
+    }
+
+    private String parseData(int eventKey, String dataInput)
+    {
+        if(eventKey == 4010)
+        {
+            if(dataInput.charAt(0) == ' ')
+            {
+                return dataInput.substring(1);
+            }
+        }
+
+        return dataInput;
     }
 }
