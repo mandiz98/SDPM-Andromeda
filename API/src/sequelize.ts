@@ -10,6 +10,6 @@ const sequelize = new Sequelize({
     storage: "database.sqlite",
     models: [ __dirname + '/data-layer/models/*.model.js' ]
 })
-sequelize.sync()
+sequelize.sync({ force: false })
 
 export default sequelize

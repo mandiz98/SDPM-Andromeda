@@ -12,6 +12,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import se.ju.students.axam1798.andromeda.models.Event;
 import se.ju.students.axam1798.andromeda.models.User;
 
 public class APIClient {
@@ -39,8 +40,16 @@ public class APIClient {
         this.apiService.getUsers().enqueue(callback);
     }
 
+    public void getUserById(int id, Callback<User> callback) {
+        this.apiService.getUserById(id).enqueue(callback);
+    }
+
     public void createUser(User user, Callback<User> callback) {
         this.apiService.createUser(user).enqueue(callback);
+    }
+
+    public void createEvent(Event event, Callback<Event> callback) {
+        this.apiService.createEvent(event).enqueue(callback);
     }
 
     public static APIError decodeError(ResponseBody responseBody) {
