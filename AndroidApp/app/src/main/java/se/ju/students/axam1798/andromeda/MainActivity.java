@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private NotificationManagerCompat notificationManagerCompat;
 
-    private Button mTestBtBtn;
+    private Button m_TestBtBtn;
+    final Handler m_Handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +61,26 @@ public class MainActivity extends AppCompatActivity {
 
         notificationManagerCompat = NotificationManagerCompat.from(this);
 
-        mTestBtBtn = findViewById(R.id.test_bt_btn);
-        mTestBtBtn.setOnClickListener(new View.OnClickListener() {
+        m_Handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    sendIntervalWarningNotification();
+                } catch(NullPointerException e){
+                    System.out.println("Caught the NullPointerException");
+                }
+            }
+        }, 180);
+
+        m_TestBtBtn = findViewById(R.id.test_bt_btn);
+        m_TestBtBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clockIn();
 
+                clockIn();
                 //test everything
                 sendWarningNotification(v);
-                sendIntervalWarningNotification(v);
-                sendSystemWideWarning(v);
+                sendSystemWideWarning();
                 systemWideWarningAlert();
 
             }
@@ -173,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
          */
     }
 
-    public void sendIntervalWarningNotification(View v){
+    public void sendIntervalWarningNotification(){
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1)
                 .setSmallIcon(R.drawable.ic_warning_1)
                 .setContentTitle("Time interval")
@@ -186,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat.notify(2, notification);
     }
 
-    public void sendSystemWideWarning(View v){
+    public void sendSystemWideWarning(){
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1)
                 .setSmallIcon(R.drawable.ic_warning_1)
                 .setContentTitle("System wide warning")
