@@ -19,6 +19,7 @@ import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import se.ju.students.axam1798.andromeda.API.APIClient;
+import se.ju.students.axam1798.andromeda.API.APIError;
+import se.ju.students.axam1798.andromeda.models.Event;
 import se.ju.students.axam1798.andromeda.models.User;
 
 import android.app.Application;
@@ -119,6 +122,35 @@ public class MainActivity extends AppCompatActivity {
                                 Log.i(TAG, new String("EVENTKEY:").concat(Integer.toString(statement.eventKey)));
                                 Log.i(TAG, new String("TIMESTAMP:").concat(Long.toString(statement.timestamp)));
                                 Log.i(TAG, new String("DATA:").concat(statement.data));
+
+                                // eventKey: 4000-4999 (User events), the rfid is in the data if clocked in/out
+                                if(statement.eventKey >= 4000 && statement.eventKey < 5000)
+                                    // Create the event
+                                    APIClient.getInstance().createEvent(
+                                            new Event(
+                                                    0,
+                                                    0,
+                                                    statement.eventKey,
+                                                    new Date(),
+                                                    statement.data
+                                            ),
+                                            new retrofit2.Callback<Event>() {
+                                                @Override
+                                                public void onResponse(Call<Event> call, Response<Event> response) {
+                                                    if(response.isSuccessful() && response.body() != null)
+                                                        Toast.makeText(getApplicationContext(), response.body().getDateCreated().toString(), Toast.LENGTH_LONG).show();
+                                                    else{
+                                                        APIError error = APIClient.getInstance().decodeError(response.errorBody());
+                                                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Event> call, Throwable t) {
+                                                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                    );
                             }
                         }
                         catch (Exception e)

@@ -1,4 +1,3 @@
 export enum EventKey {
-    CLOCKED_IN = 4000,
-    CLOCKED_OUT = 4001
+    CLOCKED_IN_OUT = 4010
 }

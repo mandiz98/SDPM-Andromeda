@@ -18,11 +18,15 @@ public class Event {
     @SerializedName("dateCreated")
     private Date m_dateCreated;
 
-    public Event(int id, int userId, int eventKey, Date dateCreated) {
+    @SerializedName("data")
+    private String m_data;
+
+    public Event(int id, int userId, int eventKey, Date dateCreated, String data) {
         this.m_id = id;
         this.m_userId = userId;
         this.m_eventKey = eventKey;
         this.m_dateCreated = dateCreated;
+        this.m_data = data;
     }
 
     public int getId() {
@@ -39,5 +43,9 @@ public class Event {
 
     public Date getDateCreated() {
         return m_dateCreated;
+    }
+
+    public String getData() {
+        return m_data;
     }
 }

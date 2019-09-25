@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(loadControllers('presentation-layer/routes/*.js', { cwd: __dirname }))
 
 
-app.listen(8080, function() {
-    console.log("API listening on port 8080")
+app.listen(process.env.PORT || 8080, function() {
+    console.log("API listening on port " + (process.env.PORT ? process.env.PORT : 8080))
     console.log(app)
 })
