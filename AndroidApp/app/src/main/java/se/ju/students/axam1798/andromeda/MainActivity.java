@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NotificationManagerCompat notificationManagerCompat;
 
-    private Button mTestBtBtn;
+    private static Boolean m_clockedInStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         notificationManagerCompat = NotificationManagerCompat.from(this);
 
+        /*
         mTestBtBtn = findViewById(R.id.test_bt_btn);
         mTestBtBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 systemWideWarningAlert();
 
             }
-        });
+        }); */
         
         m_bluetoothService = new BluetoothService();
         if(m_bluetoothService.isSupported())
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             readMessage = (String)msg.obj;
 
-                            BluetoothProtocolParser.Statement statement = m_parser.parse(readMessage);
+                            final BluetoothProtocolParser.Statement statement = m_parser.parse(readMessage);
                             if(statement.isComplete)
                             {
                                 Log.i(TAG, new String("EVENTKEY:").concat(Integer.toString(statement.eventKey)));
@@ -137,9 +138,15 @@ public class MainActivity extends AppCompatActivity {
                                             new retrofit2.Callback<Event>() {
                                                 @Override
                                                 public void onResponse(Call<Event> call, Response<Event> response) {
-                                                    if(response.isSuccessful() && response.body() != null)
+                                                    if(response.isSuccessful() && response.body() != null) {
                                                         Toast.makeText(getApplicationContext(), response.body().getDateCreated().toString(), Toast.LENGTH_LONG).show();
-                                                    else{
+
+                                                        //If blipp works clock in
+                                                        if(statement.eventKey == 4010) {
+                                                            clockIn();
+                                                        }
+
+                                                    } else {
                                                         APIError error = APIClient.getInstance().decodeError(response.errorBody());
                                                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                                                     }
@@ -248,7 +255,14 @@ public class MainActivity extends AppCompatActivity {
     private void clockIn() {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
-        fragmentManager.commit(); }
+        fragmentManager.commit();
+
+        m_clockedInStatus = true;
+    }
+
+    public static boolean getClockedInStatus(){
+        return m_clockedInStatus;
+    }
 
 }
 
