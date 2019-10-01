@@ -44,6 +44,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import se.ju.students.axam1798.andromeda.ClockOut;
+
 import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
@@ -124,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                                 Log.i(TAG, new String("TIMESTAMP:").concat(Long.toString(statement.timestamp)));
                                 Log.i(TAG, new String("DATA:").concat(statement.data));
 
+                                String eventKey = Integer.toString(statement.eventKey);
+
                                 // eventKey: 4000-4999 (User events), the rfid is in the data if clocked in/out
                                 if(statement.eventKey >= 4000 && statement.eventKey < 5000)
                                     // Create the event
@@ -143,7 +147,25 @@ public class MainActivity extends AppCompatActivity {
 
                                                         //If blipp works clock in
                                                         if(statement.eventKey == 4010) {
-                                                            clockIn();
+
+                                                            APIClient.getInstance().getUserById(1, new retrofit2.Callback<User>() {
+                                                                @Override
+                                                                public void onResponse(Call<User> call, Response<User> response) {
+                                                                    if(response.isSuccessful() && response.body() != null) {
+                                                                        User user = response.body();
+                                                                        if(user.isClockedIn())
+                                                                            clockIn();
+                                                                        else
+                                                                            clockOut();
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onFailure(Call<User> call, Throwable t) {
+
+                                                                }
+                                                            });
+
                                                         }
 
                                                     } else {
@@ -258,6 +280,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.commit();
 
         m_clockedInStatus = true;
+    }
+
+    //Go to clocked out fragment
+    private void clockOut(){
+        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
+        fragmentManager.replace(R.id.fragment_container, new ClockOut());
+        fragmentManager.commit();
+
+        m_clockedInStatus = false;
     }
 
     public static boolean getClockedInStatus(){

@@ -31,9 +31,6 @@ public class ClockedIn extends Fragment {
 
     //Go to clocked out fragment
     private void clockOut(){
-        boolean m_clockedInStatus = MainActivity.getClockedInStatus();
-        if(m_clockedInStatus == true && )
-
         FragmentTransaction fragmentManager = getFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
