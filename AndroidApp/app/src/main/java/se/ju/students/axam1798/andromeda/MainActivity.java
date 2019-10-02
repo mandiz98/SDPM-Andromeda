@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         m_alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
         m_pendingIntent = PendingIntent.getBroadcast(this, 0, m_alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         m_alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
