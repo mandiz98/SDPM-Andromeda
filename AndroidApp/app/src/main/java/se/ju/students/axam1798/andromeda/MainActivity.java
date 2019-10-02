@@ -9,7 +9,6 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
@@ -31,12 +30,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
-import se.ju.students.axam1798.andromeda.ClockOut;
 import se.ju.students.axam1798.andromeda.models.User;
-
-import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -46,30 +41,19 @@ public class MainActivity extends AppCompatActivity {
 
     private NotificationManagerCompat notificationManagerCompat;
 
-    private static Boolean m_clockedInStatus = false;
+    private UserManager m_userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        m_userManager = new UserManager(getApplicationContext());
         notificationManagerCompat = NotificationManagerCompat.from(this);
 
-        /*
-        mTestBtBtn = findViewById(R.id.test_bt_btn);
-        mTestBtBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clockIn();
-
-                //test everything
-                sendWarningNotification(v);
-                sendIntervalWarningNotification(v);
-                sendSystemWideWarning(v);
-                systemWideWarningAlert();
-
-            }
-        }); */
+        // TODO: remove, example how to get user
+        if(m_userManager.getUser() != null)
+            Toast.makeText(getApplicationContext(), m_userManager.getUser().getRFID(), Toast.LENGTH_LONG).show();
         
         m_bluetoothService = new BluetoothService();
         if(m_bluetoothService.isSupported())
@@ -117,12 +101,12 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 if(response.isSuccessful() && response.body() != null) {
-                                    // TODO Store user in memory/storage
                                     User user = response.body();
+                                    m_userManager.setStoredUser(user);
                                     if(!user.isClockedIn())
-                                        clockIn();
+                                        showClockInFragment();
                                     else
-                                        clockOut();
+                                        showClockOutFragment();
                                 }
                             }
 
@@ -248,25 +232,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Go to clocked in fragment
-    private void clockIn() {
+    private void showClockInFragment() {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
-
-        m_clockedInStatus = true;
     }
 
     //Go to clocked out fragment
-    private void clockOut(){
+    private void showClockOutFragment(){
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
-
-        m_clockedInStatus = false;
-    }
-
-    public static boolean getClockedInStatus(){
-        return m_clockedInStatus;
     }
 
     /**
