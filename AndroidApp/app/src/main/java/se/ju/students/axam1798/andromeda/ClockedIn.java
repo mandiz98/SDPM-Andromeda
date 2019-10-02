@@ -17,23 +17,14 @@ import android.widget.ProgressBar;
 
 public class ClockedIn extends Fragment {
 
-    private Button mTestClockOutBtn ;
+    //private Button mTestClockOutBtn ;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_clocked_in, container, false);
-
-
-        mTestClockOutBtn = view.findViewById(R.id.test_clockout_btn);
-
-        mTestClockOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clockOut();
-            }
-        });
 
         return view;
     }
