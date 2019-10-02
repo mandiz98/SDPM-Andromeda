@@ -5,14 +5,15 @@ public class User {
     private String rfid;
     private boolean clockedIn;
     private boolean hazmatSuite;
-    private double safetyLimit = 500000;
-    private int m_protectiveCoefficient;
+
+    private double m_safetyLimit;
 
     public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite) {
         this.id = id;
         this.rfid = rfid;
         this.clockedIn = clockedIn;
         this.hazmatSuite = hazmatSuite;
+        this.m_safetyLimit = 500000;
     }
 
     public int getId() {
@@ -27,24 +28,22 @@ public class User {
         return clockedIn;
     }
 
-    public boolean isHazmatSuite() {
+    public boolean hasHazmatSuite() {
         return hazmatSuite;
     }
 
     public double getProtectiveCoefficient(){
-        m_protectiveCoefficient = isHazmatSuite() ? 5 : 1;
-
-        return m_protectiveCoefficient;
+        return hasHazmatSuite() ? 5 : 1;
     }
 
-    // TODO: roomCoefficient variable instead of hardcoded value
-    public double getSafetyLimit(double reactorRadiation) {
-        double m_currentExposure = getCurrentRadiationExposure(reactorRadiation,0.5,getProtectiveCoefficient());
-
-        safetyLimit = safetyLimit - m_currentExposure;
-
-        return safetyLimit;
+    public void setSafetyLimit(double safetyLimit) {
+        this.m_safetyLimit = safetyLimit;
     }
+
+    public double getSafetyLimit() {
+        return m_safetyLimit;
+    }
+
     /**
      * Calculate the current radiation exposure unit per second
      * @param reactorRadiation Reactor radiation units output per second

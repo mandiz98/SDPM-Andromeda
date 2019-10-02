@@ -20,12 +20,22 @@ public class RadiationTimerService extends Service {
     private final static double TEMP_ROOM_COEFFICIENT = 0.2;
     private final static double TEMP_PROTECTIVE_COEFFICIENT = 2;
 
+    private UserManager m_userManager;
+
     public int counter = 0;
     private Timer timer;
     private TimerTask timerTask;
     private double m_safetyLimit = 500000;
 
-    public RadiationTimerService() {}
+    public RadiationTimerService() {
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        this.m_userManager = new UserManager(getApplicationContext());
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -47,17 +57,23 @@ public class RadiationTimerService extends Service {
 
     // prints counter every second
     public void initializeTimerTask() {
+        if(m_userManager.getUser() == null) {
+            Log.i(TAG, "Stored user is null, timer not started");
+            return;
+        }
         timerTask = new TimerTask() {
             @Override
             public void run() {
                 Log.i(TAG, "in timer ++++++ " + (counter++));
-                m_safetyLimit -= getCurrentRadiationExposure(
+                double safetyLimit = m_userManager.getUser().getSafetyLimit();
+                safetyLimit -= m_userManager.getUser().getCurrentRadiationExposure(
                         // TODO: Should be fetched from hardware
-                        TEMP_RADIATION_EXPOSURE,
-                        TEMP_ROOM_COEFFICIENT,
-                        TEMP_PROTECTIVE_COEFFICIENT
+                        TEMP_RADIATION_EXPOSURE, // TODO HardwareManager.getCurrentExposure()
+                        TEMP_ROOM_COEFFICIENT, // TODO m_userManager.getUser().getRoomCoefficient()
+                        m_userManager.getUser().getProtectiveCoefficient()
                 );
-                Log.i(TAG,"Limit is: " + (m_safetyLimit));
+                m_userManager.getUser().setSafetyLimit(safetyLimit);
+                Log.i(TAG,"Limit is: " + (m_userManager.getUser().getSafetyLimit()));
             }
         };
     }

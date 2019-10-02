@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         m_userManager = new UserManager(getApplicationContext());
+        // Temp to reset the safety limit
+        m_userManager.getUser().setSafetyLimit(500000);
         notificationManagerCompat = NotificationManagerCompat.from(this);
         m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
         if (!isServiceRunning(RadiationTimerService.class)){
