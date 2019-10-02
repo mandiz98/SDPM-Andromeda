@@ -1,8 +1,11 @@
 package se.ju.students.axam1798.andromeda;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -43,10 +46,22 @@ public class MainActivity extends AppCompatActivity {
 
     private UserManager m_userManager;
 
+    Intent m_alarmIntent;
+    PendingIntent m_pendingIntent;
+    AlarmManager m_alarmManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        m_alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        m_pendingIntent = PendingIntent.getBroadcast(this, 0, m_alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        m_alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+
+        initializeTimeIntervalWarning();
 
         m_userManager = new UserManager(getApplicationContext());
         notificationManagerCompat = NotificationManagerCompat.from(this);
@@ -280,6 +295,23 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
+    }
+
+    //Start interval warning timer to trigger every 30 minutes.
+    private void initializeTimeIntervalWarning(){
+
+        m_alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HALF_HOUR,
+                AlarmManager.INTERVAL_HALF_HOUR,  m_pendingIntent);
+
+    }
+
+    private void killTimer(){
+
+        if (m_alarmManager!= null) {
+            m_alarmManager.cancel(m_pendingIntent);
+        }
+
     }
 
     /**
