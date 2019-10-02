@@ -14,19 +14,18 @@ import se.ju.students.axam1798.andromeda.models.User;
 
 public class RadiationTimerService extends Service {
 
-    private Context m_context;
+    private final static String TAG = RadiationTimerService.class.getName();
+
+    private final static double TEMP_RADIATION_EXPOSURE = 0.2;
+    private final static double TEMP_ROOM_COEFFICIENT = 0.2;
+    private final static double TEMP_PROTECTIVE_COEFFICIENT = 2;
 
     public int counter = 0;
     private Timer timer;
     private TimerTask timerTask;
-    private double m_safetyLimit = 0;
+    private double m_safetyLimit = 500000;
 
-    //TODO: Thesse variables should be fetched from the db.
-
-    public RadiationTimerService(Context context) {
-        Log.i("This is the","RadiationTimerService");
-        this.m_context = context;
-    }
+    public RadiationTimerService() {}
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -51,10 +50,14 @@ public class RadiationTimerService extends Service {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                Log.i("in timer", "in timer ++++++ " + (counter++));
-                //TODO: reactorRadiation should be a variable from somewhere
-                m_safetyLimit = m_userManager.getUser().getSafetyLimit(0.2);
-                Log.i("safety limit","Limit is: " + (m_safetyLimit));
+                Log.i(TAG, "in timer ++++++ " + (counter++));
+                m_safetyLimit -= getCurrentRadiationExposure(
+                        // TODO: Should be fetched from hardware
+                        TEMP_RADIATION_EXPOSURE,
+                        TEMP_ROOM_COEFFICIENT,
+                        TEMP_PROTECTIVE_COEFFICIENT
+                );
+                Log.i(TAG,"Limit is: " + (m_safetyLimit));
             }
         };
     }
@@ -73,6 +76,14 @@ public class RadiationTimerService extends Service {
         return null;
     }
 
-
-
+    /**
+     * Calculate the current radiation exposure unit per second
+     * @param reactorRadiation Reactor radiation units output per second
+     * @param roomCoefficient The room's protective coefficient
+     * @param protectiveCoefficient Like clothes, hazmatsuite etc.
+     * @return current radiation exposure unit per second
+     */
+    public double getCurrentRadiationExposure(double reactorRadiation, double roomCoefficient, double protectiveCoefficient) {
+        return  (reactorRadiation * roomCoefficient) / protectiveCoefficient;
+    }
 }

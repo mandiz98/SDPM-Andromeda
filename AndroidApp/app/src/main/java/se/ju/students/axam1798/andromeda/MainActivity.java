@@ -1,7 +1,9 @@
 package se.ju.students.axam1798.andromeda;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManagerCompat;
 
     private UserManager m_userManager;
+    private Intent m_serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         m_userManager = new UserManager(getApplicationContext());
         notificationManagerCompat = NotificationManagerCompat.from(this);
+        m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
+        if (!isServiceRunning(RadiationTimerService.class)){
+            startService(m_serviceIntent);
+        }
 
         // Get stored user
         if(m_userManager.getUser() != null) {
@@ -212,7 +219,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        stopService(m_serviceIntent);
+        Log.i("MAINACT","onDestroy!");
+
         m_connection.cancel();
+    }
+
+    private boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isServiceRunning?", false+"");
+        return false;
     }
 
     //Create the notification
