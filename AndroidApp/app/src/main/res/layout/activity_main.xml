@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorBlack"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_container">
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
@@ -39,30 +39,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_txt" />
 
+    <ImageView
+        android:id="@+id/img_blipp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="blipp tag to log in"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:rotation="-90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clck_in_txt"
+        app:srcCompat="@drawable/ic_wifi_white_24dp" />
+
     <Button
         android:id="@+id/test_bt_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="221dp"
         android:layout_marginEnd="162dp"
-        android:text="Blå tand"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/img_blipp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clck_in_txt" />
-
-    <TextView
-        android:id="@+id/bt_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="176dp"
-        android:text="Not connected"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/test_bt_btn" />
 
 </android.support.constraint.ConstraintLayout>
 </FrameLayout>
