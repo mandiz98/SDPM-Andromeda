@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/time_left_txt"
+        android:id="@+id/txt_time_left"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -23,54 +23,95 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/clocked_in_timer_txt"
+        android:id="@+id/txt_timer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="20:18"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_left_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_time_left" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txt_clocked_in_at"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="64dp"
         android:text="Clocked in at:"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clocked_in_timer_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_timer" />
 
     <TextView
-        android:id="@+id/room_txt"
+        android:id="@+id/txt_room"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="64dp"
         android:text="Room:"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_clocked_in_time" />
 
     <TextView
         android:id="@+id/clothes_txt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="64dp"
         android:text="Clothing:"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/room_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_room_text" />
+
+    <TextView
+        android:id="@+id/txt_clocked_in_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="10:44"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_clocked_in_at" />
+
+    <TextView
+        android:id="@+id/txt_room_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="178dp"
+        android:text="Console Room"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_room" />
+
+    <TextView
+        android:id="@+id/txt_clothing_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Hazmat suit"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clothes_txt" />
 
 </android.support.constraint.ConstraintLayout>
