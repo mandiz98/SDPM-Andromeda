@@ -148,12 +148,12 @@ public class MainActivity extends AppCompatActivity {
                                                         //If blipp works clock in
                                                         if(statement.eventKey == 4010) {
 
-                                                            APIClient.getInstance().getUserById(1, new retrofit2.Callback<User>() {
+                                                            APIClient.getInstance().getUserById(8, new retrofit2.Callback<User>() {
                                                                 @Override
                                                                 public void onResponse(Call<User> call, Response<User> response) {
                                                                     if(response.isSuccessful() && response.body() != null) {
                                                                         User user = response.body();
-                                                                        if(user.isClockedIn())
+                                                                        if(!user.isClockedIn())
                                                                             clockIn();
                                                                         else
                                                                             clockOut();
