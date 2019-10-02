@@ -14,24 +14,18 @@ import se.ju.students.axam1798.andromeda.models.User;
 
 public class RadiationTimerService extends Service {
 
+    private Context m_context;
+
     public int counter = 0;
     private Timer timer;
     private TimerTask timerTask;
-    private long m_oldTime=0;
     private double m_safetyLimit = 0;
 
     //TODO: Thesse variables should be fetched from the db.
-    private int id = 2;
-    private String rfid = "123547gigif745324";
-    private User m_user = new User(id,rfid,false,false);
 
-    public RadiationTimerService(){
-        return;
-    }
-
-    public RadiationTimerService(Context applicationContext) {
-        super();
+    public RadiationTimerService(Context context) {
         Log.i("This is the","RadiationTimerService");
+        this.m_context = context;
     }
 
     @Override
@@ -40,18 +34,6 @@ public class RadiationTimerService extends Service {
         startTimer();
         return START_STICKY;
     }
-
-    /*
-    @Override
-    public void onDestroy() {
-        m_oldTime = counter;
-        Log.i("EXIT","onDestroy!");
-        Intent broadcastIntent = new Intent(this,RadiationTimerRestarterBroadcastReceiver.class);
-
-        sendBroadcast(broadcastIntent);
-        stopTimerTask();
-        super.onDestroy();
-    }*/
 
     public void startTimer() {
         //set a new Timer
@@ -71,7 +53,7 @@ public class RadiationTimerService extends Service {
             public void run() {
                 Log.i("in timer", "in timer ++++++ " + (counter++));
                 //TODO: reactorRadiation should be a variable from somewhere
-                m_safetyLimit = m_user.getSafetyLimit(0.2);
+                m_safetyLimit = m_userManager.getUser().getSafetyLimit(0.2);
                 Log.i("safety limit","Limit is: " + (m_safetyLimit));
             }
         };
