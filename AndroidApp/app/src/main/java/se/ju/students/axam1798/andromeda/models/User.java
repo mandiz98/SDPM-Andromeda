@@ -11,7 +11,6 @@ public class User {
     private boolean hazmatSuite;
     private double safetyLimit = 500000;
     private int m_protectiveCoefficient;
-    private Timer m_safetyTimer;
 
     public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite) {
         this.id = id;
