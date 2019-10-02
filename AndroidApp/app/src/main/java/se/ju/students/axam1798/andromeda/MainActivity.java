@@ -2,11 +2,7 @@ package se.ju.students.axam1798.andromeda;
 
 import android.app.AlertDialog;
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -20,8 +16,7 @@ import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 import android.widget.Toast;
 
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,22 +24,13 @@ import retrofit2.Response;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
 import se.ju.students.axam1798.andromeda.models.Event;
-import se.ju.students.axam1798.andromeda.models.User;
 
-import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -102,64 +88,66 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupBTConnection()
     {
-        m_connection = m_bluetoothService.connect(
-            m_bluetoothService.getPairedDevice("HC-06"),
-            new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    super.handleMessage(msg);
-
-                    if(msg.what == BluetoothService.BluetoothConnection.MESSAGE_READ)
-                    {
-                        String readMessage = null;
-                        try
-                        {
-                            readMessage = (String)msg.obj;
-
-                            BluetoothProtocolParser.Statement statement = m_parser.parse(readMessage);
-                            if(statement.isComplete)
-                            {
-                                Log.i(TAG, new String("EVENTKEY:").concat(Integer.toString(statement.eventKey)));
-                                Log.i(TAG, new String("TIMESTAMP:").concat(Long.toString(statement.timestamp)));
-                                Log.i(TAG, new String("DATA:").concat(statement.data));
-
-                                // eventKey: 4000-4999 (User events), the rfid is in the data if clocked in/out
-                                if(statement.eventKey >= 4000 && statement.eventKey < 5000)
-                                    // Create the event
-                                    APIClient.getInstance().createEvent(
-                                            new Event(
-                                                    0,
-                                                    0,
-                                                    statement.eventKey,
-                                                    new Date(),
-                                                    statement.data
-                                            ),
-                                            new retrofit2.Callback<Event>() {
-                                                @Override
-                                                public void onResponse(Call<Event> call, Response<Event> response) {
-                                                    if(response.isSuccessful() && response.body() != null)
-                                                        Toast.makeText(getApplicationContext(), response.body().getDateCreated().toString(), Toast.LENGTH_LONG).show();
-                                                    else{
-                                                        APIError error = APIClient.getInstance().decodeError(response.errorBody());
-                                                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<Event> call, Throwable t) {
-                                                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                    );
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
+        // Callback from API when posting the event
+        final Callback<Event> createEventCallback = new Callback<Event>() {
+            @Override
+            public void onResponse(Call<Event> call, Response<Event> response) {
+                String toastMessage;
+                if(response.isSuccessful() && response.body() != null) {
+                    // Successful response! Event created.
+                    Event eventCreated = response.body();
+                    toastMessage = String.format(
+                            Locale.getDefault(),
+                            "Stored event %d with data \"%s\" on %s",
+                            eventCreated.getEventKey(),
+                            eventCreated.getData(),
+                            eventCreated.getDateCreated()
+                    );
+                }else if(response.errorBody() != null){
+                    // Not successful, we got an error body
+                    APIError error = APIClient.decodeError(response.errorBody());
+                    toastMessage = error.getMessage();
+                }else{
+                    // No error body in response, but connection to server was successful
+                    toastMessage = "Unknown error (HTTP code "+response.code()+")";
                 }
+
+                // Display a toast! :^)
+                Toast.makeText(
+                        getApplicationContext(),
+                        toastMessage,
+                        Toast.LENGTH_LONG
+                ).show();
             }
+
+            @Override
+            public void onFailure(Call<Event> call, Throwable t) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Couldn't store event, connection to API failed",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        };
+        IBluetoothEventListener listener = new IBluetoothEventListener() {
+            @Override
+            public void onReceived(BluetoothProtocolParser.Statement statement) {
+                APIClient.getInstance().createEvent(
+                        new Event(
+                                0,
+                                0,
+                                statement.eventKey,
+                                new Date(),
+                                statement.data
+                        ),
+                        createEventCallback
+                );
+            }
+        };
+
+        m_connection = m_bluetoothService.connect(
+            m_bluetoothService.getPairedDevice("DESKTOP-N0OIF75"),
+            new BluetoothMessageHandler(m_parser, listener)
         );
 
         m_connection.start();
@@ -248,7 +236,52 @@ public class MainActivity extends AppCompatActivity {
     private void clockIn() {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
-        fragmentManager.commit(); }
+        fragmentManager.commit();
+    }
 
+    /**
+     * Bluetooth message handler to trigger the listener's
+     * onReceived function when an event was sent from the bluetooth device.
+     */
+    static class BluetoothMessageHandler extends Handler {
+
+        private final BluetoothProtocolParser m_parser;
+        private final IBluetoothEventListener m_listener;
+
+        private BluetoothMessageHandler(BluetoothProtocolParser bluetoothParser, IBluetoothEventListener listener) {
+            this.m_parser = bluetoothParser;
+            this.m_listener = listener;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if(msg.what == BluetoothService.BluetoothConnection.MESSAGE_READ)
+            {
+                String readMessage = null;
+                try
+                {
+                    readMessage = (String)msg.obj;
+
+                    // Parse the statement into an object
+                    BluetoothProtocolParser.Statement statement = m_parser.parse(readMessage);
+                    if(statement.isComplete)
+                    {
+                        Log.i(TAG, new String("EVENTKEY:").concat(Integer.toString(statement.eventKey)));
+                        Log.i(TAG, new String("TIMESTAMP:").concat(Long.toString(statement.timestamp)));
+                        Log.i(TAG, new String("DATA:").concat(statement.data));
+
+                        // Trigger the listener's onReceived function
+                        this.m_listener.onReceived(statement);
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
 

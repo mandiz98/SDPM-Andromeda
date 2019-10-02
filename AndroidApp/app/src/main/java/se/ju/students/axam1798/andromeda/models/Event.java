@@ -1,5 +1,7 @@
 package se.ju.students.axam1798.andromeda.models;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
