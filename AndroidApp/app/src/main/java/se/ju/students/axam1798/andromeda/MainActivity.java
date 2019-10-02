@@ -51,10 +51,35 @@ public class MainActivity extends AppCompatActivity {
         m_userManager = new UserManager(getApplicationContext());
         notificationManagerCompat = NotificationManagerCompat.from(this);
 
-        // TODO: remove, example how to get user
-        if(m_userManager.getUser() != null)
-            Toast.makeText(getApplicationContext(), m_userManager.getUser().getRFID(), Toast.LENGTH_LONG).show();
-        
+        // Get stored user
+        if(m_userManager.getUser() != null) {
+            // Get current user data from API
+            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if(response.isSuccessful() && response.body() != null) {
+                        // Get the user from the response body
+                        User user = response.body();
+                        // Store the user
+                        m_userManager.setStoredUser(user);
+
+                        // Show clock in page if clocked in
+                        if(!user.isClockedIn())
+                            showClockInFragment();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Couldn't get stored user from API: " + t.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            });
+        }
+
         m_bluetoothService = new BluetoothService();
         if(m_bluetoothService.isSupported())
         {
@@ -101,8 +126,11 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<User> call, Response<User> response) {
                                 if(response.isSuccessful() && response.body() != null) {
+                                    // Get the user from the response body
                                     User user = response.body();
+                                    // Store the user
                                     m_userManager.setStoredUser(user);
+
                                     if(!user.isClockedIn())
                                         showClockInFragment();
                                     else
