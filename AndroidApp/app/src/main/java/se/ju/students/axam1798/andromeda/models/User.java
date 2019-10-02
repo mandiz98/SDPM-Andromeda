@@ -6,11 +6,14 @@ public class User {
     private boolean clockedIn;
     private boolean hazmatSuite;
 
+    private double m_safetyLimit;
+
     public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite) {
         this.id = id;
         this.rfid = rfid;
         this.clockedIn = clockedIn;
         this.hazmatSuite = hazmatSuite;
+        this.m_safetyLimit = 500000;
     }
 
     public int getId() {
@@ -25,8 +28,20 @@ public class User {
         return clockedIn;
     }
 
-    public boolean isHazmatSuite() {
+    public boolean hasHazmatSuite() {
         return hazmatSuite;
+    }
+
+    public double getProtectiveCoefficient(){
+        return hasHazmatSuite() ? 5 : 1;
+    }
+
+    public void setSafetyLimit(double safetyLimit) {
+        this.m_safetyLimit = safetyLimit;
+    }
+
+    public double getSafetyLimit() {
+        return m_safetyLimit;
     }
 
     /**
@@ -39,4 +54,5 @@ public class User {
     public double getCurrentRadiationExposure(double reactorRadiation, double roomCoefficient, double protectiveCoefficient) {
         return  (reactorRadiation * roomCoefficient) / protectiveCoefficient;
     }
+
 }
