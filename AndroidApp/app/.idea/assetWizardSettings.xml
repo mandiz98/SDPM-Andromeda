@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_wifi_white_24dp" />
-                            <entry key="sourceFile" value="C:\Users\amand" />
+                            <entry key="outputName" value="ic_rfid" />
+                            <entry key="sourceFile" value="C:\Users\amand\Pictures\Android\SEPM\icons8-rfid-signal.svg" />
                           </map>
                         </option>
                       </PersistentState>
