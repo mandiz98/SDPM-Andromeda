@@ -131,10 +131,19 @@ public class MainActivity extends AppCompatActivity {
                                     // Store the user
                                     m_userManager.setStoredUser(user);
 
-                                    if(!user.isClockedIn())
+                                    if(!user.isClockedIn()) {
                                         showClockInFragment();
-                                    else
+                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                                                3000,
+                                                System.currentTimeMillis()
+                                        )).getBytes());
+                                    }else {
                                         showClockOutFragment();
+                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                                                3001,
+                                                System.currentTimeMillis()
+                                        )).getBytes());
+                                    }
                                 }
                             }
 
