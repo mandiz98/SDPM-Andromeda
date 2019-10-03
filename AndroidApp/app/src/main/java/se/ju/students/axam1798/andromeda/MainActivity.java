@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         m_userManager = UserManager.getInstance(getApplicationContext());
         // Temp to reset the safety limit
-        m_userManager.setStoredUser(new User(0, "12345", false, false));
-        m_userManager.getUser().setSafetyLimit(50);
         notificationManagerCompat = NotificationManagerCompat.from(this);
         m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
 
