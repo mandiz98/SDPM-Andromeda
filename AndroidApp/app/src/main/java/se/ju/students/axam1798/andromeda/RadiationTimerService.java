@@ -17,9 +17,9 @@ public class RadiationTimerService extends Service {
 
     private final static String TAG = RadiationTimerService.class.getName();
 
-    private final static double TEMP_RADIATION_EXPOSURE = 100;
+    private final static double TEMP_RADIATION_EXPOSURE = 30;
     private final static double TEMP_ROOM_COEFFICIENT = 0.2;
-    private final static double TEMP_PROTECTIVE_COEFFICIENT = 2;
+    private final static double TEMP_PROTECTIVE_COEFFICIENT = 1;
     private final static int INTERVAL_SECONDS = 1800;
 
     private UserManager m_userManager;
@@ -46,7 +46,7 @@ public class RadiationTimerService extends Service {
         this.m_warningNotificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_1)
                 .setSmallIcon(R.drawable.ic_warning_1)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setCategory(NotificationCompat.CATEGORY_STATUS)
                 .setContentTitle("Time left until safety limit reached");
     }
 
@@ -79,13 +79,15 @@ public class RadiationTimerService extends Service {
             public void run() {
                 Log.i(TAG, "in timer ++++++ " + (counter++));
                 double safetyLimit = m_userManager.getUser().getSafetyLimit();
+                Log.i(TAG, "Safety limit before: " + safetyLimit);
                 double currentExposurePerSecond = m_userManager.getUser().getCurrentRadiationExposure(
                         // TODO: Should be fetched from hardware
                         TEMP_RADIATION_EXPOSURE, // TODO HardwareManager.getCurrentExposure()
-                        TEMP_ROOM_COEFFICIENT, // TODO m_userManager.getUser().getRoomCoefficient()
+                        TEMP_ROOM_COEFFICIENT,
                         m_userManager.getUser().getProtectiveCoefficient()
                 );
                 safetyLimit -= currentExposurePerSecond;
+                Log.i(TAG, "Safety limit after: " + safetyLimit);
 
                 // Safety limit notification
 
@@ -123,6 +125,7 @@ public class RadiationTimerService extends Service {
 
                 m_userManager.getUser().setSafetyLimit(safetyLimit);
                 Log.i(TAG,"Current safety limit: " + (m_userManager.getUser().getSafetyLimit()));
+                Log.i(TAG,"Left until reached limit: " + strHours + ":" + strMinutes + ":" + strSeconds);
             }
         };
     }
