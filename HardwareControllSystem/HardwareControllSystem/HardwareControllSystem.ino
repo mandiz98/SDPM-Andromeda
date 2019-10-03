@@ -16,6 +16,7 @@
 #include "SerialComManager.h"
 #include "RFID.h"
 #include "CircuitControll.h"
+#include "BluetoothInterface.h"
 
 #define RFID_PIN_SS 10
 #define RFID_PIN_RST 9
@@ -29,94 +30,52 @@ CircuitControll cirCtrl = CircuitControll();
 
 SerialComManager serialManager(9600);
 RFID rfid(RFID_PIN_SS, RFID_PIN_RST);
+BluetoothInterface bluetooth;
 
 
 void OnRFID_Recive(String message)
 {
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2500, 250));
-	Serial.println(message);
-	if (message.substring(1) == "A6 53 9F F7")
-	{
-		Serial.println("Authorized access\n");
-		delay(250);
-		cirCtrl.addToneToQueue(CircuitControll::toneCmd(2500, 250));
-		//tone(PIN_BUZZER, 2500, 250);
-		
-	}
-	else
-	{
-		Serial.println(" Access denied\n");
-		delay(250);
-		cirCtrl.addToneToQueue(CircuitControll::toneCmd(1500, 250));
-		tone(PIN_BUZZER, 1500, 250);
-	}
-}
 
+	bluetooth.sendData(BluetoothInterface::TrancmitType::RFID, message);
+
+}
+void reciveSuccessListner(String data)
+{
+	tone(buzzer_Pin, 1500, 250);
+	delay(250);
+	tone(buzzer_Pin, 2500, 500);
+}
+void reciveFailListner(String data)
+{
+	tone(buzzer_Pin, 1000);
+	delay(250);
+	tone(buzzer_Pin, 750);
+	delay(250);
+	tone(buzzer_Pin, 500);
+	delay(500);
+	noTone(buzzer_Pin);
+}
 void setup() 
 {	
-	
-	Serial.begin(9600);
-	rfid.Init();
-	rfid.SetOnReciveEvent(OnRFID_Recive);
-
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(1500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(3500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(1500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(3500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(1500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(3500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(1500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(3500, 250));
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(500, 250));
 
 	pinMode(PIN_LATCH, OUTPUT);
 	pinMode(PIN_DATA, OUTPUT);
 	pinMode(PIN_CLOCK, OUTPUT);
 
+	bluetooth.init(9600);
+	rfid.init();
 
-	Serial.println("start leds");
-	
-	cirCtrl.addLedCmd(CircuitControll::led_e::one, CircuitControll::onOff_e::on, 500);
-	cirCtrl.addLedCmd(CircuitControll::led_e::one, CircuitControll::onOff_e::off, 500);
-
-	cirCtrl.addLedCmd(CircuitControll::led_e::two, CircuitControll::onOff_e::on, 300);
-	cirCtrl.addLedCmd(CircuitControll::led_e::two, CircuitControll::onOff_e::off, 300);
-
-	cirCtrl.addLedCmd(CircuitControll::led_e::three, CircuitControll::onOff_e::on, 480);
-	cirCtrl.addLedCmd(CircuitControll::led_e::three, CircuitControll::onOff_e::off, 480);
-
-	cirCtrl.addLedCmd(CircuitControll::led_e::four, CircuitControll::onOff_e::on, 470);
-	cirCtrl.addLedCmd(CircuitControll::led_e::four, CircuitControll::onOff_e::off);
-
-	cirCtrl.addLedCmd(CircuitControll::led_e::five, CircuitControll::onOff_e::on, 500);
-	cirCtrl.addLedCmd(CircuitControll::led_e::five, CircuitControll::onOff_e::off);
-
-	cirCtrl.addLedCmd(CircuitControll::led_e::six, CircuitControll::onOff_e::on, 500);
-	cirCtrl.addLedCmd(CircuitControll::led_e::six, CircuitControll::onOff_e::off);
-
-	cirCtrl.addLedCmd(CircuitControll::led_e::seven, CircuitControll::onOff_e::on, 500);
-	cirCtrl.addLedCmd(CircuitControll::led_e::seven, CircuitControll::onOff_e::off);
-
-	cirCtrl.addLedCmd(CircuitControll::led_e::eight, CircuitControll::onOff_e::on, 500);
-	cirCtrl.addLedCmd(CircuitControll::led_e::eight, CircuitControll::onOff_e::off);
-	
-
-	Serial.println("Leds done");
-
-	
+	rfid.setOnReciveEvent(OnRFID_Recive);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundFail, reciveFailListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundSuccess, reciveSuccessListner);
+  
 	Serial.println("---Ready---");
-
 
 }
 
 void loop()
 {
-	//rfid.Run();
 	cirCtrl.run();
-
-
+	rfid.run();
+	bluetooth.run();
 }

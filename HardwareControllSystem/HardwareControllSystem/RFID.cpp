@@ -14,7 +14,7 @@ RFID::~RFID()
 {
 }
 
-void RFID::Init()
+void RFID::init()
 {	
 	_mfrc522 = MFRC522(_pinSS, _pinRST);
 	SPI.begin();			// Init SPI bus
@@ -23,7 +23,7 @@ void RFID::Init()
 
 String oldMessage = "";
 int absentsCounter = 0;
-void RFID::Run()
+void RFID::run()
 {
 	if (!_mfrc522.PICC_IsNewCardPresent()  || !_mfrc522.PICC_ReadCardSerial())
 	{
@@ -49,7 +49,7 @@ void RFID::Run()
 	_onRecive(message);
 }
 
-void RFID::SetOnReciveEvent(void(*onRecive)(String))
+void RFID::setOnReciveEvent(void(*onRecive)(String))
 {
 	_onRecive = onRecive;
 }

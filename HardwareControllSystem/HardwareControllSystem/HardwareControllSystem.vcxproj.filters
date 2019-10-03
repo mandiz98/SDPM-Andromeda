@@ -24,10 +24,10 @@
     <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SerialComManager.h">
+    <ClInclude Include="RFID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RFID.h">
+    <ClInclude Include="BluetoothInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CircuitControll.h">
@@ -35,10 +35,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SerialComManager.cpp">
+    <ClCompile Include="RFID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RFID.cpp">
+    <ClCompile Include="BluetoothInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CircuitControll.cpp">
