@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
+
+import se.ju.students.axam1798.andromeda.exceptions.NotPairedException;
 
 public class BluetoothService {
 
@@ -64,8 +67,7 @@ public class BluetoothService {
         return null;
     }
 
-    public BluetoothConnection connect(BluetoothDevice device, Handler handler)
-    {
+    public BluetoothConnection connect(BluetoothDevice device, Handler handler) throws NotPairedException {
         return new BluetoothConnection(device, handler);
     }
 
@@ -87,14 +89,17 @@ public class BluetoothService {
 
         private final UUID m_uuid; //UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-        public BluetoothConnection(BluetoothDevice device, Handler handler)
-        {
+        public BluetoothConnection(BluetoothDevice device, Handler handler) throws NotPairedException {
             this.setHandler(handler);
 
             // Setup socket
             BluetoothSocket tmp = null;
             m_device = device;
-            m_uuid = m_device.getUuids()[0].getUuid();
+            try {
+                m_uuid = m_device.getUuids()[0].getUuid();
+            }catch(NullPointerException ex) {
+                throw new NotPairedException();
+            }
 
             try {
                 // Get a BluetoothSocket to connect with the given BluetoothDevice.
