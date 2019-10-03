@@ -25,6 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
+import se.ju.students.axam1798.andromeda.enums.Role;
 import se.ju.students.axam1798.andromeda.exceptions.NotPairedException;
 import se.ju.students.axam1798.andromeda.models.Event;
 
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         m_userManager = UserManager.getInstance(getApplicationContext());
-        // Temp to reset the safety limit
         notificationManagerCompat = NotificationManagerCompat.from(this);
         m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
 

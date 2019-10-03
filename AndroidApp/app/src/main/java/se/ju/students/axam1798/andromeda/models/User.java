@@ -1,19 +1,30 @@
 package se.ju.students.axam1798.andromeda.models;
 
+import se.ju.students.axam1798.andromeda.enums.Role;
+
 public class User {
+
+    private static final int SAFETY_LIMIT_START = 500000;
+
     private int id;
     private String rfid;
     private boolean clockedIn;
     private boolean hazmatSuite;
+    private Role role;
 
     private double m_safetyLimit;
 
-    public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite) {
+    public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite, Role role) {
         this.id = id;
         this.rfid = rfid;
         this.clockedIn = clockedIn;
         this.hazmatSuite = hazmatSuite;
-        this.m_safetyLimit = 500000;
+        this.role = role;
+        this.m_safetyLimit = SAFETY_LIMIT_START;
+    }
+
+    public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite, int roleId) {
+        this(id, rfid, clockedIn, hazmatSuite, Role.fromId(roleId));
     }
 
     public int getId() {
@@ -42,6 +53,10 @@ public class User {
 
     public double getSafetyLimit() {
         return m_safetyLimit;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     /**
