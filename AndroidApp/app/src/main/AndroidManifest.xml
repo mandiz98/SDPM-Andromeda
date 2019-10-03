@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -34,24 +35,11 @@
         </service>
 
         <receiver
-            android:name=".RadiationTimerRestarterBroadcastReciever"
+            android:name=".RadiationTimerRestarterBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="RestartServiceWhenStopped">
         </receiver>
-
-
-
-<!-- TODO: Add these activities or change them or something? //AMANDA
-        <activity android:name=".ClockedIOActivity">
-
-        </activity>
-
-        <activity android:name=".ClothesActivity">
-
-        </activity>
--->
-        <receiver android:name=".AlarmReceiver"/>
     </application>
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>

@@ -1,13 +1,11 @@
 package se.ju.students.axam1798.andromeda;
 
-import android.app.AlarmManager;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Notification;
-import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.SystemClock;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -19,7 +17,6 @@ import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
 import android.widget.Toast;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -28,9 +25,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
+import se.ju.students.axam1798.andromeda.exceptions.NotPairedException;
 import se.ju.students.axam1798.andromeda.models.Event;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -50,28 +47,17 @@ public class MainActivity extends AppCompatActivity {
     private UserManager m_userManager;
     private Intent m_serviceIntent;
 
-    Intent m_alarmIntent;
-    PendingIntent m_pendingIntent;
-    AlarmManager m_alarmManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        m_alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-        m_pendingIntent = PendingIntent.getBroadcast(this, 0, m_alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        m_alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
-
         m_userManager = UserManager.getInstance(getApplicationContext());
         // Temp to reset the safety limit
         m_userManager.setStoredUser(new User(0, "12345", false, false));
-        m_userManager.getUser().setSafetyLimit(500000);
+        m_userManager.getUser().setSafetyLimit(50);
         notificationManagerCompat = NotificationManagerCompat.from(this);
         m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
-        if (!isServiceRunning(RadiationTimerService.class)){
-            startService(m_serviceIntent);
-        }
 
         // Get stored user
         if(m_userManager.getUser() != null) {
@@ -87,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // Show clock in page if clocked in
                         if(!user.isClockedIn())
-                            showClockInFragment();
+                            clockIn();
                     }
                 }
 
@@ -154,13 +140,13 @@ public class MainActivity extends AppCompatActivity {
                                     m_userManager.setStoredUser(user);
 
                                     if(!user.isClockedIn()) {
-                                        showClockInFragment();
+                                        clockIn();
                                         m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                                                 3000,
                                                 System.currentTimeMillis()
                                         )).getBytes());
                                     }else {
-                                        showClockOutFragment();
+                                        clockOut();
                                         m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                                                 3001,
                                                 System.currentTimeMillis()
@@ -223,18 +209,24 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        m_connection = m_bluetoothService.connect(
-                m_bluetoothService.getPairedDevice("HC-06"),
-                new BluetoothMessageHandler(m_parser, listener)
-        );
-        m_connection.start();
+        try {
+            m_connection = m_bluetoothService.connect(
+                    m_bluetoothService.getPairedDevice("HC-06"),
+                    new BluetoothMessageHandler(m_parser, listener)
+            );
+            m_connection.start();
+        } catch (NotPairedException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        stopService(m_serviceIntent);
+        //stopService(m_serviceIntent);
         Log.i("MAINACT","onDestroy!");
 
         m_connection.cancel();
@@ -306,36 +298,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Go to clocked in fragment
-    private void showClockInFragment() {
+    private void clockIn() {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
-        initializeTimeIntervalWarning();
+
+        if (!isServiceRunning(RadiationTimerService.class)){
+            startService(m_serviceIntent);
+        }
     }
 
     //Go to clocked out fragment
-    private void showClockOutFragment(){
+    private void clockOut(){
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
-        killTimer();
-    }
 
-    //Start interval warning timer to trigger every 30 minutes.
-    private void initializeTimeIntervalWarning(){
-
-        m_alarmManager.setInexactRepeating(AlarmManager.RTC,
-                Calendar.getInstance().getTimeInMillis() + AlarmManager.INTERVAL_HALF_HOUR,
-                AlarmManager.INTERVAL_HALF_HOUR,  m_pendingIntent);
-
-    }
-
-    private void killTimer(){
-
-        if (m_alarmManager!= null) {
-            m_alarmManager.cancel(m_pendingIntent);
+        if (!isServiceRunning(RadiationTimerService.class)){
+            stopService(m_serviceIntent);
         }
-
     }
 
     /**

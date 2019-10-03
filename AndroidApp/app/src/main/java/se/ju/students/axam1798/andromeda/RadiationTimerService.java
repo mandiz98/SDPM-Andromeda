@@ -1,30 +1,36 @@
 package se.ju.students.axam1798.andromeda;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import se.ju.students.axam1798.andromeda.models.User;
+import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
 public class RadiationTimerService extends Service {
 
     private final static String TAG = RadiationTimerService.class.getName();
 
-    private final static double TEMP_RADIATION_EXPOSURE = 30;
+    private final static double TEMP_RADIATION_EXPOSURE = 100;
     private final static double TEMP_ROOM_COEFFICIENT = 0.2;
     private final static double TEMP_PROTECTIVE_COEFFICIENT = 2;
+    private final static int INTERVAL_SECONDS = 1800;
 
     private UserManager m_userManager;
+    private NotificationManagerCompat m_notificationManagerCompat;
 
     public int counter = 0;
     private Timer timer;
     private TimerTask timerTask;
+    private long m_alertTimestamp;
+
+    private NotificationCompat.Builder m_warningNotificationBuilder;
 
     public RadiationTimerService() {
     }
@@ -34,6 +40,14 @@ public class RadiationTimerService extends Service {
         super.onCreate();
 
         this.m_userManager = UserManager.getInstance(getApplicationContext());
+        this.m_alertTimestamp = 0;
+        this.m_notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+
+        this.m_warningNotificationBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_1)
+                .setSmallIcon(R.drawable.ic_warning_1)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setContentTitle("Time left until safety limit reached");
     }
 
     @Override
@@ -65,14 +79,50 @@ public class RadiationTimerService extends Service {
             public void run() {
                 Log.i(TAG, "in timer ++++++ " + (counter++));
                 double safetyLimit = m_userManager.getUser().getSafetyLimit();
-                safetyLimit -= m_userManager.getUser().getCurrentRadiationExposure(
+                double currentExposurePerSecond = m_userManager.getUser().getCurrentRadiationExposure(
                         // TODO: Should be fetched from hardware
                         TEMP_RADIATION_EXPOSURE, // TODO HardwareManager.getCurrentExposure()
                         TEMP_ROOM_COEFFICIENT, // TODO m_userManager.getUser().getRoomCoefficient()
                         m_userManager.getUser().getProtectiveCoefficient()
                 );
+                safetyLimit -= currentExposurePerSecond;
+
+                // Safety limit notification
+
+                double timeLeft = (safetyLimit / currentExposurePerSecond) * 1000;
+                int hours = (int)Math.floor(timeLeft / 3.6e6);
+                int minutes = (int)Math.floor((timeLeft % 3.6e6) / 6e4);
+                int seconds = (int)Math.floor((timeLeft % 6e4) / 1000);
+
+                String strHours = hours >= 10 ? String.valueOf(hours) : "0" + hours;
+                String strMinutes = minutes >= 10 ? String.valueOf(minutes) : "0" + minutes;
+                String strSeconds = seconds >= 10 ? String.valueOf(seconds) : "0" + seconds;
+
+                String notificationText = "Expires in " + strHours + ":" + strMinutes + ":" + strSeconds;
+                boolean alert = false;
+
+                // If first time, or each 30 minutes
+                if(((m_alertTimestamp == 0) ||
+                    (System.currentTimeMillis() - m_alertTimestamp) / 1000 >= INTERVAL_SECONDS) &&
+                    Math.floor(safetyLimit) > 0)
+                {
+                    // Make the notification trigger an alert
+                    alert = true;
+                }else if(Math.floor(safetyLimit) <= 0) {
+                    // Show warning that safety limit reached
+                    notificationText = "You should really leave the power plant, no safety limit left";
+                    alert = true;
+                    stopTimerTask();
+                }
+
+                // Trigger the notification
+                showWarningNotification(
+                        notificationText,
+                        alert
+                );
+
                 m_userManager.getUser().setSafetyLimit(safetyLimit);
-                Log.i(TAG,"Limit is: " + (m_userManager.getUser().getSafetyLimit()));
+                Log.i(TAG,"Current safety limit: " + (m_userManager.getUser().getSafetyLimit()));
             }
         };
     }
@@ -91,14 +141,13 @@ public class RadiationTimerService extends Service {
         return null;
     }
 
-    /**
-     * Calculate the current radiation exposure unit per second
-     * @param reactorRadiation Reactor radiation units output per second
-     * @param roomCoefficient The room's protective coefficient
-     * @param protectiveCoefficient Like clothes, hazmatsuite etc.
-     * @return current radiation exposure unit per second
-     */
-    public double getCurrentRadiationExposure(double reactorRadiation, double roomCoefficient, double protectiveCoefficient) {
-        return  (reactorRadiation * roomCoefficient) / protectiveCoefficient;
+    private void showWarningNotification(String message, boolean alert) {
+        m_warningNotificationBuilder.setContentText(message);
+        m_warningNotificationBuilder.setOnlyAlertOnce(!alert);
+        if(alert) {
+            m_notificationManagerCompat.cancel(2);
+            m_alertTimestamp = System.currentTimeMillis();
+        }
+        m_notificationManagerCompat.notify(2, m_warningNotificationBuilder.build());
     }
 }
