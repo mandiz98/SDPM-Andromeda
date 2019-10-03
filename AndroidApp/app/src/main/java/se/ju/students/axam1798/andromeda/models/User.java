@@ -14,6 +14,10 @@ public class User {
 
     private double m_safetyLimit;
 
+    public User() {
+        this.m_safetyLimit = SAFETY_LIMIT_START;
+    }
+
     public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite, Role role) {
         this.id = id;
         this.rfid = rfid;
