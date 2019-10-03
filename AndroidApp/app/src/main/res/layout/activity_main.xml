@@ -16,9 +16,10 @@
     <TextView
         android:id="@+id/title_txt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="128dp"
         android:text="@string/andromeda_power_plant"
+        android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,11 +29,12 @@
     <TextView
         android:id="@+id/clck_in_txt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="@string/not_clocked_in"
+        android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,29 +44,16 @@
     <ImageView
         android:id="@+id/img_blipp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="200dp"
         android:contentDescription="blipp tag to log in"
+        android:rotation="0"
         android:scaleX="2"
         android:scaleY="2"
-        android:rotation="-90"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clck_in_txt"
-        app:srcCompat="@drawable/ic_wifi_white_24dp" />
-
-    <Button
-        android:id="@+id/test_bt_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="221dp"
-        android:layout_marginEnd="162dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/img_blipp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clck_in_txt" />
+        app:srcCompat="@drawable/ic_rfid" />
 
 </android.support.constraint.ConstraintLayout>
 </FrameLayout>
