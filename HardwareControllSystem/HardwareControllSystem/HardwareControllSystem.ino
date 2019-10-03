@@ -6,8 +6,16 @@
 
 // the setup function runs once when you press reset or power the board
 
-//#include "SerialComManager.h"
+#include <ShiftRegister74HC595.h>
+#include <ArduinoSTL.h>
+#include <require_cpp11.h>
+#include <MFRC522Extended.h>
+#include <MFRC522.h>
+#include <deprecated.h>
+#include <SPI.h>
+#include "SerialComManager.h"
 #include "RFID.h"
+#include "CircuitControll.h"
 #include "BluetoothInterface.h"
 
 #define RFID_PIN_SS 10
@@ -18,15 +26,17 @@ int second_LED = 9;
 int third_LED = 10;
 int state = 0;
 
-int buzzer_Pin = 6;
+CircuitControll cirCtrl = CircuitControll();
+
+SerialComManager serialManager(9600);
 RFID rfid(RFID_PIN_SS, RFID_PIN_RST);
 BluetoothInterface bluetooth;
 
 
 void OnRFID_Recive(String message)
 {
+
 	bluetooth.sendData(BluetoothInterface::TrancmitType::RFID, message);
-	tone(buzzer_Pin, 500, 250);
 
 }
 void reciveSuccessListner(String data)
@@ -46,19 +56,26 @@ void reciveFailListner(String data)
 	noTone(buzzer_Pin);
 }
 void setup() 
-{
+{	
+
+	pinMode(PIN_LATCH, OUTPUT);
+	pinMode(PIN_DATA, OUTPUT);
+	pinMode(PIN_CLOCK, OUTPUT);
+
 	bluetooth.init(9600);
 	rfid.init();
 
 	rfid.setOnReciveEvent(OnRFID_Recive);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundFail, reciveFailListner);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundSuccess, reciveSuccessListner);
-
+  
 	Serial.println("---Ready---");
+
 }
 
 void loop()
 {
+	cirCtrl.run();
 	rfid.run();
 	bluetooth.run();
 }

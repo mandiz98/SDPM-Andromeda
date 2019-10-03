@@ -30,12 +30,18 @@
     <ClInclude Include="BluetoothInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CircuitControll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RFID.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BluetoothInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CircuitControll.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
