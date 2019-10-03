@@ -1,27 +1,27 @@
 package se.ju.students.axam1798.andromeda;
 
+import android.app.AlarmManager;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,24 +29,15 @@ import retrofit2.Response;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
 import se.ju.students.axam1798.andromeda.models.Event;
-import se.ju.students.axam1798.andromeda.models.User;
 
-import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
-import se.ju.students.axam1798.andromeda.ClockOut;
-
-import java.io.UnsupportedEncodingException;
+import se.ju.students.axam1798.andromeda.models.User;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -56,31 +47,61 @@ public class MainActivity extends AppCompatActivity {
 
     private NotificationManagerCompat notificationManagerCompat;
 
-    private static Boolean m_clockedInStatus = false;
+    private UserManager m_userManager;
+    private Intent m_serviceIntent;
+
+    Intent m_alarmIntent;
+    PendingIntent m_pendingIntent;
+    AlarmManager m_alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        m_alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+        m_pendingIntent = PendingIntent.getBroadcast(this, 0, m_alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        m_alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+
+        m_userManager = UserManager.getInstance(getApplicationContext());
+        // Temp to reset the safety limit
+        m_userManager.setStoredUser(new User(0, "12345", false, false));
+        m_userManager.getUser().setSafetyLimit(500000);
         notificationManagerCompat = NotificationManagerCompat.from(this);
+        m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
+        if (!isServiceRunning(RadiationTimerService.class)){
+            startService(m_serviceIntent);
+        }
 
-        /*
-        mTestBtBtn = findViewById(R.id.test_bt_btn);
-        mTestBtBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clockIn();
+        // Get stored user
+        if(m_userManager.getUser() != null) {
+            // Get current user data from API
+            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if(response.isSuccessful() && response.body() != null) {
+                        // Get the user from the response body
+                        User user = response.body();
+                        // Store the user
+                        m_userManager.setStoredUser(user);
 
-                //test everything
-                sendWarningNotification(v);
-                sendIntervalWarningNotification(v);
-                sendSystemWideWarning(v);
-                systemWideWarningAlert();
+                        // Show clock in page if clocked in
+                        if(!user.isClockedIn())
+                            showClockInFragment();
+                    }
+                }
 
-            }
-        }); */
-        
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Couldn't get stored user from API: " + t.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            });
+        }
+
         m_bluetoothService = new BluetoothService();
         if(m_bluetoothService.isSupported())
         {
@@ -105,92 +126,107 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupBTConnection()
     {
-        m_connection = m_bluetoothService.connect(
-            m_bluetoothService.getPairedDevice("HC-06"),
-            new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    super.handleMessage(msg);
+        // Callback from API after the "create event" request was finished
+        final Callback<Event> createEventCallback = new Callback<Event>() {
+            @Override
+            public void onResponse(Call<Event> call, Response<Event> response) {
+                String toastMessage;
+                if(response.isSuccessful() && response.body() != null) {
+                    // Successful response! Event created.
+                    Event eventCreated = response.body();
+                    toastMessage = String.format(
+                            Locale.getDefault(),
+                            "Stored event %d with data \"%s\" on %s",
+                            eventCreated.getEventKey(),
+                            eventCreated.getData(),
+                            eventCreated.getDateCreated()
+                    );
 
-                    if(msg.what == BluetoothService.BluetoothConnection.MESSAGE_READ)
-                    {
-                        String readMessage = null;
-                        try
-                        {
-                            readMessage = (String)msg.obj;
+                    // eventKey 4010 = clock in/out, get user's clocked in status
+                    if(eventCreated.getEventKey() == 4010) {
+                        APIClient.getInstance().getUserByRfid(eventCreated.getData(), new retrofit2.Callback<User>() {
+                            @Override
+                            public void onResponse(Call<User> call, Response<User> response) {
+                                if(response.isSuccessful() && response.body() != null) {
+                                    // Get the user from the response body
+                                    User user = response.body();
+                                    // Store the user
+                                    m_userManager.setStoredUser(user);
 
-                            final BluetoothProtocolParser.Statement statement = m_parser.parse(readMessage);
-                            if(statement.isComplete)
-                            {
-                                Log.i(TAG, new String("EVENTKEY:").concat(Integer.toString(statement.eventKey)));
-                                Log.i(TAG, new String("TIMESTAMP:").concat(Long.toString(statement.timestamp)));
-                                Log.i(TAG, new String("DATA:").concat(statement.data));
-
-                                String eventKey = Integer.toString(statement.eventKey);
-
-                                // eventKey: 4000-4999 (User events), the rfid is in the data if clocked in/out
-                                if(statement.eventKey >= 4000 && statement.eventKey < 5000)
-                                    // Create the event
-                                    APIClient.getInstance().createEvent(
-                                            new Event(
-                                                    0,
-                                                    0,
-                                                    statement.eventKey,
-                                                    new Date(),
-                                                    statement.data
-                                            ),
-                                            new retrofit2.Callback<Event>() {
-                                                @Override
-                                                public void onResponse(Call<Event> call, Response<Event> response) {
-                                                    if(response.isSuccessful() && response.body() != null) {
-                                                        Toast.makeText(getApplicationContext(), response.body().getDateCreated().toString(), Toast.LENGTH_LONG).show();
-
-                                                        //If blipp works clock in
-                                                        if(statement.eventKey == 4010) {
-
-                                                            APIClient.getInstance().getUserById(8, new retrofit2.Callback<User>() {
-                                                                @Override
-                                                                public void onResponse(Call<User> call, Response<User> response) {
-                                                                    if(response.isSuccessful() && response.body() != null) {
-                                                                        User user = response.body();
-                                                                        if(!user.isClockedIn())
-                                                                            clockIn();
-                                                                        else
-                                                                            clockOut();
-                                                                    }
-                                                                }
-
-                                                                @Override
-                                                                public void onFailure(Call<User> call, Throwable t) {
-
-                                                                }
-                                                            });
-
-                                                        }
-
-                                                    } else {
-                                                        APIError error = APIClient.getInstance().decodeError(response.errorBody());
-                                                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onFailure(Call<Event> call, Throwable t) {
-                                                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                    );
+                                    if(!user.isClockedIn()) {
+                                        showClockInFragment();
+                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                                                3000,
+                                                System.currentTimeMillis()
+                                        )).getBytes());
+                                    }else {
+                                        showClockOutFragment();
+                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                                                3001,
+                                                System.currentTimeMillis()
+                                        )).getBytes());
+                                    }
+                                }
                             }
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        );
 
+                            @Override
+                            public void onFailure(Call<User> call, Throwable t) {
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Couldn't get user by rfid: " + t.getMessage(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        });
+                    }
+                }else if(response.errorBody() != null){
+                    // Not successful, we got an error body
+                    APIError error = APIClient.decodeError(response.errorBody());
+                    toastMessage = error.getMessage();
+                }else{
+                    // No error body in response, but connection to server was successful
+                    toastMessage = "Unknown error (HTTP code "+response.code()+")";
+                }
+
+                // Display a toast! :^)
+                Toast.makeText(
+                        getApplicationContext(),
+                        toastMessage,
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+
+            @Override
+            public void onFailure(Call<Event> call, Throwable t) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Couldn't store event, connection to API failed",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        };
+
+        // Triggered when we receive a correct event from the bluetooth device
+        IBluetoothEventListener listener = new IBluetoothEventListener() {
+            @Override
+            public void onReceived(BluetoothProtocolParser.Statement statement) {
+                APIClient.getInstance().createEvent(
+                        new Event(
+                                0,
+                                0,
+                                statement.eventKey,
+                                new Date(),
+                                statement.data
+                        ),
+                        createEventCallback // callback for when the "create event" call to the API finished
+                );
+            }
+        };
+
+        m_connection = m_bluetoothService.connect(
+                m_bluetoothService.getPairedDevice("HC-06"),
+                new BluetoothMessageHandler(m_parser, listener)
+        );
         m_connection.start();
     }
 
@@ -198,7 +234,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        stopService(m_serviceIntent);
+        Log.i("MAINACT","onDestroy!");
+
         m_connection.cancel();
+    }
+
+    private boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isServiceRunning?", false+"");
+        return false;
     }
 
     //Create the notification
@@ -213,25 +264,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Send it
         notificationManagerCompat.notify(1, notification);
-        /* TODO: Remove
-         * Example code to make an API call
-        User user = new User(0, UUID.randomUUID().toString(), false, false);
-        APIClient.getInstance().createUser(user, new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful() && response.body() != null)
-                    Toast.makeText(getApplicationContext(), response.body().getRFID(), Toast.LENGTH_LONG).show();
-                else {
-                    Toast.makeText(getApplicationContext(), APIClient.decodeError(response.errorBody()).getMessage() + "<- error", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-         */
     }
 
     public void sendIntervalWarningNotification(View v){
@@ -274,26 +306,81 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Go to clocked in fragment
-    private void clockIn() {
+    private void showClockInFragment() {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
-
-        m_clockedInStatus = true;
+        initializeTimeIntervalWarning();
     }
 
     //Go to clocked out fragment
-    private void clockOut(){
+    private void showClockOutFragment(){
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
-
-        m_clockedInStatus = false;
+        killTimer();
     }
 
-    public static boolean getClockedInStatus(){
-        return m_clockedInStatus;
+    //Start interval warning timer to trigger every 30 minutes.
+    private void initializeTimeIntervalWarning(){
+
+        m_alarmManager.setInexactRepeating(AlarmManager.RTC,
+                Calendar.getInstance().getTimeInMillis() + AlarmManager.INTERVAL_HALF_HOUR,
+                AlarmManager.INTERVAL_HALF_HOUR,  m_pendingIntent);
+
     }
 
+    private void killTimer(){
+
+        if (m_alarmManager!= null) {
+            m_alarmManager.cancel(m_pendingIntent);
+        }
+
+    }
+
+    /**
+     * Bluetooth message handler to trigger the listener's
+     * onReceived function when an event was sent from the bluetooth device.
+     */
+    static class BluetoothMessageHandler extends Handler {
+
+        private final BluetoothProtocolParser m_parser;
+        private final IBluetoothEventListener m_listener;
+
+        BluetoothMessageHandler(BluetoothProtocolParser bluetoothParser, IBluetoothEventListener listener) {
+            this.m_parser = bluetoothParser;
+            this.m_listener = listener;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if(msg.what == BluetoothService.BluetoothConnection.MESSAGE_READ)
+            {
+                String readMessage = null;
+                try
+                {
+                    readMessage = (String)msg.obj;
+
+                    // Parse the statement into an object
+                    BluetoothProtocolParser.Statement statement = m_parser.parse(readMessage);
+                    if(statement.isComplete)
+                    {
+                        Log.i(TAG, new String("EVENTKEY:").concat(Integer.toString(statement.eventKey)));
+                        Log.i(TAG, new String("TIMESTAMP:").concat(Long.toString(statement.timestamp)));
+                        Log.i(TAG, new String("DATA:").concat(statement.data));
+
+                        // Trigger the listener's onReceived function
+                        this.m_listener.onReceived(statement);
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
 

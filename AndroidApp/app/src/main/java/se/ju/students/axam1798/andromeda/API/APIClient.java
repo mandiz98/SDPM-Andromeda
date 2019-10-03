@@ -44,6 +44,10 @@ public class APIClient {
         this.apiService.getUserById(id).enqueue(callback);
     }
 
+    public void getUserByRfid(String rfid, Callback<User> callback) {
+        this.apiService.getUserByRfid(rfid).enqueue(callback);
+    }
+
     public void createUser(User user, Callback<User> callback) {
         this.apiService.createUser(user).enqueue(callback);
     }

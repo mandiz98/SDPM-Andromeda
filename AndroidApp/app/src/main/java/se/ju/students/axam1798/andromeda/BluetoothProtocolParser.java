@@ -11,6 +11,18 @@ public class BluetoothProtocolParser
         public int eventKey;
         public long timestamp;
         public String data;
+
+        public Statement() {}
+
+        public Statement(int eventKey, long timestamp) {
+            this(eventKey, timestamp, null);
+        }
+
+        public Statement(int eventKey, long timestamp, String data) {
+            this.eventKey = eventKey;
+            this.timestamp = timestamp;
+            this.data = data;
+        }
     }
 
     // Format -> 4011;TIMESTAMP;DATA\n
