@@ -16,7 +16,7 @@ public class RadiationTimerService extends Service {
 
     private final static String TAG = RadiationTimerService.class.getName();
 
-    private final static double TEMP_RADIATION_EXPOSURE = 0.2;
+    private final static double TEMP_RADIATION_EXPOSURE = 30;
     private final static double TEMP_ROOM_COEFFICIENT = 0.2;
     private final static double TEMP_PROTECTIVE_COEFFICIENT = 2;
 
@@ -25,7 +25,6 @@ public class RadiationTimerService extends Service {
     public int counter = 0;
     private Timer timer;
     private TimerTask timerTask;
-    private double m_safetyLimit = 500000;
 
     public RadiationTimerService() {
     }
@@ -34,7 +33,7 @@ public class RadiationTimerService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        this.m_userManager = new UserManager(getApplicationContext());
+        this.m_userManager = UserManager.getInstance(getApplicationContext());
     }
 
     @Override

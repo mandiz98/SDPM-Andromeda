@@ -19,6 +19,7 @@ import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -62,10 +63,9 @@ public class MainActivity extends AppCompatActivity {
         m_pendingIntent = PendingIntent.getBroadcast(this, 0, m_alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         m_alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
 
-        initializeTimeIntervalWarning();
-
-        m_userManager = new UserManager(getApplicationContext());
+        m_userManager = UserManager.getInstance(getApplicationContext());
         // Temp to reset the safety limit
+        m_userManager.setStoredUser(new User(0, "12345", false, false));
         m_userManager.getUser().setSafetyLimit(500000);
         notificationManagerCompat = NotificationManagerCompat.from(this);
         m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
@@ -310,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
+        initializeTimeIntervalWarning();
     }
 
     //Go to clocked out fragment
@@ -317,13 +318,14 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
+        killTimer();
     }
 
     //Start interval warning timer to trigger every 30 minutes.
     private void initializeTimeIntervalWarning(){
 
-        m_alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HALF_HOUR,
+        m_alarmManager.setInexactRepeating(AlarmManager.RTC,
+                Calendar.getInstance().getTimeInMillis() + AlarmManager.INTERVAL_HALF_HOUR,
                 AlarmManager.INTERVAL_HALF_HOUR,  m_pendingIntent);
 
     }

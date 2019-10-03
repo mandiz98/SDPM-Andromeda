@@ -7,19 +7,27 @@ import com.google.gson.Gson;
 
 import se.ju.students.axam1798.andromeda.models.User;
 
+
 public class UserManager {
 
     private final static String PREFS_NAME = "userPreferences";
     private final static String KEY_USER = "user";
+    private static UserManager instance;
 
-    private Context m_context;
     private SharedPreferences m_sharedPrefs;
     private User m_instancedUser;
 
-    public UserManager(Context context) {
-        this.m_context = context;
+    private UserManager(Context context) {
         this.m_sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         this.m_instancedUser = null;
+    }
+
+    public static UserManager getInstance(Context context){
+        if(instance == null){
+            instance = new UserManager(context);
+        }
+        instance.m_sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return instance;
     }
 
     public User getUser() {
