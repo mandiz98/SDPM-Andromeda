@@ -23,6 +23,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import se.ju.students.axam1798.andromeda.API.APICallback;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
 import se.ju.students.axam1798.andromeda.enums.Role;
@@ -60,26 +61,26 @@ public class MainActivity extends AppCompatActivity {
         // Get stored user
         if(m_userManager.getUser() != null) {
             // Get current user data from API
-            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new Callback<User>() {
+            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new APICallback<User>(this) {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if(response.isSuccessful() && response.body() != null) {
-                        // Get the user from the response body
-                        User user = response.body();
-                        // Store the user
-                        m_userManager.setStoredUser(user);
-
-                        // Show clock in page if clocked in
-                        if(!user.isClockedIn())
-                            clockIn();
+                public void onSuccess(Call<User> call, Response<User> response, User user) {
+                    if(user == null) {
+                        m_userManager.setStoredUser(null);
+                        return;
                     }
+                    // Store the user
+                    m_userManager.setStoredUser(user);
+
+                    // Show clock in page if clocked in
+                    if(!user.isClockedIn())
+                        clockIn();
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
+                public void onError(Call<User> call, Response<User> response, APIError error) {
                     Toast.makeText(
                             getApplicationContext(),
-                            "Couldn't get stored user from API: " + t.getMessage(),
+                            "Couldn't get stored user from API: " + error.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
                 }

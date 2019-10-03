@@ -40,7 +40,7 @@ public class APIClient {
         this.apiService.getUsers().enqueue(callback);
     }
 
-    public void getUserById(int id, Callback<User> callback) {
+    public void getUserById(int id, APICallback<User> callback) {
         this.apiService.getUserById(id).enqueue(callback);
     }
 
