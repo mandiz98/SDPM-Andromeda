@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -15,6 +16,7 @@ import android.view.View;
 
 import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -58,6 +60,19 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat = NotificationManagerCompat.from(this);
         m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
 
+        m_bluetoothService = new BluetoothService();
+
+        final ImageView rfidAnimation = findViewById(R.id.img_rfid);
+        rfidAnimation.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                setImageAnimate();
+
+                setupBTConnection();
+            }
+        });
+
+
         // Get stored user
         if(m_userManager.getUser() != null) {
             // Get current user data from API
@@ -86,30 +101,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-        m_bluetoothService = new BluetoothService();
-        if(m_bluetoothService.isSupported())
-        {
-            if(!m_bluetoothService.isEnabled())
-            {
-                Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableAdapter, 0);
-            }
-            else
-            {
-                setupBTConnection();
-            }
-        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        setupBTConnection();
+        if(
+            requestCode == 0 &&
+            resultCode == RESULT_OK
+        ) {
+            finishBTConnection();
+        }
     }
 
-    public void setupBTConnection()
+    private void finishBTConnection()
     {
         // Callback from API after the "create event" request was finished
         final Callback<Event> createEventCallback = new Callback<Event>() {
@@ -213,12 +219,77 @@ public class MainActivity extends AppCompatActivity {
                     m_bluetoothService.getPairedDevice("HC-06"),
                     new BluetoothMessageHandler(m_parser, listener)
             );
+
+            m_connection.setCallbacks(new BluetoothService.ConnectionCallbacks() {
+                @Override
+                public void onConnect(boolean success) {
+                    if(success)
+                    {
+                        final BluetoothService.BluetoothConnection temp = m_connection;
+                        try
+                        {
+                            BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
+                            statement.eventKey = 3004;
+                            statement.data = "Phone connected!";
+                            byte[] msg = m_parser.parse(statement).getBytes();
+                            m_connection.write(
+                                    msg
+                            );
+                        }
+                        catch (Exception e)
+                        {
+                            Log.e(TAG, e.getMessage());
+                        }
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                setImageConnected();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        disconnect();
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                setImageDisconnected();
+                            }
+                        });
+                    }
+                }
+            });
+
             m_connection.start();
         } catch (NotPairedException e) {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
 
+            m_connection.cancel();
+        }
+    }
+
+    public void setupBTConnection()
+    {
+        if(m_bluetoothService.isSupported())
+        {
+            if(!m_bluetoothService.isEnabled())
+            {
+                Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableAdapter, 0);
+            }
+            else
+            {
+                finishBTConnection();
+            }
+        }
+        // TODO: Error bluetooth not supported
+    }
+
+    public void disconnect()
+    {
+        m_connection.cancel();
+        m_connection = null;
     }
 
     @Override
@@ -227,8 +298,25 @@ public class MainActivity extends AppCompatActivity {
 
         //stopService(m_serviceIntent);
         Log.i("MAINACT","onDestroy!");
+        disconnect();
+    }
 
-        m_connection.cancel();
+    public void setImageDisconnected() {
+        final ImageView rfidImage = findViewById(R.id.img_rfid);
+        rfidImage.setBackgroundResource(R.drawable.ic_rfid_disconnected);
+    }
+
+
+    public void setImageAnimate() {
+        final ImageView rfidImage = findViewById(R.id.img_rfid);
+        rfidImage.setBackgroundResource(R.drawable.rfid_animation);
+        ((AnimationDrawable)rfidImage.getBackground()).start();
+    }
+
+
+    public void setImageConnected() {
+        final ImageView rfidImage = findViewById(R.id.img_rfid);
+        rfidImage.setBackgroundResource(R.drawable.ic_rfid);
     }
 
     private boolean isServiceRunning(Class<?> serviceClass) {

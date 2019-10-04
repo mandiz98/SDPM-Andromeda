@@ -71,8 +71,14 @@ public class BluetoothService {
         return new BluetoothConnection(device, handler);
     }
 
+    public interface ConnectionCallbacks {
+        void onConnect(boolean success);
+    }
+
     public class BluetoothConnection extends Thread
     {
+        private ConnectionCallbacks m_callbacks;
+
         // Defines several constants used when transmitting messages between the
         // service and the UI.
         public static final int MESSAGE_READ = 0;
@@ -122,6 +128,7 @@ public class BluetoothService {
             {
                 Log.e(TAG, "Error occurred when creating input stream.", e);
             }
+
             try
             {
                 tmpOut = m_socket.getOutputStream();
@@ -132,6 +139,11 @@ public class BluetoothService {
 
             m_inStream = tmpIn;
             m_outStream = tmpOut;
+        }
+
+        public void setCallbacks(ConnectionCallbacks onComplete)
+        {
+            m_callbacks = onComplete;
         }
 
         public void run()
@@ -158,8 +170,14 @@ public class BluetoothService {
                 }
 
                 Log.e(TAG, "Could not connect to socket.");
+                if(m_callbacks != null)
+                    m_callbacks.onConnect(false);
                 return;
             }
+
+            // We got connected
+            if(m_callbacks != null)
+                m_callbacks.onConnect(true);
 
             // enter data loop
             m_buffer = new byte[1024];
@@ -183,6 +201,7 @@ public class BluetoothService {
                 catch (IOException e)
                 {
                     Log.d(TAG, "Input stream was disconnected", e);
+                    m_callbacks.onConnect(false);
                     break;
                 }
             }
