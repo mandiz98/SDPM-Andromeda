@@ -3,15 +3,11 @@
   <ItemGroup>
     <ClCompile Include="CircuitControll.cpp" />
     <ClCompile Include="BluetoothInterface.cpp" />
-    <ClCompile Include="DisplayControll.cpp" />
-    <ClCompile Include="LCDinterface.cpp" />
     <ClCompile Include="RFID.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircuitControll.h" />
     <ClInclude Include="BluetoothInterface.h" />
-    <ClInclude Include="DisplayControll.h" />
-    <ClInclude Include="LCDinterface.h" />
     <ClInclude Include="RFID.h" />
     <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h" />
   </ItemGroup>

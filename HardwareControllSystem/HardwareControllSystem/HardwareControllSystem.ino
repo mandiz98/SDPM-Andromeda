@@ -40,6 +40,8 @@ DisplayControll *display;
 #define EXTERNAL_LCD_ADRESS 2
 #define THIS_ADRESS 1
 
+void OnRFID_Recive(String m);
+
 	
 void OnRFID_Recive(String message)
 {
