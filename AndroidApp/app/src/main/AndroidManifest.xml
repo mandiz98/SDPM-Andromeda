@@ -11,6 +11,7 @@
 
     <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:name=".App"
@@ -28,21 +29,21 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".EmployeeInformation">
+
+        </activity>
         <service
             android:name=".RadiationTimerService"
-            android:enabled="true">
-        </service>
+            android:enabled="true"></service>
 
         <receiver
             android:name=".RadiationTimerRestarterBroadcastReciever"
             android:enabled="true"
             android:exported="true"
-            android:label="RestartServiceWhenStopped">
-        </receiver>
+            android:label="RestartServiceWhenStopped"></receiver>
 
-
-
-<!-- TODO: Add these activities or change them or something? //AMANDA
+        <!--
+     TODO: Add these activities or change them or something? //AMANDA
         <activity android:name=".ClockedIOActivity">
 
         </activity>
@@ -50,10 +51,13 @@
         <activity android:name=".ClothesActivity">
 
         </activity>
--->
-        <receiver android:name=".AlarmReceiver"/>
-    </application>
+        -->
+        <receiver android:name=".AlarmReceiver" />
 
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+        <activity
+            android:name=".TechnicianHistoryActivity"
+            android:label="@string/title_activity_technician_history"
+            android:theme="@style/AppTheme"></activity>
+    </application>
 
 </manifest>

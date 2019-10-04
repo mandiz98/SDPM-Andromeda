@@ -7,7 +7,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.SystemClock;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -17,6 +16,7 @@ import android.view.View;
 
 import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -62,6 +62,17 @@ public class MainActivity extends AppCompatActivity {
         m_alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
         m_pendingIntent = PendingIntent.getBroadcast(this, 0, m_alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         m_alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+
+        //TODO remove :)
+        Button b = (Button) findViewById(R.id.test_bt_btn);
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EmployeeInformation.class);
+                startActivity(intent);
+            }
+        });
 
         m_userManager = UserManager.getInstance(getApplicationContext());
         // Temp to reset the safety limit
