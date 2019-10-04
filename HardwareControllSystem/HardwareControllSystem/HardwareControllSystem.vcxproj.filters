@@ -1,48 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Misc Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>xml;json;txt;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="CircuitControll.cpp" />
+    <ClCompile Include="BluetoothInterface.cpp" />
+    <ClCompile Include="DisplayControll.cpp" />
+    <ClCompile Include="LCDinterface.cpp" />
+    <ClCompile Include="RFID.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CircuitControll.h" />
+    <ClInclude Include="BluetoothInterface.h" />
+    <ClInclude Include="DisplayControll.h" />
+    <ClInclude Include="LCDinterface.h" />
+    <ClInclude Include="RFID.h" />
+    <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HardwareControllSystem.ino" />
-    <None Include="src\arduino folders read me.txt">
-      <Filter>Misc Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RFID.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BluetoothInterface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CircuitControll.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="RFID.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BluetoothInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CircuitControll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <None Include="src\arduino folders read me.txt" />
   </ItemGroup>
 </Project>
