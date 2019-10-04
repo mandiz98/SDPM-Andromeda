@@ -32,7 +32,6 @@ int state = 0;
 
 CircuitControll cirCtrl = CircuitControll();
 
-SerialComManager serialManager(9600);
 RFID rfid(RFID_PIN_SS, RFID_PIN_RST);
 BluetoothInterface bluetooth;
 DisplayControll *display;
@@ -50,46 +49,12 @@ void OnRFID_Recive(String message)
 }
 void reciveSuccessListner(String data)
 {
-	tone(buzzer_Pin, 1500, 250);
-	delay(250);
-	tone(buzzer_Pin, 2500, 500);
 }
 void reciveFailListner(String data)
 {
-	tone(buzzer_Pin, 1000);
-	delay(250);
-	tone(buzzer_Pin, 750);
-	delay(250);
-	tone(buzzer_Pin, 500);
-	delay(500);
-	noTone(buzzer_Pin);
 }
 void reciveAlarmListner(String data)
 {
-	for (int i = 0; i < 360*5; i++)
-	{
-		tone(buzzer_Pin, 1000 + 500 * sin(2*i* PI / 180));
-		delay(1);
-	}
-	/*for (int i = 0; i < 3; i++)
-	{
-		tone(buzzer_Pin, 3000);
-		delay(500);
-		tone(buzzer_Pin, 1000);
-		delay(500);
-	}*/
-	noTone(buzzer_Pin);
-	/*tone(buzzer_Pin, 4000);
-	delay(250);
-	noTone(buzzer_Pin);
-	delay(100);
-	tone(buzzer_Pin, 4000);
-	delay(250);
-	noTone(buzzer_Pin);
-	delay(100);
-	tone(buzzer_Pin, 4000);
-	delay(250);
-	noTone(buzzer_Pin);*/
 }
 void reciveRoom(String data)
 {
