@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
-    <RootNamespace>HardwareControllSystem</RootNamespace>
-    <ProjectName>HardwareControllSystem</ProjectName>
+    <ProjectGuid>{5F32E3E6-71E9-4656-A49A-87E041E611F8}</ProjectGuid>
+    <RootNamespace>ExternalLCD</RootNamespace>
+    <ProjectName>ExternalLCD</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -77,8 +77,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\HardwareControllSystem;D:\Arduino IDE\Arduino\hardware\arduino\avr\libraries\SPI\src;$(ProjectDir)..\..\..\..\Arduino\libraries\MFRC522\src;$(ProjectDir)..\..\..\..\Arduino\libraries\ArduinoSTL\src;D:\Arduino IDE\Arduino\hardware\arduino\avr\libraries\Wire\src;D:\Arduino IDE\Arduino\hardware\arduino\avr\libraries\Wire\src\utility;D:\Arduino IDE\Arduino\hardware\arduino\avr\cores\arduino;D:\Arduino IDE\Arduino\hardware\arduino\avr\variants\standard;D:\Arduino IDE\Arduino\hardware\tools\avr\avr\include;D:\Arduino IDE\Arduino\hardware\tools\avr\avr\include\avr;D:\Arduino IDE\Arduino\hardware\tools\avr\lib\gcc\avr\4.8.1\include;D:\Arduino IDE\Arduino\hardware\tools\avr\lib\gcc\avr\4.9.2\include;D:\Arduino IDE\Arduino\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ProjectDir)__vm\.HardwareControllSystem.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ExternalLCD;$(ProjectDir)..\..\..\..\Arduino\libraries\ArduinoSTL\src;D:\Arduino IDE\Arduino\hardware\arduino\avr\libraries\Wire\src;D:\Arduino IDE\Arduino\libraries\LiquidCrystal\src;D:\Arduino IDE\Arduino\hardware\arduino\avr\libraries\Wire\src\utility;D:\Arduino IDE\Arduino\hardware\arduino\avr\cores\arduino;D:\Arduino IDE\Arduino\hardware\arduino\avr\variants\standard;D:\Arduino IDE\Arduino\hardware\tools\avr\avr\include;D:\Arduino IDE\Arduino\hardware\tools\avr\avr\include\avr;D:\Arduino IDE\Arduino\hardware\tools\avr\lib\gcc\avr\4.8.1\include;D:\Arduino IDE\Arduino\hardware\tools\avr\lib\gcc\avr\4.9.2\include;D:\Arduino IDE\Arduino\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.ExternalLCD.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_atmega328p__;__AVR_ATmega328P__;__AVR_ATmega328p__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=10809;ARDUINO_AVR_UNO;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -107,7 +107,7 @@
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="HardwareControllSystem.ino">
+    <None Include="ExternalLCD.ino">
       <FileType>CppCode</FileType>
     </None>
   </ItemGroup>
@@ -116,24 +116,24 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BluetoothInterface.h" />
-    <ClInclude Include="DisplayControll.h" />
-    <ClInclude Include="LCDinterface.h" />
-    <ClInclude Include="RFID.h" />
-    <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h" />
+    <ClInclude Include="ButtonReader.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuEngine.h" />
+    <ClInclude Include="RoomDisplayMenu.h" />
+    <ClInclude Include="__vm\.ExternalLCD.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BluetoothInterface.cpp" />
-    <ClCompile Include="DisplayControll.cpp" />
-    <ClCompile Include="LCDinterface.cpp" />
-    <ClCompile Include="RFID.cpp" />
+    <ClCompile Include="ButtonReader.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuEngine.cpp" />
+    <ClCompile Include="RoomDisplayMenu.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties config.Debug.customdebug_uno_debugger_type="universal" arduino.upload.port="COM6" />
+      <UserProperties config.Debug.customdebug_uno_debugger_type="universal" arduino.upload.port="COM3" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

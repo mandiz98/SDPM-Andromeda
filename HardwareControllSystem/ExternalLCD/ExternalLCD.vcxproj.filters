@@ -15,39 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="HardwareControllSystem.ino" />
+    <None Include="ExternalLCD.ino" />
     <None Include="src\arduino folders read me.txt">
       <Filter>Misc Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h">
+    <ClInclude Include="__vm\.ExternalLCD.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RFID.h">
+    <ClInclude Include="RoomDisplayMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BluetoothInterface.h">
+    <ClInclude Include="ButtonReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LCDinterface.h">
+    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayControll.h">
+    <ClInclude Include="MenuEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RFID.cpp">
+    <ClCompile Include="RoomDisplayMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BluetoothInterface.cpp">
+    <ClCompile Include="ButtonReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LCDinterface.cpp">
+    <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DisplayControll.cpp">
+    <ClCompile Include="MenuEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

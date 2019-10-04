@@ -21,6 +21,7 @@ public:
 	{
 		soundSuccess = 3000,
 		soundFail = 3001,
+		soundAlarm = 3002,
 	};
 
 	void init(unsigned long baud);
@@ -49,7 +50,6 @@ private:
 
 		ReciveType onType;
 		void(*onCommandEvent)(String data);
-		OnCommand* pNext;
 	};
 
 
