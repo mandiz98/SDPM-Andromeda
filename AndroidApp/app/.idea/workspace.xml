@@ -19,10 +19,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a70e11dd-b9f6-4905-bbd4-6f291c025a9c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_disconnected.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,56 +46,81 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
-          <provider selected="true" editor-type-id="android-designer2" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="960">
-              <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+              <folding>
+                <element signature="e#676#677#0" expanded="true" />
+                <element signature="e#710#711#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml">
-          <provider selected="true" editor-type-id="android-designer2" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="1" column="44" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="44" />
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/Event.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-215">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1855">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/AlarmReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml">
-          <provider selected="true" editor-type-id="android-designer2" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="11" lean-forward="true" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_2.xml">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3209">
-              <caret line="109" column="27" lean-forward="true" selection-start-line="109" selection-start-column="27" selection-end-line="109" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#8518#8519#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_3.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_4.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_disconnected.xml">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -132,12 +159,12 @@
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothProtocolParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/ClockedIn.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/API/APIService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_clothes.xml" />
-        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml" />
+        <option value="$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -152,14 +179,64 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
             <path>
               <item name="AndroidApp" type="58d84e3e:PackageViewProjectNode" />
               <item name="app" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="andromeda" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="andromeda" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="mipmap" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
@@ -181,6 +258,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -310,7 +388,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570006254602</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Removed temporary code">
+      <created>1570103017421</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1570103017421</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -327,7 +412,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.5005821" side_tool="true" weight="0.3298887" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49941793" weight="0.1738255" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49941793" visible="true" weight="0.1738255" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -341,7 +426,7 @@
       <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49960256" weight="0.3299532" />
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5013423" side_tool="true" weight="0.329429" />
       <window_info anchor="bottom" id="Build" order="5" sideWeight="0.4986577" visible="true" weight="0.043923866" />
-      <window_info anchor="bottom" id="Android Profiler" order="6" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.329429" />
       <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49932885" weight="0.329429" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.329429" />
@@ -388,14 +473,15 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/Layouts' into radEstTime&#10;&#10;# Conflicts:&#10;#&#9;AndroidApp/.idea/caches/build_file_checksums.ser&#10;#&#9;AndroidApp/.idea/gradle.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/workspace.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java&#10;#&#9;AndroidApp/local.properties" />
     <MESSAGE value="Merge remote-tracking branch 'origin/Layouts' into radEstTime&#10;&#10;# Conflicts:&#10;#&#9;AndroidApp/.idea/caches/build_file_checksums.ser&#10;#&#9;AndroidApp/.idea/gradle.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0.xml&#10;#&#9;AndroidApp/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/.idea/workspace.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_monitor_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_test_runner_1_0_2_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml&#10;#&#9;AndroidApp/app/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java&#10;#&#9;AndroidApp/local.properties&#10;&#10;Pushing because my computer sucks." />
     <MESSAGE value="Added textboxes where dynamic text will be shown." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added textboxes where dynamic text will be shown." />
+    <MESSAGE value="Removed temporary code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed temporary code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java</url>
-          <line>155</line>
+          <line>153</line>
           <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
@@ -471,23 +557,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerRestarterBroadcastReceiver.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable-v24/ic_launcher_foreground.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -596,25 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="11" lean-forward="true" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3209">
-          <caret line="109" column="27" lean-forward="true" selection-start-line="109" selection-start-column="27" selection-end-line="109" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8518#8519#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
@@ -624,18 +680,93 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="1" column="44" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="44" />
-        </state>
-      </provider>
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml">
       <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="170">
+        <state relative-caret-position="200">
           <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="860">
+          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="62" column="63" selection-start-line="62" selection-start-column="63" selection-end-line="62" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_wifi_white_24dp.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/AlarmReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#676#677#0" expanded="true" />
+            <element signature="e#710#711#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-215">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1855">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_2.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_3.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_4.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_disconnected.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
         </state>
       </provider>
     </entry>

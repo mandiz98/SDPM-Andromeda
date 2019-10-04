@@ -30,8 +30,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_rfid" />
-                            <entry key="sourceFile" value="C:\Users\amand\Pictures\Android\SEPM\icons8-rfid-signal.svg" />
+                            <entry key="outputName" value="ic_rfid_4" />
+                            <entry key="sourceFile" value="C:\Users\amand\Pictures\Android\SEPM\first blipp.svg" />
                           </map>
                         </option>
                       </PersistentState>
