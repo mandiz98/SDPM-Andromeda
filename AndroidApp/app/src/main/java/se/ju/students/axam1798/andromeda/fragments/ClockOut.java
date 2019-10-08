@@ -1,4 +1,4 @@
-package se.ju.students.axam1798.andromeda;
+package se.ju.students.axam1798.andromeda.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import se.ju.students.axam1798.andromeda.R;
 
 
 public class ClockOut extends Fragment {
