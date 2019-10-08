@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -259,6 +261,22 @@ public class MainActivity extends AppCompatActivity {
 
             m_connection.cancel();
         }
+
+        MessageQueue.getInstance().addObserver(new Observer() {
+            @Override
+            public void update(Observable messageQueue, Object arg) {
+                MessageQueue.Message msg = MessageQueue.getInstance().peekMessage().handle();
+
+                // If it is a bluetooth message it should contain a valid bluetooth message parsed by the bluetooth parser
+                if(msg.first == MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH)
+                {
+                    // TODO: Validate message in our parser
+
+                    // Do the message
+                    m_connection.write(msg.second.getBytes());
+                }
+           }
+        });
     }
 
     public void setupBTConnection()
@@ -445,6 +463,12 @@ public class MainActivity extends AppCompatActivity {
 
                         // Trigger the listener's onReceived function
                         this.m_listener.onReceived(statement);
+
+                        // Send message onto our queue
+                        MessageQueue.getInstance().pushMessage(
+                            MessageQueue.MESSAGE_TYPE.RECIEVE_BLUETOOTH,
+                            m_parser.parse(statement)
+                        );
                     }
                 }
                 catch (Exception e)
