@@ -147,8 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
                                     if(user.isClockedIn()) {
                                         clockIn();
-                                    }else {
-                                        clockOut();
                                     }
                                 }
                             }
