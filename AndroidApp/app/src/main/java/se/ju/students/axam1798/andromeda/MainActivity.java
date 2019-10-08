@@ -28,10 +28,9 @@ import retrofit2.Response;
 import se.ju.students.axam1798.andromeda.API.APICallback;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
-import se.ju.students.axam1798.andromeda.activities.ClockOut;
-import se.ju.students.axam1798.andromeda.activities.ClockedIn;
-import se.ju.students.axam1798.andromeda.activities.EmployeeHistoryActivity;
-import se.ju.students.axam1798.andromeda.activities.EmployeeListActivity;
+import se.ju.students.axam1798.andromeda.enums.Role;
+import se.ju.students.axam1798.andromeda.fragments.ClockOut;
+import se.ju.students.axam1798.andromeda.fragments.ClockedIn;
 import se.ju.students.axam1798.andromeda.exceptions.NotPairedException;
 import se.ju.students.axam1798.andromeda.models.Event;
 
@@ -65,15 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
         m_bluetoothService = new BluetoothService();
 
-        // TODO: Menu button should open this
-        //startActivity(new Intent(getApplicationContext(), EmployeeListActivity.class));
-        /* TODO: USE THIS CODE TO START HISTORY FOR "CURRENT USER" (Not clicking an employee in the list)
-        Bundle extras = new Bundle();
-        extras.putString(EmployeeHistoryActivity.EMPLOYEE_KEY, new Gson().toJson(m_userManager.getUser()));
-        Intent employeeHistoryIntent = new Intent(getApplicationContext(), EmployeeHistoryActivity.class);
-        employeeHistoryIntent.putExtras(extras);
-        startActivity(employeeHistoryIntent);*/
-
         final ImageView rfidAnimation = findViewById(R.id.img_rfid);
         rfidAnimation.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -83,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 setupBTConnection();
             }
         });
-
 
         // Get stored user
         if(m_userManager.getUser() != null) {
@@ -99,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     m_userManager.setStoredUser(user);
 
                     // Show clock in page if clocked in
-                    if(!user.isClockedIn())
+                    if(user.isClockedIn())
                         clockIn();
                 }
 
@@ -399,10 +388,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Send message to do a success sound to the console
-        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+        /*m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                 3000,
                 System.currentTimeMillis()
-        )).getBytes());
+        )).getBytes());*/
     }
 
     //Go to clocked out fragment

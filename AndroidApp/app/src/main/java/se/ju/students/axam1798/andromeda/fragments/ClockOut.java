@@ -1,4 +1,4 @@
-package se.ju.students.axam1798.andromeda.activities;
+package se.ju.students.axam1798.andromeda.fragments;
 
 import android.content.Context;
 import android.content.Intent;
