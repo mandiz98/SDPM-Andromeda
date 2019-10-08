@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".EmployeeInformation">
+        <activity android:name=".EmployeeListActivity">
 
         </activity>
         <service
