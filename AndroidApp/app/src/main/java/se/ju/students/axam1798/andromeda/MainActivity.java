@@ -388,10 +388,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Send message to do a success sound to the console
-        /*m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                 3000,
                 System.currentTimeMillis()
-        )).getBytes());*/
+        )).getBytes());
     }
 
     //Go to clocked out fragment
