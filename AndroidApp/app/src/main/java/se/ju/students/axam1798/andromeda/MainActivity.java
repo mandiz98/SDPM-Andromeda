@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                                     // Store the user
                                     m_userManager.setStoredUser(user);
 
-                                    if(!user.isClockedIn()) {
+                                    if(user.isClockedIn()) {
                                         clockIn();
                                     }else {
                                         clockOut();
