@@ -36,7 +36,7 @@ public class APIClient {
         return instance;
     }
 
-    public void getUsers(Callback<List<User>> callback) {
+    public void getUsers(APICallback<List<User>> callback) {
         this.apiService.getUsers().enqueue(callback);
     }
 
