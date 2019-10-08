@@ -11,7 +11,6 @@
 
     <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:name=".App"
@@ -21,7 +20,8 @@
         android:roundIcon="@mipmap/ic_andromeda_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,9 +37,11 @@
             android:enabled="true"></service>
 
         <receiver
-            android:name=".RadiationTimerRestarterBroadcastReciever"
+            android:name=".RadiationTimerRestarterBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
+            android:label="RestartServiceWhenStopped">
+        </receiver>
             android:label="RestartServiceWhenStopped"></receiver>
 
         <!--

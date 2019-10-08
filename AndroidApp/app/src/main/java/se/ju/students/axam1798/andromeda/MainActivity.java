@@ -1,12 +1,12 @@
 package se.ju.students.axam1798.andromeda;
 
-import android.app.AlarmManager;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Notification;
-import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -16,21 +16,22 @@ import android.view.View;
 
 import static se.ju.students.axam1798.andromeda.App.CHANNEL_1;
 
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import se.ju.students.axam1798.andromeda.API.APICallback;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
+import se.ju.students.axam1798.andromeda.enums.Role;
+import se.ju.students.axam1798.andromeda.exceptions.NotPairedException;
 import se.ju.students.axam1798.andromeda.models.Event;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -50,81 +51,55 @@ public class MainActivity extends AppCompatActivity {
     private UserManager m_userManager;
     private Intent m_serviceIntent;
 
-    Intent m_alarmIntent;
-    PendingIntent m_pendingIntent;
-    AlarmManager m_alarmManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        m_alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-        m_pendingIntent = PendingIntent.getBroadcast(this, 0, m_alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        m_alarmManager = (AlarmManager)this.getSystemService(this.ALARM_SERVICE);
+        m_userManager = UserManager.getInstance(getApplicationContext());
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
 
-        //TODO remove :)
-        Button b = (Button) findViewById(R.id.test_bt_btn);
+        m_bluetoothService = new BluetoothService();
 
-        b.setOnClickListener(new View.OnClickListener() {
+        final ImageView rfidAnimation = findViewById(R.id.img_rfid);
+        rfidAnimation.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EmployeeListActivity.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                setImageAnimate();
+
+                setupBTConnection();
             }
         });
 
-        m_userManager = UserManager.getInstance(getApplicationContext());
-        // Temp to reset the safety limit
-        m_userManager.setStoredUser(new User(0, "12345", false, false));
-        m_userManager.getUser().setSafetyLimit(500000);
-        notificationManagerCompat = NotificationManagerCompat.from(this);
-        m_serviceIntent = new Intent(getApplicationContext(), RadiationTimerService.class);
-        if (!isServiceRunning(RadiationTimerService.class)){
-            startService(m_serviceIntent);
-        }
 
         // Get stored user
         if(m_userManager.getUser() != null) {
             // Get current user data from API
-            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new Callback<User>() {
+            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new APICallback<User>(this) {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if(response.isSuccessful() && response.body() != null) {
-                        // Get the user from the response body
-                        User user = response.body();
-                        // Store the user
-                        m_userManager.setStoredUser(user);
-
-                        // Show clock in page if clocked in
-                        if(!user.isClockedIn())
-                            showClockInFragment();
+                public void onSuccess(Call<User> call, Response<User> response, User user) {
+                    if(user == null) {
+                        m_userManager.setStoredUser(null);
+                        return;
                     }
+                    // Store the user
+                    m_userManager.setStoredUser(user);
+
+                    // Show clock in page if clocked in
+                    if(!user.isClockedIn())
+                        clockIn();
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
+                public void onError(Call<User> call, Response<User> response, APIError error) {
                     Toast.makeText(
                             getApplicationContext(),
-                            "Couldn't get stored user from API: " + t.getMessage(),
+                            "Couldn't get stored user from API: " + error.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
                 }
             });
-        }
-
-        m_bluetoothService = new BluetoothService();
-        if(m_bluetoothService.isSupported())
-        {
-            if(!m_bluetoothService.isEnabled())
-            {
-                Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableAdapter, 0);
-            }
-            else
-            {
-                setupBTConnection();
-            }
         }
     }
 
@@ -132,10 +107,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        setupBTConnection();
+        if(
+            requestCode == 0 &&
+            resultCode == RESULT_OK
+        ) {
+            finishBTConnection();
+        }
     }
 
-    public void setupBTConnection()
+    private void finishBTConnection()
     {
         // Callback from API after the "create event" request was finished
         final Callback<Event> createEventCallback = new Callback<Event>() {
@@ -165,17 +145,9 @@ public class MainActivity extends AppCompatActivity {
                                     m_userManager.setStoredUser(user);
 
                                     if(!user.isClockedIn()) {
-                                        showClockInFragment();
-                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                                                3000,
-                                                System.currentTimeMillis()
-                                        )).getBytes());
+                                        clockIn();
                                     }else {
-                                        showClockOutFragment();
-                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                                                3001,
-                                                System.currentTimeMillis()
-                                        )).getBytes());
+                                        clockOut();
                                     }
                                 }
                             }
@@ -234,21 +206,109 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        m_connection = m_bluetoothService.connect(
-                m_bluetoothService.getPairedDevice("HC-06"),
-                new BluetoothMessageHandler(m_parser, listener)
-        );
-        m_connection.start();
+        try {
+            m_connection = m_bluetoothService.connect(
+                    m_bluetoothService.getPairedDevice("HC-06"),
+                    new BluetoothMessageHandler(m_parser, listener)
+            );
+
+            m_connection.setCallbacks(new BluetoothService.ConnectionCallbacks() {
+                @Override
+                public void onConnect(boolean success) {
+                    if(success)
+                    {
+                        final BluetoothService.BluetoothConnection temp = m_connection;
+                        try
+                        {
+                            BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
+                            statement.eventKey = 3004;
+                            statement.data = "Phone connected!";
+                            byte[] msg = m_parser.parse(statement).getBytes();
+                            m_connection.write(
+                                    msg
+                            );
+                        }
+                        catch (Exception e)
+                        {
+                            Log.e(TAG, e.getMessage());
+                        }
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                setImageConnected();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        disconnect();
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                setImageDisconnected();
+                            }
+                        });
+                    }
+                }
+            });
+
+            m_connection.start();
+        } catch (NotPairedException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+            m_connection.cancel();
+        }
+    }
+
+    public void setupBTConnection()
+    {
+        if(m_bluetoothService.isSupported())
+        {
+            if(!m_bluetoothService.isEnabled())
+            {
+                Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableAdapter, 0);
+            }
+            else
+            {
+                finishBTConnection();
+            }
+        }
+        // TODO: Error bluetooth not supported
+    }
+
+    public void disconnect()
+    {
+        m_connection.cancel();
+        m_connection = null;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        stopService(m_serviceIntent);
+        //stopService(m_serviceIntent);
         Log.i("MAINACT","onDestroy!");
+        disconnect();
+    }
 
-        m_connection.cancel();
+    public void setImageDisconnected() {
+        final ImageView rfidImage = findViewById(R.id.img_rfid);
+        rfidImage.setBackgroundResource(R.drawable.ic_rfid_disconnected);
+    }
+
+
+    public void setImageAnimate() {
+        final ImageView rfidImage = findViewById(R.id.img_rfid);
+        rfidImage.setBackgroundResource(R.drawable.rfid_animation);
+        ((AnimationDrawable)rfidImage.getBackground()).start();
+    }
+
+
+    public void setImageConnected() {
+        final ImageView rfidImage = findViewById(R.id.img_rfid);
+        rfidImage.setBackgroundResource(R.drawable.ic_rfid);
     }
 
     private boolean isServiceRunning(Class<?> serviceClass) {
@@ -317,36 +377,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Go to clocked in fragment
-    private void showClockInFragment() {
+    private void clockIn() {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
-        initializeTimeIntervalWarning();
+
+        if (!isServiceRunning(RadiationTimerService.class)){
+            startService(m_serviceIntent);
+        }
+
+        // Send message to do a success sound to the console
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                3000,
+                System.currentTimeMillis()
+        )).getBytes());
     }
 
     //Go to clocked out fragment
-    private void showClockOutFragment(){
+    private void clockOut(){
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
-        killTimer();
-    }
 
-    //Start interval warning timer to trigger every 30 minutes.
-    private void initializeTimeIntervalWarning(){
-
-        m_alarmManager.setInexactRepeating(AlarmManager.RTC,
-                Calendar.getInstance().getTimeInMillis() + AlarmManager.INTERVAL_HALF_HOUR,
-                AlarmManager.INTERVAL_HALF_HOUR,  m_pendingIntent);
-
-    }
-
-    private void killTimer(){
-
-        if (m_alarmManager!= null) {
-            m_alarmManager.cancel(m_pendingIntent);
+        if (!isServiceRunning(RadiationTimerService.class)){
+            stopService(m_serviceIntent);
         }
 
+        // Send message to do a fail sound to the console
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                3001,
+                System.currentTimeMillis()
+        )).getBytes());
     }
 
     /**

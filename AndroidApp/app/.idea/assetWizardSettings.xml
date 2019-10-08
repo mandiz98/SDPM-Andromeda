@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_wifi_white_24dp" />
-                            <entry key="sourceFile" value="C:\Users\amand" />
+                            <entry key="outputName" value="ic_rfid_1" />
+                            <entry key="sourceFile" value="C:\Users\amand\Pictures\Android\SEPM\one_blipp.svg" />
                           </map>
                         </option>
                       </PersistentState>

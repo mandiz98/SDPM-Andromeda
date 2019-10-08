@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
+
+import se.ju.students.axam1798.andromeda.exceptions.NotPairedException;
 
 public class BluetoothService {
 
@@ -64,13 +67,18 @@ public class BluetoothService {
         return null;
     }
 
-    public BluetoothConnection connect(BluetoothDevice device, Handler handler)
-    {
+    public BluetoothConnection connect(BluetoothDevice device, Handler handler) throws NotPairedException {
         return new BluetoothConnection(device, handler);
+    }
+
+    public interface ConnectionCallbacks {
+        void onConnect(boolean success);
     }
 
     public class BluetoothConnection extends Thread
     {
+        private ConnectionCallbacks m_callbacks;
+
         // Defines several constants used when transmitting messages between the
         // service and the UI.
         public static final int MESSAGE_READ = 0;
@@ -87,14 +95,17 @@ public class BluetoothService {
 
         private final UUID m_uuid; //UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-        public BluetoothConnection(BluetoothDevice device, Handler handler)
-        {
+        public BluetoothConnection(BluetoothDevice device, Handler handler) throws NotPairedException {
             this.setHandler(handler);
 
             // Setup socket
             BluetoothSocket tmp = null;
             m_device = device;
-            m_uuid = m_device.getUuids()[0].getUuid();
+            try {
+                m_uuid = m_device.getUuids()[0].getUuid();
+            }catch(NullPointerException ex) {
+                throw new NotPairedException();
+            }
 
             try {
                 // Get a BluetoothSocket to connect with the given BluetoothDevice.
@@ -117,6 +128,7 @@ public class BluetoothService {
             {
                 Log.e(TAG, "Error occurred when creating input stream.", e);
             }
+
             try
             {
                 tmpOut = m_socket.getOutputStream();
@@ -127,6 +139,11 @@ public class BluetoothService {
 
             m_inStream = tmpIn;
             m_outStream = tmpOut;
+        }
+
+        public void setCallbacks(ConnectionCallbacks onComplete)
+        {
+            m_callbacks = onComplete;
         }
 
         public void run()
@@ -153,8 +170,14 @@ public class BluetoothService {
                 }
 
                 Log.e(TAG, "Could not connect to socket.");
+                if(m_callbacks != null)
+                    m_callbacks.onConnect(false);
                 return;
             }
+
+            // We got connected
+            if(m_callbacks != null)
+                m_callbacks.onConnect(true);
 
             // enter data loop
             m_buffer = new byte[1024];
@@ -178,6 +201,7 @@ public class BluetoothService {
                 catch (IOException e)
                 {
                     Log.d(TAG, "Input stream was disconnected", e);
+                    m_callbacks.onConnect(false);
                     break;
                 }
             }
