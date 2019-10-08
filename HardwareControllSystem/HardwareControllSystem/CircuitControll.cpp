@@ -4,6 +4,7 @@ CircuitControll::CircuitControll(){}
 
 void CircuitControll::runBuzzer()
 {
+	Serial.println("Tone size: " + (String)toneQueue.size());
 	//tone(PIN_BUZZER, frequency, duration);
 	//Serial.print("buzz");
 	enum StatesBuzz
@@ -26,7 +27,7 @@ void CircuitControll::runBuzzer()
 		}
 		break;
 	case s_running:
-		Serial.print("BUZZ: " + (String)toneQueue.size());
+		//Serial.print("BUZZ: " + (String)toneQueue.size());
 		tone(PIN_BUZZER, toneQueue.front().frequency);
 		
 		if (millis() >= mili_start + toneQueue.front().duration)
@@ -53,11 +54,13 @@ void CircuitControll::clearToneQueue()
 
 void CircuitControll::addToneToQueue(toneCmd tone)
 {
+	clearToneQueue();
 	toneQueue.push(tone);
 }
 
-void CircuitControll::addArrayToQueue(toneCmd queue[], int lenght)
+void CircuitControll::addArrayToQueue(const toneCmd queue[], int lenght)
 {
+	clearToneQueue();
 	for (int i = 0; i < lenght; i++)
 	{
 		toneQueue.push(queue[i]);
@@ -68,6 +71,36 @@ void CircuitControll::run()
 {
 	runBuzzer();
 	runLeds();
+}
+
+void CircuitControll::soundLogin()
+{
+	addArrayToQueue(tuneLogin, 5);
+}
+
+void CircuitControll::soundLogout()
+{
+	addArrayToQueue(tuneLogout, 5);
+}
+
+void CircuitControll::soundBoot()
+{
+	addArrayToQueue(tuneBoot, 6);
+}
+
+void CircuitControll::soundVarning()
+{
+	addArrayToQueue(tuneVarning, 8);
+}
+
+void CircuitControll::soundLowBeep()
+{
+	addArrayToQueue(tuneLowBeep, 2);
+}
+
+void CircuitControll::soundHighBeep()
+{
+	addArrayToQueue(tuneHighBeep, 2);
 }
 
 //void CircuitControll::setLed(ledColor_e color, onOff_e onOff)
@@ -135,7 +168,10 @@ void CircuitControll::updateShiftRegister(byte leds)
 void CircuitControll::addLedCmd(led_e led, onOff_e value, int dur)
 {
 	ledCmd *cmd = new ledCmd(value, dur);
-
+	while (!cmdArray[led].empty())
+	{
+		cmdArray[led].pop();
+	}
 	cmdArray[led].push(cmd);
 }
 

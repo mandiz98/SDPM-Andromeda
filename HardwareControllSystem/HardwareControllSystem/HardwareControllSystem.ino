@@ -21,6 +21,7 @@
 #include "BluetoothInterface.h"
 #include "DisplayControll.h"
 #include <Arduino.h>
+#include "RadiationPotentiometer.h"
 
 #define RFID_PIN_SS 10
 #define RFID_PIN_RST 9
@@ -31,6 +32,9 @@ int third_LED = 10;
 int state = 0;
 
 CircuitControll cirCtrl = CircuitControll();
+RadiationPotentiometer rad = RadiationPotentiometer();
+
+
 
 RFID rfid(RFID_PIN_SS, RFID_PIN_RST);
 BluetoothInterface bluetooth;
@@ -39,9 +43,6 @@ DisplayControll *display;
 
 #define EXTERNAL_LCD_ADRESS 2
 #define THIS_ADRESS 1
-
-void OnRFID_Recive(String m);
-
 	
 void OnRFID_Recive(String message)
 {
@@ -77,12 +78,25 @@ void reciveHazmatsuit(String data)
 	Serial.print((data == "0") ? "off" : "on");
 	Serial.print("\n");
 }
+void onValueChangeListener(float f) {
+	Serial.println("Float value :" + (String)f);
+	CircuitControll::toneCmd tones[3] = {
+		CircuitControll::toneCmd(f * 1000 + 250, 100),
+		CircuitControll::toneCmd(f * 1000 + 500, 100),
+		CircuitControll::toneCmd(f * 1000 + 750, 100),
+	};
+	cirCtrl.addArrayToQueue(tones, 3);
+	//cirCtrl.addToneToQueue(CircuitControll::toneCmd(0));
+}
 void setup() 
 {	
+	Serial.println("---Setup start---");
+
 
 	pinMode(PIN_LATCH, OUTPUT);
 	pinMode(PIN_DATA, OUTPUT);
 	pinMode(PIN_CLOCK, OUTPUT);
+	pinMode(PIN_ANALOGRADREAD, INPUT);
 
 	bluetooth.init(9600);
 	rfid.init();
@@ -97,6 +111,10 @@ void setup()
 	display->addReciveListener(DisplayControll::reciveType::radiation, reciveRadiation);
 	display->addReciveListener(DisplayControll::reciveType::room, reciveRoom);
 
+	rad.setValueChangeCallback(onValueChangeListener);
+
+	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2000,400));
+
 	Serial.println("---Ready---");
 
 }
@@ -104,8 +122,10 @@ void setup()
 void loop()
 {
 	cirCtrl.run();
-	rfid.run();
-	bluetooth.run();
-	display->run();
+	//rfid.run();
+	//bluetooth.run();
+	//display->run();
+	//delay(100);
+	rad.run();
 }
 

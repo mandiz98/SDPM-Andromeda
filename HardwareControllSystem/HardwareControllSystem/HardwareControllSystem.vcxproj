@@ -118,12 +118,16 @@
   <ItemGroup>
     <ClInclude Include="CircuitControll.h" />
     <ClInclude Include="BluetoothInterface.h" />
+    <ClInclude Include="DisplayControll.h" />
+    <ClInclude Include="RadiationPotentiometer.h" />
     <ClInclude Include="RFID.h" />
     <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircuitControll.cpp" />
     <ClCompile Include="BluetoothInterface.cpp" />
+    <ClCompile Include="DisplayControll.cpp" />
+    <ClCompile Include="RadiationPotentiometer.cpp" />
     <ClCompile Include="RFID.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
