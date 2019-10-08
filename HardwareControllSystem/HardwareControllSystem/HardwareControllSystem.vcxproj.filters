@@ -4,12 +4,16 @@
     <ClCompile Include="CircuitControll.cpp" />
     <ClCompile Include="BluetoothInterface.cpp" />
     <ClCompile Include="RFID.cpp" />
+    <ClCompile Include="DisplayControll.cpp" />
+    <ClCompile Include="RadiationPotentiometer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircuitControll.h" />
     <ClInclude Include="BluetoothInterface.h" />
     <ClInclude Include="RFID.h" />
     <ClInclude Include="__vm\.HardwareControllSystem.vsarduino.h" />
+    <ClInclude Include="DisplayControll.h" />
+    <ClInclude Include="RadiationPotentiometer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HardwareControllSystem.ino" />
