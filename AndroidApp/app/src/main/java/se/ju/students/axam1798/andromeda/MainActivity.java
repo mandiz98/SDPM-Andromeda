@@ -146,16 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
                                     if(!user.isClockedIn()) {
                                         clockIn();
-                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                                                3000,
-                                                System.currentTimeMillis()
-                                        )).getBytes());
                                     }else {
                                         clockOut();
-                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                                                3001,
-                                                System.currentTimeMillis()
-                                        )).getBytes());
                                     }
                                 }
                             }
@@ -393,6 +385,12 @@ public class MainActivity extends AppCompatActivity {
         if (!isServiceRunning(RadiationTimerService.class)){
             startService(m_serviceIntent);
         }
+
+        // Send message to do a success sound to the console
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                3000,
+                System.currentTimeMillis()
+        )).getBytes());
     }
 
     //Go to clocked out fragment
@@ -404,6 +402,12 @@ public class MainActivity extends AppCompatActivity {
         if (!isServiceRunning(RadiationTimerService.class)){
             stopService(m_serviceIntent);
         }
+
+        // Send message to do a fail sound to the console
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                3001,
+                System.currentTimeMillis()
+        )).getBytes());
     }
 
     /**
