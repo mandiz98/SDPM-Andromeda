@@ -2,6 +2,7 @@ package se.ju.students.axam1798.andromeda;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -50,5 +51,17 @@ public class UserManager {
                 .putString(KEY_USER, userJson)
                 .apply();
         m_instancedUser = user;
+    }
+
+    public double getTimeLeft(double radiationExposure, double roomCoefficient, double protectiveCoefficient) {
+        double safetyLimit = getUser().getSafetyLimit();
+        double currentExposurePerSecond = getUser().getCurrentRadiationExposure(
+                // TODO: Should be fetched from hardware
+                radiationExposure, // TODO HardwareManager.getCurrentExposure()
+                roomCoefficient,
+                protectiveCoefficient
+        );
+
+        return (safetyLimit / currentExposurePerSecond) * 1000;
     }
 }

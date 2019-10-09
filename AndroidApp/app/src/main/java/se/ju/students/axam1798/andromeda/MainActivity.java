@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
         m_bluetoothService = new BluetoothService();
 
+        m_userManager.setStoredUser(new User(7, "", false, false, Role.MANAGER));
+        clockIn();
+
         //Bluetooth connection animation
         final ImageView rfidAnimation = findViewById(R.id.img_rfid);
         rfidAnimation.setOnClickListener(new View.OnClickListener(){
@@ -286,17 +289,6 @@ public class MainActivity extends AppCompatActivity {
         rfidImage.setBackgroundResource(R.drawable.ic_rfid);
     }
 
-    private boolean isServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i ("isServiceRunning?", true+"");
-                return true;
-            }
-        }
-        Log.i ("isServiceRunning?", false+"");
-        return false;
-    }
 
     //Create the notification
     public void sendWarningNotification(View v){
@@ -357,15 +349,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
 
-        if (!isServiceRunning(RadiationTimerService.class)){
-            startService(m_serviceIntent);
-        }
 
         // Send message to do a success sound to the console
-        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+        /*m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                 3000,
                 System.currentTimeMillis()
-        )).getBytes());
+        )).getBytes());*/
     }
 
     //Go to clocked out fragment
@@ -373,10 +362,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
-
-        if (!isServiceRunning(RadiationTimerService.class)){
-            stopService(m_serviceIntent);
-        }
 
         // Send message to do a fail sound to the console
         m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(

@@ -1,7 +1,9 @@
 package se.ju.students.axam1798.andromeda;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -17,9 +19,9 @@ public class RadiationTimerService extends Service {
 
     private final static String TAG = RadiationTimerService.class.getName();
 
-    private final static double TEMP_RADIATION_EXPOSURE = 30;
-    private final static double TEMP_ROOM_COEFFICIENT = 0.2;
-    private final static double TEMP_PROTECTIVE_COEFFICIENT = 1;
+    public final static double TEMP_RADIATION_EXPOSURE = 30;
+    public final static double TEMP_ROOM_COEFFICIENT = 0.2;
+    public final static double TEMP_PROTECTIVE_COEFFICIENT = 1;
     private final static int INTERVAL_SECONDS = 1800;
 
     private UserManager m_userManager;
@@ -31,6 +33,8 @@ public class RadiationTimerService extends Service {
     private long m_alertTimestamp;
 
     private NotificationCompat.Builder m_warningNotificationBuilder;
+
+    private IBinder binder = new LocalBinder();
 
     public RadiationTimerService() {
     }
@@ -68,6 +72,25 @@ public class RadiationTimerService extends Service {
         timer.schedule(timerTask,1000,1000);
     }
 
+    public double getTimeLeft(double safetyLimit, double currentExposure){
+        return (safetyLimit / currentExposure) * 1000;
+    }
+
+    public String getHourString(double timeLeft) {
+        int hours = (int)Math.floor(timeLeft / 3.6e6);
+        return hours >= 10 ? String.valueOf(hours) : "0" + hours;
+    }
+
+    public String getMinuteString(double timeLeft) {
+        int minutes = (int)Math.floor((timeLeft % 3.6e6) / 6e4);
+        return minutes >= 10 ? String.valueOf(minutes) : "0" + minutes;
+    }
+
+    public String getSecondString(double timeLeft) {
+        int seconds = (int)Math.floor((timeLeft % 6e4) / 1000);
+        return seconds >= 10 ? String.valueOf(seconds) : "0" + seconds;
+    }
+
     // prints counter every second
     public void initializeTimerTask() {
         if(m_userManager.getUser() == null) {
@@ -77,30 +100,21 @@ public class RadiationTimerService extends Service {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                Log.i(TAG, "in timer ++++++ " + (counter++));
-                double safetyLimit = m_userManager.getUser().getSafetyLimit();
-                Log.i(TAG, "Safety limit before: " + safetyLimit);
-                double currentExposurePerSecond = m_userManager.getUser().getCurrentRadiationExposure(
+                double currentExposure = m_userManager.getUser().getCurrentRadiationExposure(
                         // TODO: Should be fetched from hardware
                         TEMP_RADIATION_EXPOSURE, // TODO HardwareManager.getCurrentExposure()
                         TEMP_ROOM_COEFFICIENT,
                         m_userManager.getUser().getProtectiveCoefficient()
                 );
-                safetyLimit -= currentExposurePerSecond;
-                Log.i(TAG, "Safety limit after: " + safetyLimit);
+                double safetyLimit = m_userManager.getUser().getSafetyLimit();
 
-                // Safety limit notification
+                safetyLimit -= currentExposure;
 
-                double timeLeft = (safetyLimit / currentExposurePerSecond) * 1000;
-                int hours = (int)Math.floor(timeLeft / 3.6e6);
-                int minutes = (int)Math.floor((timeLeft % 3.6e6) / 6e4);
-                int seconds = (int)Math.floor((timeLeft % 6e4) / 1000);
-
-                String strHours = hours >= 10 ? String.valueOf(hours) : "0" + hours;
-                String strMinutes = minutes >= 10 ? String.valueOf(minutes) : "0" + minutes;
-                String strSeconds = seconds >= 10 ? String.valueOf(seconds) : "0" + seconds;
-
-                String notificationText = "Expires in " + strHours + ":" + strMinutes + ":" + strSeconds;
+                double timeLeft = getTimeLeft(safetyLimit, currentExposure);
+                String notificationText = "Expires in " +
+                        getHourString(timeLeft) + ":" +
+                        getMinuteString(timeLeft) + ":" +
+                        getSecondString(timeLeft);
                 boolean alert = false;
 
                 // If first time, or each 30 minutes
@@ -125,7 +139,7 @@ public class RadiationTimerService extends Service {
 
                 m_userManager.getUser().setSafetyLimit(safetyLimit);
                 Log.i(TAG,"Current safety limit: " + (m_userManager.getUser().getSafetyLimit()));
-                Log.i(TAG,"Left until reached limit: " + strHours + ":" + strMinutes + ":" + strSeconds);
+                //Log.i(TAG,"Left until reached limit: " + strHours + ":" + strMinutes + ":" + strSeconds);
             }
         };
     }
@@ -138,12 +152,6 @@ public class RadiationTimerService extends Service {
         }
     }
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
     private void showWarningNotification(String message, boolean alert) {
         m_warningNotificationBuilder.setContentText(message);
         m_warningNotificationBuilder.setOnlyAlertOnce(!alert);
@@ -153,4 +161,17 @@ public class RadiationTimerService extends Service {
         }
         m_notificationManagerCompat.notify(2, m_warningNotificationBuilder.build());
     }
+
+    public class LocalBinder extends Binder {
+        public RadiationTimerService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return RadiationTimerService.this;
+        }
+    }
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
+
 }
+
