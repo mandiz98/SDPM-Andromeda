@@ -29,6 +29,8 @@ import se.ju.students.axam1798.andromeda.API.APICallback;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
 import se.ju.students.axam1798.andromeda.enums.Role;
+import se.ju.students.axam1798.andromeda.fragments.ClockOut;
+import se.ju.students.axam1798.andromeda.fragments.ClockedIn;
 import se.ju.students.axam1798.andromeda.exceptions.NotPairedException;
 import se.ju.students.axam1798.andromeda.models.Event;
 
@@ -73,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // Get stored user
         if(m_userManager.getUser() != null) {
             // Get current user data from API
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     m_userManager.setStoredUser(user);
 
                     // Show clock in page if clocked in
-                    if(!user.isClockedIn())
+                    if(user.isClockedIn())
                         clockIn();
                 }
 
@@ -145,18 +146,8 @@ public class MainActivity extends AppCompatActivity {
                                     // Store the user
                                     m_userManager.setStoredUser(user);
 
-                                    if(!user.isClockedIn()) {
+                                    if(user.isClockedIn()) {
                                         clockIn();
-                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                                                3000,
-                                                System.currentTimeMillis()
-                                        )).getBytes());
-                                    }else {
-                                        clockOut();
-                                        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                                                3001,
-                                                System.currentTimeMillis()
-                                        )).getBytes());
                                     }
                                 }
                             }
@@ -394,6 +385,12 @@ public class MainActivity extends AppCompatActivity {
         if (!isServiceRunning(RadiationTimerService.class)){
             startService(m_serviceIntent);
         }
+
+        // Send message to do a success sound to the console
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                3000,
+                System.currentTimeMillis()
+        )).getBytes());
     }
 
     //Go to clocked out fragment
@@ -405,6 +402,12 @@ public class MainActivity extends AppCompatActivity {
         if (!isServiceRunning(RadiationTimerService.class)){
             stopService(m_serviceIntent);
         }
+
+        // Send message to do a fail sound to the console
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                3001,
+                System.currentTimeMillis()
+        )).getBytes());
     }
 
     /**

@@ -1,5 +1,7 @@
 package se.ju.students.axam1798.andromeda.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import se.ju.students.axam1798.andromeda.enums.Role;
 
 public class User {
@@ -10,6 +12,7 @@ public class User {
     private String rfid;
     private boolean clockedIn;
     private boolean hazmatSuite;
+    @SerializedName("roleId")
     private Role role;
 
     private double m_safetyLimit;
@@ -25,10 +28,6 @@ public class User {
         this.hazmatSuite = hazmatSuite;
         this.role = role;
         this.m_safetyLimit = SAFETY_LIMIT_START;
-    }
-
-    public User(int id, String rfid, boolean clockedIn, boolean hazmatSuite, int roleId) {
-        this(id, rfid, clockedIn, hazmatSuite, Role.fromId(roleId));
     }
 
     public int getId() {

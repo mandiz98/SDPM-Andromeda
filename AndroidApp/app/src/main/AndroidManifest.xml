@@ -7,10 +7,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-
-    <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- If your app targets Android 9 or lower, you can declare ACCESS_COARSE_LOCATION instead. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -21,7 +18,9 @@
         android:roundIcon="@mipmap/ic_andromeda_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".activities.EmployeeHistoryActivity"></activity>
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,20 +28,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.EmployeeListActivity"></activity>
 
         <service
             android:name=".RadiationTimerService"
-            android:enabled="true">
-        </service>
+            android:enabled="true" />
 
         <receiver
             android:name=".RadiationTimerRestarterBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
-            android:label="RestartServiceWhenStopped">
-        </receiver>
-    </application>
+            android:label="RestartServiceWhenStopped" />
+        <!--
+     TODO: Add these activities or change them or something? //AMANDA
+        <activity android:name=".ClockedIOActivity">
 
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+        </activity>
+
+        <activity android:name=".ClothesActivity">
+
+        </activity>
+        -->
+    </application>
 
 </manifest>
