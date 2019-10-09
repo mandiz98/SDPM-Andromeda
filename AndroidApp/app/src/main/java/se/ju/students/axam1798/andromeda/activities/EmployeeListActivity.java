@@ -21,6 +21,7 @@ import se.ju.students.axam1798.andromeda.API.APICallback;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
 import se.ju.students.axam1798.andromeda.R;
+import se.ju.students.axam1798.andromeda.adapters.EmployeeListViewAdapter;
 import se.ju.students.axam1798.andromeda.models.User;
 
 public class EmployeeListActivity extends AppCompatActivity {
@@ -71,11 +72,10 @@ public class EmployeeListActivity extends AppCompatActivity {
 
     private void setupEmployeeList() {
         ListView employeeListView = findViewById(R.id.employeeList);
-        // TODO: Ändra till en custom adapter
-        ArrayAdapter<User> adapter = new ArrayAdapter<>(
+        EmployeeListViewAdapter adapter = new EmployeeListViewAdapter(
                 getApplicationContext(),
                 android.R.layout.simple_list_item_1,
-                employeesList
+                employeesList.toArray(new User[0])
         );
         employeeListView.setAdapter(adapter);
 

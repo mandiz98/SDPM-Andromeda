@@ -52,11 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
     private UserManager m_userManager;
     private Intent m_serviceIntent;
+    private Context m_context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        m_context = this;
 
         m_userManager = UserManager.getInstance(getApplicationContext());
         notificationManagerCompat = NotificationManagerCompat.from(this);
@@ -73,35 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 setupBTConnection();
             }
         });
-
-        // Get stored user
-        if(m_userManager.getUser() != null) {
-            // Get current user data from API
-            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new APICallback<User>(this) {
-                @Override
-                public void onSuccess(Call<User> call, Response<User> response, User user) {
-                    if(user == null) {
-                        m_userManager.setStoredUser(null);
-                        return;
-                    }
-                    // Store the user
-                    m_userManager.setStoredUser(user);
-
-                    // Show clock in page if clocked in
-                    if(user.isClockedIn())
-                        clockIn();
-                }
-
-                @Override
-                public void onError(Call<User> call, Response<User> response, APIError error) {
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "Couldn't get stored user from API: " + error.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
-                }
-            });
-        }
     }
 
     @Override
@@ -235,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
                                 setImageConnected();
+                                fetchStoredUserInfo();
                             }
                         });
                     }
@@ -451,6 +426,37 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    private void fetchStoredUserInfo() {
+        // Get stored user after bluetooth connection is established
+        if(m_userManager.getUser() != null) {
+            // Get current user data from API
+            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new APICallback<User>(m_context) {
+                @Override
+                public void onSuccess(Call<User> call, Response<User> response, User user) {
+                    if(user == null) {
+                        m_userManager.setStoredUser(null);
+                        return;
+                    }
+                    // Store the user
+                    m_userManager.setStoredUser(user);
+
+                    // Show clock in page if clocked in
+                    if(user.isClockedIn())
+                        clockIn();
+                }
+
+                @Override
+                public void onError(Call<User> call, Response<User> response, APIError error) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Couldn't get stored user from API: " + error.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            });
         }
     }
 }
