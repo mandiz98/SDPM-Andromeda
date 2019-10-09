@@ -6,6 +6,7 @@
 
 #include <ShiftRegister74HC595.h>
 #include <ArduinoSTL.h>
+#include <Arduino.h>
 #include <require_cpp11.h>
 #include <MFRC522Extended.h>
 #include <MFRC522.h>
@@ -17,32 +18,22 @@
 #include "CircuitControll.h"
 #include "BluetoothInterface.h"
 #include "DisplayControll.h"
-#include <Arduino.h>
 #include "RadiationPotentiometer.h"
 
 #define RFID_PIN_SS 10
 #define RFID_PIN_RST 9
 
-int first_LED = 8; 
-int second_LED = 9;
-int third_LED = 10;
-int state = 0;
-
 CircuitControll cirCtrl = CircuitControll();
 RadiationPotentiometer rad = RadiationPotentiometer();
-
-
 
 RFID rfid(RFID_PIN_SS, RFID_PIN_RST);
 BluetoothInterface bluetooth;
 DisplayControll *display;
-
 	
 
 void OnRFID_Recive(String message)
 {
 	bluetooth.sendData(BluetoothInterface::TrancmitType::RFID, message);
-	cirCtrl.soundLogin();
 	cirCtrl.addLedCmd(CircuitControll::led_e::blue, CircuitControll::onOff_e::on, 400);
 }
 void onRawRadiationChange(float rad)
@@ -66,7 +57,7 @@ void reciveAlarmListner(String data)
 {//TODO implement
 }
 
-//bluetooth messages to relay to display
+//bluetooth messages to send to display
 void reciveWarningListner(String data)
 {
 	cirCtrl.soundVarning();
@@ -124,18 +115,19 @@ void setup()
 	rfid.init();
 
 	rfid.setOnReciveEvent(OnRFID_Recive);
-	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundFail, reciveFailListner);
+	rad.setValueChangeCallback(onRawRadiationChange);
+
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundFail,	reciveFailListner);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundSuccess, reciveSuccessListner);
-	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::message, reciveMessageListner);
-	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::timeChange, reciveTimeListner);
-	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::warning, reciveWarningListner);
-	//bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundAlarm, reciveAlarmListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::message,		reciveMessageListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::timeChange,	reciveTimeListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::warning,		reciveWarningListner);
 
 	display = DisplayControll::getInstance();
 	display->addReciveListener(DisplayControll::reciveType::hazmatsuit, reciveHazmatsuit);
+
 	display->addReciveListener(DisplayControll::reciveType::radiation, reciveRadiation);
 	display->addReciveListener(DisplayControll::reciveType::room, reciveRoom);
-
 
 	rad.setValueChangeCallback(onRawRadiationChange);
 }

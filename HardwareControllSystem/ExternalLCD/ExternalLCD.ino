@@ -27,7 +27,7 @@ LiquidCrystal lcd(pin_RS, pin_EN, pin_d4, pin_d5, pin_d6, pin_d7);
 #define THIS_ADRESS  2
 #define MASTER_ADRESS 1
 
-
+//every type of existing menu
 enum menu_e
 {
 	menu_idle,
@@ -38,6 +38,7 @@ enum menu_e
 	menu_warning,
 	menu_message,
 };
+//every button the user can press
 enum button_e
 {
 	button_none,
@@ -47,6 +48,7 @@ enum button_e
 	button_left,
 	button_right,
 };
+//command type that can be recived
 enum cmdType_e
 {
 	cmd_none = 0,
@@ -55,6 +57,7 @@ enum cmdType_e
 	cmd_timeChange = 3,
 	cmd_radChange = 4,
 };
+//data dype that can be sent
 enum dataTransmitType_e
 {
 	tx_room=10,
@@ -104,7 +107,6 @@ struct time_s
 			(abs(secounds < 10) ? "0" : "") + String(secounds);
 	}
 };
-LiquidCrystal getLCD();
 
 //---function decleration---
 room_s getCurrentRoom();
@@ -123,28 +125,28 @@ void changeRoom(room_s room);
 void setHazmatsuit(bool isOn);
 //--------------------------
 
+//global flag for when the menu is changing
 bool menuIsChanging = false;
+//function pointer to the current menu in use
 bool(*currentMenu)(void);
+//buffer for button presses
 vector<button_e> buttonStack;
 
+//variables for the current state 
 room_s currentRoom;
 command_s latestCmd;
 time_s timeLeft;
 bool hazmatsuit = false;
-float rawRadiation = 42;
+float rawRadiation = 0;
 
+//every existing room
 byte roomCount = 3;
 const room_s roomes[] = {
 	room_s("break room",  0.1),
 	room_s("control room",0.5),
-	room_s("reactor room",1.6) };
+	room_s("reactor room",1.6)};
 
-
-
-LiquidCrystal getLCD()
-{
-	return lcd;
-}
+//get functions
 room_s getCurrentRoom()
 {
 	return currentRoom;
@@ -159,6 +161,7 @@ float getCurrentProtectionCoeff()
 }
 float getCurrentRad()
 {
+	//calculation for radiation per secound
 	return rawRadiation * currentRoom.coefficient / getCurrentProtectionCoeff();
 }
 time_s getTimeLeft()
@@ -166,7 +169,7 @@ time_s getTimeLeft()
 	return timeLeft;
 }
 
-
+//callback function for i2c communication with external device
 void reciveEvent(int size)
 {
 	String subMessage[2] = {"",""};
@@ -184,8 +187,10 @@ void reciveEvent(int size)
 	Serial.println(subMessage[0] + ';' + subMessage[1]);
 	setNewCmd(command_s(subMessage[1],(cmdType_e)subMessage[0].toInt()));
 }
+//sendes a message to the external device
 void send(dataTransmitType_e type,String data)
 {
+	//formats the message to a readable string and sends it 
 	String message = String(type) + ';' + data;
 	Wire.beginTransmission(MASTER_ADRESS);
 	for (size_t i = 0; i < message.length(); i++)
@@ -196,6 +201,7 @@ void send(dataTransmitType_e type,String data)
 	Wire.endTransmission();
 }
 
+//returns to latest button pressed without consuming it
 button_e peekPuttonStack()
 {
 	button_e top = button_none;
@@ -203,6 +209,7 @@ button_e peekPuttonStack()
 		top = buttonStack.back();
 	return top;
 }
+//returns the latest button press and removes it from from the buffer
 button_e popPuttonStack()
 {
 	button_e top = button_none;
@@ -215,7 +222,9 @@ button_e popPuttonStack()
 	return top;
 }
 
-
+//----------=[ MENU STATE MACHINES ]=--------------
+//	these state machines returns true if they are ready for a menu change.
+//	this is to give them a chanse to reset to the print state.
 bool idleMenu()
 {
 	enum state_e
@@ -521,12 +530,13 @@ bool messageMenu()
 	}
 	return false;
 }
+//-------------------------------------------------
 
+//sets a new command recived from external device
 void setNewCmd(command_s cmd)
 {
-	//Serial.println("cmd:" + String(cmd.cmd));
-	//Serial.println("data:" + cmd.data);
 	latestCmd = cmd;
+	//responce to the command
 	switch (cmd.cmd)
 	{
 	case cmd_warning:
@@ -542,31 +552,35 @@ void setNewCmd(command_s cmd)
 		break;
 	case cmd_radChange:
 		rawRadiation = latestCmd.data.toFloat();
+		send(tx_radiation, String(getCurrentRad()));
 		break;
 	default:
 		break;
 	}
 }
+//sets a new room and notifies external device
 void changeRoom(room_s room)
 {
 	currentRoom = room;
 	send(tx_room, room.name);
 	send(tx_radiation,String(getCurrentRad()));
 }
+
 void changeMenu(menu_e menu)
 {
-	//Serial.print("Menu change to: ");
-	//Serial.print(String(menu));
-	//Serial.print("\n");
+	//time limit for a menu to prepare for a menu change
+	//this is to avoid infinie wating
+	const int timeOutLimit_ms = 10;
 
-	int timeOutLimit = 10;
-
+	//sets flag for menu change
 	menuIsChanging = true;
 
+	//wait for the menu to accept the change
 	long waitStartTime = millis();
 	while (!currentMenu())
 	{
-		if (waitStartTime + timeOutLimit < millis())
+		//stop wating if the time limit is reached
+		if (waitStartTime + timeOutLimit_ms < millis())
 		{
 			Serial.println("WARNING: menu change timeout");
 			break;
@@ -598,6 +612,8 @@ void changeMenu(menu_e menu)
 	default:
 		break;
 	}
+	
+	
 	menuIsChanging = false;
 }
 
@@ -629,27 +645,8 @@ void runTimer()
 }
 void runMenu()
 {
-	currentMenu();	
-
-	/*switch (currentMenu)
-	{
-	case startup:
-		break;
-	case changeRoom:
-		chageTRoomMenu();
-		break;
-	case displayRoom:
-		displayRoomMenu();
-		break;
-	case warning:
-		warningMenu();
-		break;
-	case clockEvent:
-		clockMenu();
-		break;
-	default:
-		break;
-	}*/
+	//only needs to run the menu in focus
+	currentMenu();
 }
 void runButtonReader()
 {
@@ -690,7 +687,6 @@ void runButtonReader()
 		break;
 	}
 }
-
 
 void setHazmatsuit(bool isOn)
 {

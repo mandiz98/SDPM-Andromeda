@@ -46,8 +46,6 @@ void BluetoothInterface::addOnCommandReciveEvent(ReciveType type, void(*onComman
 
 void BluetoothInterface::onCommandRecive(String message)
 {
-	tone(6, 1000, 200);
-
 	String subMessage[3];
 
 	const int bufferSize = 100;
