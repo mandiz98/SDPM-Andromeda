@@ -17,16 +17,20 @@ public:
 
 	enum led_e
 	{
-		one,
-		two,
-		three,
-		four,
-		five,
-		six,
-		seven,
-		eight,
-		nine,
-		ten,
+		//one,
+		//two,
+		//three,
+		//four,
+		//five,
+		//six,
+		//seven,
+		//eight,
+		//nine,
+		//ten,
+
+		red = 2, 
+		green = 1,
+		blue = 0,
 	};
 
 	enum onOff_e
@@ -40,7 +44,7 @@ public:
 		unsigned short duration;
 		unsigned short frequency;
 
-		toneCmd(unsigned short freq, unsigned short dur = -1) { duration = dur; frequency = freq; }
+		toneCmd(unsigned short freq, unsigned short dur = 0) { duration = dur; frequency = freq; }
 
 	};
 
@@ -48,7 +52,7 @@ public:
 
 	void addToneToQueue(toneCmd tone);
 
-	void addArrayToQueue(const toneCmd queue[], int lenght);
+	void addToneArrayToQueue(const toneCmd queue[], int lenght);
 
 	//void setLed(ledColor_e, onOff_e);
 
@@ -63,14 +67,7 @@ public:
 	void soundHighBeep();
 	void soundLowBeep();
 
-	
-
-	void addLedCmd(led_e led, onOff_e value, int dur = -1);
-protected:
-
-private:
-
-	
+	void blinkWarning();
 
 	struct ledCmd
 	{
@@ -82,12 +79,22 @@ private:
 		state_e state = ready;
 
 		onOff_e onOff;
-		int duration;
+		unsigned short duration;
 		long startTime;
-		bool active = false;
 
-		ledCmd(onOff_e onOrOff, int delay) {onOff = onOrOff, duration = delay; }
+		ledCmd(onOff_e onOrOff, unsigned short delay) {onOff = onOrOff, duration = delay; }
 	};
+
+	void addLedCmd(led_e led, onOff_e value, int dur = -1);
+
+	void addLedCmdArrayToQueue(led_e led, const ledCmd queue[], int lenght);
+
+protected:
+
+private:
+
+	const unsigned short warningTimer = 400;
+	const unsigned short warningTimerDelay = 100;
 
 	const int ledArraySize_c = 8;
 
@@ -133,15 +140,14 @@ private:
 		toneCmd(2000,200),
 		toneCmd(2500,400),
 	};
-	const toneCmd tuneVarning[8] = {
-		toneCmd(3500,800),
-		toneCmd(0, 300),
-		toneCmd(3500,800),
-		toneCmd(0, 300),
-		toneCmd(3500,800),
-		toneCmd(0, 300),
-		toneCmd(3500,800),
-		toneCmd(0),
+	const toneCmd tuneVarning[7] = {
+		toneCmd(3500,warningTimer),
+		toneCmd(0, warningTimerDelay),
+		toneCmd(3500,warningTimer),
+		toneCmd(0, warningTimerDelay),
+		toneCmd(3500,warningTimer),
+		toneCmd(0, warningTimerDelay),
+		toneCmd(3500,warningTimer)
 	};
 	const toneCmd tuneHighBeep[2] = {
 		toneCmd(2500,400),
@@ -152,4 +158,15 @@ private:
 		toneCmd(0,200),
 	};
 
+	const ledCmd warningBlink[7] = {
+		ledCmd(onOff_e::on,warningTimer),
+		ledCmd(onOff_e::off,warningTimerDelay),
+		ledCmd(onOff_e::on,warningTimer),
+		ledCmd(onOff_e::off,warningTimerDelay),
+		ledCmd(onOff_e::on,warningTimer),
+		ledCmd(onOff_e::off,warningTimerDelay),
+		ledCmd(onOff_e::on,warningTimer),
+	};
+
+	void deleteLedQueue(led_e);
 };
