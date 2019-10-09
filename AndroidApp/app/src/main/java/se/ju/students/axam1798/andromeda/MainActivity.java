@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         m_bluetoothService = new BluetoothService();
 
+        //Bluetooth connection animation
         final ImageView rfidAnimation = findViewById(R.id.img_rfid);
         rfidAnimation.setOnClickListener(new View.OnClickListener(){
             @Override
