@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -58,6 +60,10 @@ public class APIClient {
 
     public void getEventsByKey(int eventKey, int userId, APICallback<List<Event>> callback) {
         this.apiService.getEventsByKey(eventKey, userId).enqueue(callback);
+    }
+
+    public void getLatestEventByKey(int eventKey, int userId, final APICallback<Event> callback) {
+        this.apiService.getLatestEventByKey(eventKey, userId).enqueue(callback);
     }
 
     public static APIError decodeError(ResponseBody responseBody) {

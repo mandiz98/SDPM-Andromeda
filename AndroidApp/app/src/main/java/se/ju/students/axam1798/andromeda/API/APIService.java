@@ -32,4 +32,7 @@ public interface APIService {
 
     @GET("events")
     Call<List<Event>> getEventsByKey(@Query("eventKey") int eventKey, @Query("userId") int userId);
+
+    @GET("events/latest")
+    Call<Event> getLatestEventByKey(@Query("eventKey") int eventKey, @Query("userId") int userId);
 }
