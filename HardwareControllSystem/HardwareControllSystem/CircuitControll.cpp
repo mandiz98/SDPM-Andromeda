@@ -4,7 +4,7 @@ CircuitControll::CircuitControll(){}
 
 void CircuitControll::runBuzzer()
 {
-	Serial.println("Tone size: " + (String)toneQueue.size());
+	//Serial.println("Tone size: " + (String)toneQueue.size());
 	//tone(PIN_BUZZER, frequency, duration);
 	//Serial.print("buzz");
 	enum StatesBuzz
@@ -28,7 +28,12 @@ void CircuitControll::runBuzzer()
 		break;
 	case s_running:
 		//Serial.print("BUZZ: " + (String)toneQueue.size());
-		tone(PIN_BUZZER, toneQueue.front().frequency);
+		if (toneQueue.front().frequency == 0)
+		{
+			noTone(PIN_BUZZER);
+		}
+		else
+			tone(PIN_BUZZER, toneQueue.front().frequency);
 		
 		if (millis() >= mili_start + toneQueue.front().duration)
 		{
@@ -58,7 +63,7 @@ void CircuitControll::addToneToQueue(toneCmd tone)
 	toneQueue.push(tone);
 }
 
-void CircuitControll::addArrayToQueue(const toneCmd queue[], int lenght)
+void CircuitControll::addToneArrayToQueue(const toneCmd queue[], int lenght)
 {
 	clearToneQueue();
 	for (int i = 0; i < lenght; i++)
@@ -75,33 +80,39 @@ void CircuitControll::run()
 
 void CircuitControll::soundLogin()
 {
-	addArrayToQueue(tuneLogin, 5);
+	addToneArrayToQueue(tuneLogin, 5);
 }
 
 void CircuitControll::soundLogout()
 {
-	addArrayToQueue(tuneLogout, 5);
+	addToneArrayToQueue(tuneLogout, 5);
 }
 
 void CircuitControll::soundBoot()
 {
-	addArrayToQueue(tuneBoot, 6);
+	addToneArrayToQueue(tuneBoot, 6);
 }
 
 void CircuitControll::soundVarning()
 {
-	addArrayToQueue(tuneVarning, 8);
+	addToneArrayToQueue(tuneVarning, 7);
 }
 
 void CircuitControll::soundLowBeep()
 {
-	addArrayToQueue(tuneLowBeep, 2);
+	addToneArrayToQueue(tuneLowBeep, 2);
+}
+
+void CircuitControll::blinkWarning()
+{
+	addLedCmdArrayToQueue(led_e::red, warningBlink, 7);
 }
 
 void CircuitControll::soundHighBeep()
 {
-	addArrayToQueue(tuneHighBeep, 2);
+	addToneArrayToQueue(tuneHighBeep, 2);
 }
+
 
 //void CircuitControll::setLed(ledColor_e color, onOff_e onOff)
 //{
@@ -113,17 +124,15 @@ void CircuitControll::soundHighBeep()
 void CircuitControll::setLed(led_e pos, onOff_e onOff)
 {
 	bitWrite(bitPatern, pos, onOff);
-
+	//Serial.println("bitpattern: " + (String)bitPatern);
 }
 
 void CircuitControll::runLeds()
 {
-	//Serial.println("runLeds");
 	for (ledCmdQueue::size_type i = 0; i < ledArraySize_c; i++)
 	{
 		if (cmdArray[i].empty())
 			continue;
-		//Serial.println(" Led: " + (String)i);
 
 		ledCmd *currentLed = cmdArray[i].front();
 
@@ -133,26 +142,22 @@ void CircuitControll::runLeds()
 
 			currentLed->startTime = millis();
 			setLed((led_e)i, currentLed->onOff);
+			//Serial.println("Led " + (String)i+" is: " + (String)currentLed->onOff);
 			currentLed->state = ledCmd::state_e::running;
-			//Serial.println("Led " + (String)i + " "+ (String)currentLed->onOff);
 			break;
 		case ledCmd::state_e::running:
-			//Serial.println("running");
 			if (millis() > currentLed->startTime + currentLed->duration)
 			{
+				setLed((led_e)i, onOff_e::off);
 				cmdArray[i].pop();
 				delete currentLed;
 			}
-
 			break;
-
 		default:
 			break;
 		}
 	}
 	updateShiftRegister(bitPatern);
-	//Serial.println("bitPatern: " + (String)bitPatern);
-
 }
 
 /*
@@ -161,18 +166,37 @@ void CircuitControll::runLeds()
 void CircuitControll::updateShiftRegister(byte leds)
 {
 	digitalWrite(PIN_LATCH, LOW);
-	shiftOut(PIN_DATA, PIN_CLOCK, LSBFIRST, leds);
+	//Serial.println("Shift out byte: " + (String)leds);
+	leds ^= 0xff;
+	shiftOut(PIN_DATA, PIN_CLOCK, MSBFIRST, leds);
 	digitalWrite(PIN_LATCH, HIGH);
+}
+
+void CircuitControll::deleteLedQueue(led_e led)
+{
+	while (!cmdArray[led].empty())
+	{
+		delete cmdArray[led].front();
+		cmdArray[led].pop();
+	}
 }
 
 void CircuitControll::addLedCmd(led_e led, onOff_e value, int dur)
 {
+	//Serial.println("add to led queue:" + (String)led + ", " + (String)value + ", " + (String)dur);
 	ledCmd *cmd = new ledCmd(value, dur);
-	while (!cmdArray[led].empty())
-	{
-		cmdArray[led].pop();
-	}
+	deleteLedQueue(led);
 	cmdArray[led].push(cmd);
+}
+
+void CircuitControll::addLedCmdArrayToQueue(led_e led, const ledCmd queue[], int lenght)
+{
+	deleteLedQueue(led);
+	for (int i = 0; i < lenght; i++)
+	{
+		ledCmd* cmd = new ledCmd(queue[i].onOff, queue[i].duration);
+		cmdArray[led].push(cmd);
+	}
 }
 
 

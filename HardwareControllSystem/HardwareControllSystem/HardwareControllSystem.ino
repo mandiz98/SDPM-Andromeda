@@ -49,48 +49,67 @@ void OnRFID_Recive(String message)
 
 	bluetooth.sendData(BluetoothInterface::TrancmitType::RFID, message);
 	display->displayClockIn(message);
+	cirCtrl.soundLogin();
+	cirCtrl.addLedCmd(CircuitControll::led_e::blue, CircuitControll::onOff_e::on, 400);
 }
 void reciveSuccessListner(String data)
 {
+	cirCtrl.soundHighBeep();
+	cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 1000);
 }
 void reciveFailListner(String data)
 {
+	cirCtrl.soundLowBeep();
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 1000);
 }
 void reciveAlarmListner(String data)
 {
+	cirCtrl.soundVarning();
+	cirCtrl.blinkWarning();
+	
+	/*
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 400);
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::off, 100);
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 400);
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::off, 100); 
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 400);
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::off, 100); 
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 400);
+	*/
+	
 }
 void reciveRoom(String data)
 {
 	//TODO implement
-	Serial.println("Room: " + data);
+	//Serial.println("Room: " + data);
 
 }
 void reciveRadiation(String data)
 {
 	//TODO implement
-	Serial.println("Radiation: " + data);
+	//Serial.println("Radiation: " + data);
 
 }
 void reciveHazmatsuit(String data)
 {
 	//TODO implement
-	Serial.print("Hazmat: ");
-	Serial.print((data == "0") ? "off" : "on");
-	Serial.print("\n");
+	//Serial.print("Hazmat: ");
+	//Serial.print((data == "0") ? "off" : "on");
+	//Serial.print("\n");
 }
 void onValueChangeListener(float f) {
-	Serial.println("Float value :" + (String)f);
-	CircuitControll::toneCmd tones[3] = {
+	//Serial.println("Float value :" + (String)f);
+	/*CircuitControll::toneCmd tones[3] = {
 		CircuitControll::toneCmd(f * 1000 + 250, 100),
 		CircuitControll::toneCmd(f * 1000 + 500, 100),
 		CircuitControll::toneCmd(f * 1000 + 750, 100),
-	};
-	cirCtrl.addArrayToQueue(tones, 3);
+	};*/
+	//cirCtrl.addArrayToQueue(tones, 3);
 	//cirCtrl.addToneToQueue(CircuitControll::toneCmd(0));
 }
 void setup() 
 {	
-	Serial.println("---Setup start---");
+	//Serial.println("---Setup start---");
 
 
 	pinMode(PIN_LATCH, OUTPUT);
@@ -115,17 +134,16 @@ void setup()
 
 	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2000,400));
 
-	Serial.println("---Ready---");
+	//Serial.println("---Ready---");
 
 }
 
 void loop()
 {
 	cirCtrl.run();
-	//rfid.run();
-	//bluetooth.run();
-	//display->run();
-	//delay(100);
+	rfid.run();
+	bluetooth.run();
+	display->run();
 	rad.run();
 }
 
