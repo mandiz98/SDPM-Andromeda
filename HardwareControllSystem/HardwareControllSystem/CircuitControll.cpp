@@ -4,7 +4,7 @@ CircuitControll::CircuitControll(){}
 
 void CircuitControll::runBuzzer()
 {
-	Serial.println("Tone size: " + (String)toneQueue.size());
+	//Serial.println("Tone size: " + (String)toneQueue.size());
 	//tone(PIN_BUZZER, frequency, duration);
 	//Serial.print("buzz");
 	enum StatesBuzz
