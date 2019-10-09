@@ -9,6 +9,7 @@ DisplayControll::DisplayControll()
 }
 DisplayControll *DisplayControll::getInstance()
 {
+	//singelton instance
 	static DisplayControll *instance = nullptr;
 	if (instance == nullptr)
 		instance = new DisplayControll();
@@ -17,24 +18,41 @@ DisplayControll *DisplayControll::getInstance()
 DisplayControll::~DisplayControll()
 {
 }
-void DisplayControll::run()
-{
-}
-
 void DisplayControll::addReciveListener(reciveType type, void(*callback)(String))
 {
 	m_listenerVector.push_back(reciveListener_s(type, callback));
 }
 
-void DisplayControll::displayClockIn(String message)
+void DisplayControll::updateTime(int hour, int minutes, int secounds)
 {
-	sendToDisplay(cmd_clockIn, message);
+	//formats the time into readable string for the display
+	String data = 
+		(abs(hour) < 10 ? "0" : "") + String(hour) + ":" +
+		(abs(minutes) < 10 ? "0" : "") + String(minutes) + ":" +
+		(abs(secounds) < 10 ? "0" : "") + String(secounds);
+
+	sendToDisplay(cmd_timeChange, data);
 }
 
+void DisplayControll::updateRawRadiation(float radiation)
+{
+	sendToDisplay(cmd_radChange, String(radiation));
+}
+
+void DisplayControll::displayMessage(String message)
+{
+	sendToDisplay(cmd_message, message);
+}
+
+void DisplayControll::displayWarning(String message)
+{
+	sendToDisplay(cmd_warning, message);
+}
 
 
 void DisplayControll::sendToDisplay(cmdType_e type, String data)
 {
+	//formats the command into a readable string and sends it 
 	String message = String(type) + ';' + data;
 	Wire.beginTransmission(DisplayControll::m_externalAdress);
 	for (int i = 0; i < message.length(); i++)
@@ -45,6 +63,7 @@ void DisplayControll::sendToDisplay(cmdType_e type, String data)
 }
 void DisplayControll::onRecive(reciveType type, String data)
 {
+	//only call callbacks intressted in that type
 	for (int i = 0; i < m_listenerVector.size(); i++)
 	{
 		if (m_listenerVector[i].type == type)
