@@ -16,12 +16,17 @@ public:
 	{
 		RFID = 4010,
 		radiationChange = 5000,
+		roomChange = 2000,
+		hazmatsuit = 2001,
 	};
 	enum ReciveType
 	{
 		soundSuccess = 3000,
 		soundFail = 3001,
-		soundAlarm = 3002,
+		//soundAlarm = 3002,
+		warning = 3002,
+		timeChange = 3003,
+		message=3004,
 	};
 
 	void init(unsigned long baud);

@@ -10,39 +10,50 @@ using namespace std;
 class DisplayControll
 {
 public:
+	//returnes a singelton instance 
 	static DisplayControll* getInstance();
 	~DisplayControll();
 
+	//types if data that can be recived from the display
 	enum reciveType
 	{
 		room = 10,
 		radiation = 11,
 		hazmatsuit = 12,
 	};
-
-	void run();
-
+	//add an callback function that listen for a specific recived data type
 	void addReciveListener(reciveType type,void(*callback)(String));
 
-	//void updateTime(int hour, int minutes, int secounds);
-	void displayClockIn(String message);
-	//void displayClockOut(String message);
-	//void displayWarning(String message);
+	//updates the displayed time on the display
+	//NOTE: the display automaticly counts down every secound
+	void updateTime(int hour, int minutes, int secounds);
+
+	//updates the raw radiation (before exposure calculations) 
+	void updateRawRadiation(float radiation);
+
+	//sends a message for the display. the message automaticle disapear after a while
+	//NOTE: messages containing rowes longer then 16 charachter will be cut of
+	void displayMessage(String message);
+
+	//sends a warning for the display. the message must manualy closed on the display for it to go away (this is done by the user)
+	void displayWarning(String message);
 
 private:
 	DisplayControll();
 
-
+	//types of command to send to the display
 	enum cmdType_e
 	{
 		cmd_warning = 1,
-		cmd_clockIn = 2,
-		cmd_clockOut = 3,
-		cmd_timeChange = 4,
+		cmd_message = 2,
+		cmd_timeChange = 3,
+		cmd_radChange = 4,
 	};
 
+	//callback function that handles messages recived from the display
 	static void reciveListener(int size)
 	{
+		//decoding the message into type and data
 		String subMessage[2];
 		int index = 0;
 		while (Wire.available())
@@ -56,13 +67,18 @@ private:
 			subMessage[index] += c;
 		}
 
+		//sends the message to all listners
 		reciveType type = (reciveType)subMessage[0].toInt();
 		String data = subMessage[1];
 		getInstance()->onRecive(type, data);
 	}
+	//format a command and sends it to the display
 	void sendToDisplay(cmdType_e type,String data);
+
+	//callback function that relay a message to external callbacks
 	void onRecive(reciveType type,String data);
 
+	//support struct for external callback functions
 	struct reciveListener_s
 	{
 		reciveListener_s(){}
@@ -75,9 +91,12 @@ private:
 		reciveType type;
 	};
 
+	//i2c adress for the external adress
  	static const int m_externalAdress = 2;
+	//i2s adress for this device
 	static const int m_thisAdress = 1;
 
+	//container for external callbacks
 	vector<reciveListener_s> m_listenerVector;
 };
 

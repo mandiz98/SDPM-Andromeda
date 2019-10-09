@@ -36,7 +36,7 @@ enum menu_e
 	menu_setHazmat,
 	menu_displayRoom,
 	menu_warning,
-	menu_clockEvent,
+	menu_message,
 };
 enum button_e
 {
@@ -49,11 +49,11 @@ enum button_e
 };
 enum cmdType_e
 {
-	cmd_none=0,
-	cmd_warning=1,
-	cmd_clockIn=2,
-	cmd_clockOut=3,
-	cmd_timeChange=4,
+	cmd_none = 0,
+	cmd_warning = 1,
+	cmd_message = 2,
+	cmd_timeChange = 3,
+	cmd_radChange = 4,
 };
 enum dataTransmitType_e
 {
@@ -131,6 +131,7 @@ room_s currentRoom;
 command_s latestCmd;
 time_s timeLeft;
 bool hazmatsuit = false;
+float rawRadiation = 42;
 
 byte roomCount = 3;
 const room_s roomes[] = {
@@ -158,7 +159,7 @@ float getCurrentProtectionCoeff()
 }
 float getCurrentRad()
 {
-	return 42 * currentRoom.coefficient / getCurrentProtectionCoeff();
+	return rawRadiation * currentRoom.coefficient / getCurrentProtectionCoeff();
 }
 time_s getTimeLeft()
 {
@@ -168,12 +169,11 @@ time_s getTimeLeft()
 
 void reciveEvent(int size)
 {
-	String subMessage[2];
+	String subMessage[2] = {"",""};
 	byte index = 0;
 	while (Wire.available())
 	{
 		char c = Wire.read();
-		Serial.print(c);
 		if (c == ';')
 		{
 			index++;
@@ -181,7 +181,7 @@ void reciveEvent(int size)
 		}
 		subMessage[index] += c;
 	}
-	Serial.print('\n');
+	Serial.println(subMessage[0] + ';' + subMessage[1]);
 	setNewCmd(command_s(subMessage[1],(cmdType_e)subMessage[0].toInt()));
 }
 void send(dataTransmitType_e type,String data)
@@ -192,6 +192,7 @@ void send(dataTransmitType_e type,String data)
 	{
 		Wire.print(message[i]);
 	}
+	Serial.println(message);
 	Wire.endTransmission();
 }
 
@@ -396,6 +397,7 @@ bool displayRoomMenu()
 	};
 	static state_e state = print;
 	static time_s oldTimeLeft = time_s();
+	static float oldRad = 0;
 
 	if (menuIsChanging)
 	{
@@ -418,10 +420,11 @@ bool displayRoomMenu()
 		lcd.setCursor(8, 1);
 		lcd.print(getTimeLeft().toString());
 		oldTimeLeft = getTimeLeft();
+		oldRad = getCurrentRad();
 		state = idle;
 		break;
 	case idle:
-		if (getTimeLeft().toString() != oldTimeLeft.toString())
+		if (getTimeLeft().toString() != oldTimeLeft.toString() || oldRad != getCurrentRad())
 			state = print;
 
 		if (peekPuttonStack() == button_select)
@@ -455,10 +458,11 @@ bool warningMenu()
 
 	switch (state)
 	{
-	case print:		lcd.clear();
+	case print:		
+		lcd.clear();
 		lcd.print("WARNING");
 		lcd.setCursor(0, 1);
-		lcd.print("Clock out now");
+		lcd.print(latestCmd.data);
 		state = wait;
 
 		break;
@@ -472,12 +476,11 @@ bool warningMenu()
 
 	return false;
 }
-bool clockMenu()
+bool messageMenu()
 {
 	enum state_e
 	{
 		print,
-		startWait,
 		wait,
 		end,
 	};
@@ -496,26 +499,12 @@ bool clockMenu()
 	case print:
 
 		lcd.clear();
-		lcd.setCursor(0, 1);
-		lcd.print(latestCmd.data);
-		lcd.setCursor(0, 0);
-		switch (latestCmd.cmd)
+		for (int i = 0; i < latestCmd.data.length(); i++)
 		{
-		case cmd_clockIn:
-			lcd.print("Clock in");
-			state = startWait;
-			break;
-		case cmd_clockOut:
-			lcd.print("Clock out");
-			state = startWait;
-			break;
-		default:
-			state = end;
-			break;
+			if (latestCmd.data[i] == '\n')
+				lcd.setCursor(0, 1);
+			else lcd.print(latestCmd.data[i]);
 		}
-
-		break;
-	case startWait:
 		waitStartTime = millis();
 		state = wait;
 		break;
@@ -535,24 +524,24 @@ bool clockMenu()
 
 void setNewCmd(command_s cmd)
 {
-	Serial.println("cmd:" + String(cmd.cmd));
-	Serial.println("data:" +cmd.data);
+	//Serial.println("cmd:" + String(cmd.cmd));
+	//Serial.println("data:" + cmd.data);
 	latestCmd = cmd;
 	switch (cmd.cmd)
 	{
 	case cmd_warning:
 		changeMenu(menu_warning);
 		break;
-	case cmd_clockOut:
-		changeMenu(menu_clockEvent);
-		break;
-	case cmd_clockIn:
-		changeMenu(menu_clockEvent);
+	case cmd_message:
+		changeMenu(menu_message);
 		break;
 	case cmd_timeChange:
 		timeLeft.houres   = cmd.data.substring(0, 2).toInt();
 		timeLeft.minutes  = cmd.data.substring(3, 5).toInt();
 		timeLeft.secounds = cmd.data.substring(6, 8).toInt();
+		break;
+	case cmd_radChange:
+		rawRadiation = latestCmd.data.toFloat();
 		break;
 	default:
 		break;
@@ -566,9 +555,9 @@ void changeRoom(room_s room)
 }
 void changeMenu(menu_e menu)
 {
-	Serial.print("Menu change to: ");
-	Serial.print(String(menu));
-	Serial.print("\n");
+	//Serial.print("Menu change to: ");
+	//Serial.print(String(menu));
+	//Serial.print("\n");
 
 	int timeOutLimit = 10;
 
@@ -603,8 +592,8 @@ void changeMenu(menu_e menu)
 	case menu_warning:
 		currentMenu = warningMenu;
 		break;
-	case menu_clockEvent:
-		currentMenu = clockMenu;
+	case menu_message:
+		currentMenu = messageMenu;
 		break;
 	default:
 		break;
@@ -718,15 +707,12 @@ void setup()
 	Serial.begin(9600);
 	 
 	currentRoom = roomes[0];
-	currentMenu = displayRoomMenu;
+	currentMenu = idleMenu;
 	latestCmd = command_s("", cmd_none);
 	hazmatsuit = false;
-
 	timeLeft = time_s(0, 0, 2);
 
 	lcd.begin(16, 2);
-
-	Serial.println("---Ready---");
 }
 void loop()
 {
