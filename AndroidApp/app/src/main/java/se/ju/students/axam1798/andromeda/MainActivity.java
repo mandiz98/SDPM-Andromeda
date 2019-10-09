@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         m_bluetoothService = new BluetoothService();
 
-        m_userManager.setStoredUser(new User(7, "", false, false, Role.MANAGER));
-        clockIn();
-
         //Bluetooth connection animation
         final ImageView rfidAnimation = findViewById(R.id.img_rfid);
         rfidAnimation.setOnClickListener(new View.OnClickListener(){
@@ -104,13 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful() && response.body() != null) {
                     // Successful response! Event created.
                     Event eventCreated = response.body();
-                    toastMessage = String.format(
-                            Locale.getDefault(),
-                            "Stored event %d with data \"%s\" on %s",
-                            eventCreated.getEventKey(),
-                            eventCreated.getData(),
-                            eventCreated.getDateCreated()
-                    );
 
                     // eventKey 4010 = clock in/out, get user's clocked in status
                     if(eventCreated.getEventKey() == 4010) {
@@ -125,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
                                     if(user.isClockedIn()) {
                                         clockIn();
+                                    }else{
+                                        clockOut();
                                     }
                                 }
                             }
@@ -139,21 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }else if(response.errorBody() != null){
-                    // Not successful, we got an error body
-                    APIError error = APIClient.decodeError(response.errorBody());
-                    toastMessage = error.getMessage();
-                }else{
-                    // No error body in response, but connection to server was successful
-                    toastMessage = "Unknown error (HTTP code "+response.code()+")";
                 }
-
-                // Display a toast! :^)
-                Toast.makeText(
-                        getApplicationContext(),
-                        toastMessage,
-                        Toast.LENGTH_LONG
-                ).show();
             }
 
             @Override
@@ -239,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void setupBTConnection()
     {
         if(m_bluetoothService.isSupported())
@@ -260,6 +239,16 @@ public class MainActivity extends AppCompatActivity {
     {
         m_connection.cancel();
         m_connection = null;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(
+                        m_context,
+                        "Bluetooth disconnected",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
     }
 
     @Override
@@ -351,10 +340,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Send message to do a success sound to the console
-        /*m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                 3000,
                 System.currentTimeMillis()
-        )).getBytes());*/
+        )).getBytes());
     }
 
     //Go to clocked out fragment
@@ -364,10 +353,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.commit();
 
         // Send message to do a fail sound to the console
-        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+        /*m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                 3001,
                 System.currentTimeMillis()
-        )).getBytes());
+        )).getBytes());*/
     }
 
     /**

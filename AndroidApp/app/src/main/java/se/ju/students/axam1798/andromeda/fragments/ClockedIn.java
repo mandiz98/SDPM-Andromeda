@@ -21,12 +21,23 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import se.ju.students.axam1798.andromeda.API.APICallback;
+import se.ju.students.axam1798.andromeda.API.APIClient;
+import se.ju.students.axam1798.andromeda.API.APIError;
 import se.ju.students.axam1798.andromeda.R;
 import se.ju.students.axam1798.andromeda.RadiationTimerService;
 import se.ju.students.axam1798.andromeda.UserManager;
 import se.ju.students.axam1798.andromeda.activities.EmployeeHistoryActivity;
 import se.ju.students.axam1798.andromeda.activities.EmployeeListActivity;
 import se.ju.students.axam1798.andromeda.enums.Role;
+import se.ju.students.axam1798.andromeda.models.Event;
 
 
 public class ClockedIn extends Fragment {
@@ -137,7 +148,22 @@ public class ClockedIn extends Fragment {
         txtTimer = view.findViewById(R.id.txt_timer);
 
         //Time clocked in
+        APIClient.getInstance().getLatestEventByKey(4010, userManager.getUser().getId(), new APICallback<Event>() {
+            @Override
+            public void onSuccess(Call<Event> call, Response<Event> response, Event decodedBody) {
+                // TOOD uppdatera clocked in text
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                simpleDateFormat.setTimeZone(TimeZone.getTimeZone("479"));
+                ((TextView)view.findViewById(R.id.txt_clocked_in_time)).setText(
+                        simpleDateFormat.format(decodedBody.getDateCreated())
+                );
+            }
 
+            @Override
+            public void onError(Call<Event> call, Response<Event> response, APIError error) {
+
+            }
+        });
 
         //Room
 
@@ -146,14 +172,6 @@ public class ClockedIn extends Fragment {
 
 
         return view;
-    }
-
-    private String getClockedInTime(){
-
-        String m_time;
-
-
-        return m_time;
     }
 
     final Runnable updateTimerTextRunnable = new Runnable() {

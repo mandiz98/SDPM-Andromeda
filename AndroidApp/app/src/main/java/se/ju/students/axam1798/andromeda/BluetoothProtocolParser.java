@@ -66,7 +66,7 @@ public class BluetoothProtocolParser
                     }
                     catch (Exception e)
                     {
-                        Log.e(TAG, "EventKey was not in the right format. Not an integer. ".concat(currentStatementPart), e);
+                        Log.e(TAG, "EventKey was not in the right format. Not an integer. STATEMENT: ".concat(currentStatementPart), e);
                     }
                 }
                 else if(statementCounter == 2)
@@ -81,7 +81,7 @@ public class BluetoothProtocolParser
                     }
                     catch(Exception e)
                     {
-                        Log.e(TAG, "Timestamp was not in the right format. Not a long. ".concat(currentStatementPart), e);
+                        Log.e(TAG, "Timestamp was not in the right format. Not a long. STATEMENT: ".concat(currentStatementPart), e);
                     }
                 }
                 else if(statementCounter == 3 && c == m_endOfStatement)

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import se.ju.students.axam1798.andromeda.R;
 import se.ju.students.axam1798.andromeda.models.Event;
@@ -54,6 +55,7 @@ public class HistoryListAdapter extends ArrayAdapter<Event> {
                     else
                         text += "Clocked out at ";
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss", Locale.getDefault());
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("479"));
                     text += dateFormat.format(event.getDateCreated());
                     text1.setText(text);
                     break;
@@ -61,6 +63,7 @@ public class HistoryListAdapter extends ArrayAdapter<Event> {
 
                 case 5000: {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss", Locale.getDefault());
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("479"));
                     text1.setText(
                             "Rads/second at " +
                             dateFormat.format(event.getDateCreated()) + ": " +
