@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import se.ju.students.axam1798.andromeda.R;
 import se.ju.students.axam1798.andromeda.models.Event;
 import se.ju.students.axam1798.andromeda.models.User;
@@ -45,10 +48,31 @@ public class HistoryListAdapter extends ArrayAdapter<Event> {
             TextView text1 = view.findViewById(android.R.id.text1);
             switch(event.getEventKey()) {
                 case 4010: {
-                    text1.setText("");
+                    String text = "";
+                    if(event.wasClockedIn())
+                        text += "Clocked in at ";
+                    else
+                        text += "Clocked out at ";
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss", Locale.getDefault());
+                    text += dateFormat.format(event.getDateCreated());
+                    text1.setText(text);
                     break;
                 }
+
+                case 5000: {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss", Locale.getDefault());
+                    text1.setText(
+                            "Rads/second at " +
+                            dateFormat.format(event.getDateCreated()) + ": " +
+                            event.getData()
+                    );
+                    break;
+                }
+
+                default:
+                    break;
             }
+            text1.setTextColor(m_context.getResources().getColor(R.color.colorWhite));
         }
 
         return view;

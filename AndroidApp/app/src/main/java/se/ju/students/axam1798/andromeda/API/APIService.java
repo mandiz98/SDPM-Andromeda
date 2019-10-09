@@ -29,4 +29,7 @@ public interface APIService {
 
     @POST("events")
     Call<Event> createEvent(@Body Event event);
+
+    @GET("events")
+    Call<List<Event>> getEventsByKey(@Query("eventKey") int eventKey, @Query("userId") int userId);
 }
