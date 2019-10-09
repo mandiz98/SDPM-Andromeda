@@ -38,8 +38,7 @@ void OnRFID_Recive(String message)
 }
 void onRawRadiationChange(float rad)
 {
-	cirCtrl.soundHighBeep();
-	cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 1000);
+	display->updateRawRadiation(rad);
 }
 void reciveFailListner(String data)
 {
@@ -95,9 +94,7 @@ void reciveRoom(String data)
 }
 void reciveRadiation(String data)
 {
-}
-void reciveHazmatsuit(String data)
-{
+	bluetooth.sendData(BluetoothInterface::TrancmitType::radiationChange, data);
 }
 void reciveHazmatsuit(String data)
 {
