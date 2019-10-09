@@ -1,5 +1,6 @@
 package se.ju.students.axam1798.andromeda.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import se.ju.students.axam1798.andromeda.R;
+import se.ju.students.axam1798.andromeda.adapters.HistoryListAdapter;
 import se.ju.students.axam1798.andromeda.models.Event;
 
 public class HistoryPageFragment extends Fragment {
@@ -43,6 +45,9 @@ public class HistoryPageFragment extends Fragment {
     private int m_list_view_layout_id;
     private Gson gson;
 
+    private ViewGroup m_rootView;
+    private ListView m_listView;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,21 +63,36 @@ public class HistoryPageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(
+        m_rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_history_page,
                 container,
                 false
         );
 
-        ((TextView)rootView.findViewById(R.id.history_page_title)).setText(m_title);
-        ArrayAdapter<Event> adapter = new ArrayAdapter<>(
-                rootView.getContext(),
+        ((TextView)m_rootView.findViewById(R.id.history_page_title)).setText(m_title);
+        HistoryListAdapter adapter = new HistoryListAdapter(
+                m_rootView.getContext(),
                 m_list_view_layout_id,
-                m_events
+                m_events.toArray(new Event[0])
         );
-        ((ListView)rootView.findViewById(R.id.history_page_list_view)).setAdapter(adapter);
+        m_listView = m_rootView.findViewById(R.id.history_page_list_view);
+        m_listView.setAdapter(adapter);
 
-        return rootView;
+        return m_rootView;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.m_events = events;
+        updateListViewAdapter();
+    }
+
+    public void updateListViewAdapter() {
+        HistoryListAdapter adapter = new HistoryListAdapter(
+                m_rootView.getContext(),
+                m_list_view_layout_id,
+                m_events.toArray(new Event[0])
+        );
+        m_listView.setAdapter(adapter);
     }
 
 }

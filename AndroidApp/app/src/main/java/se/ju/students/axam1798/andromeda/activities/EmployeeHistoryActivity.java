@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -19,7 +20,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Response;
+import se.ju.students.axam1798.andromeda.API.APICallback;
+import se.ju.students.axam1798.andromeda.API.APIClient;
+import se.ju.students.axam1798.andromeda.API.APIError;
 import se.ju.students.axam1798.andromeda.R;
+import se.ju.students.axam1798.andromeda.UserManager;
 import se.ju.students.axam1798.andromeda.fragments.HistoryPageFragment;
 import se.ju.students.axam1798.andromeda.models.Event;
 import se.ju.students.axam1798.andromeda.models.User;
@@ -49,7 +56,6 @@ public class EmployeeHistoryActivity extends FragmentActivity {
 
         // TODO: Get events from API, populate fragments
 
-        // Create the page fragments
         radiationHistoryFragment = HistoryPageFragment.newInstance(
                 "Radiation",
                 Arrays.asList(
@@ -62,13 +68,40 @@ public class EmployeeHistoryActivity extends FragmentActivity {
         workHistoryFragment = HistoryPageFragment.newInstance(
                 "Work",
                 Arrays.asList(
-                        new Event(0, 0, 3010, new Date(), null), // Clock out
-                        new Event(0, 0, 3000, new Date(), null), // Clock in
-                        new Event(0, 0, 3010, new Date(), null), // Clock out
-                        new Event(0, 0, 3000, new Date(), null) // Clock in
+                        new Event(0, 0, 4010, new Date(), "rfid")
                 ),
                 android.R.layout.simple_list_item_1 // TODO: Use custom work history list layout
         );
+
+        APIClient.getInstance().getEventsByKey(
+                4010,
+                UserManager.getInstance(getApplicationContext()).getUser().getId(),
+                new APICallback<List<Event>>() {
+            @Override
+            public void onSuccess(Call<List<Event>> call, Response<List<Event>> response, List<Event> decodedBody) {
+                workHistoryFragment.setEvents(decodedBody);
+            }
+
+            @Override
+            public void onError(Call<List<Event>> call, Response<List<Event>> response, APIError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        APIClient.getInstance().getEventsByKey(
+                5000,
+                UserManager.getInstance(getApplicationContext()).getUser().getId(),
+                new APICallback<List<Event>>() {
+            @Override
+            public void onSuccess(Call<List<Event>> call, Response<List<Event>> response, List<Event> decodedBody) {
+                radiationHistoryFragment.setEvents(decodedBody);
+            }
+
+            @Override
+            public void onError(Call<List<Event>> call, Response<List<Event>> response, APIError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         // Instantiate a ViewPager and a PagerAdapter.
         m_pager = findViewById(R.id.historyPager);

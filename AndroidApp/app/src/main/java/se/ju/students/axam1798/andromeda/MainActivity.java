@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 APIClient.getInstance().createEvent(
                         new Event(
                                 0,
-                                0,
+                                m_userManager.getUser() != null ? m_userManager.getUser().getId() : 0,
                                 statement.eventKey,
                                 new Date(),
                                 statement.data
