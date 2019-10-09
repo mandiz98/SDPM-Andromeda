@@ -42,18 +42,15 @@ void onRawRadiationChange(float rad)
 }
 void reciveFailListner(String data)
 {
-	cirCtrl.soundLowBeep();
+	cirCtrl.soundLogout();
 	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 1000);
 
 }
 
 //recivers from bluetooth
 void reciveSuccessListner(String data)
-{//TODO implement
-}
-
-void reciveAlarmListner(String data)
-{//TODO implement
+{
+	cirCtrl.soundLogin();
 }
 
 //bluetooth messages to send to display
@@ -101,18 +98,52 @@ void reciveHazmatsuit(String data)
 	bluetooth.sendData(BluetoothInterface::TrancmitType::hazmatsuit, data);
 }
 
+void heartbeat()
+{
+	enum state_s
+	{
+		toggle,
+		wait
+	};
+	static state_s state = toggle;
+	static bool on = false;
+	static long startWait = 0;
+	static const long waitTime_ms = 500;
+
+	switch (state)
+	{
+	case toggle:
+		on = !on;
+		digitalWrite(LED_BUILTIN, on? HIGH : LOW);
+		if (on)
+			cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 100);
+			//tone(6, 750, 100);
+		startWait = millis();
+		state = wait;
+		break;
+	case wait:
+		if (startWait + waitTime_ms < millis())
+			state = toggle;
+		break;
+	default:
+		break;
+	}
+}
+
 void setup() 
 {	
+
 	pinMode(PIN_LATCH, OUTPUT);
 	pinMode(PIN_DATA, OUTPUT);
 	pinMode(PIN_CLOCK, OUTPUT);
 	pinMode(PIN_ANALOGRADREAD, INPUT);
+	pinMode(LED_BUILTIN, OUTPUT);
 
 	bluetooth.init(9600);
 	rfid.init();
 
+	//----comunication mapping-----
 	rfid.setOnReciveEvent(OnRFID_Recive);
-	rad.setValueChangeCallback(onRawRadiationChange);
 
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundFail,	reciveFailListner);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundSuccess, reciveSuccessListner);
@@ -122,18 +153,21 @@ void setup()
 
 	display = DisplayControll::getInstance();
 	display->addReciveListener(DisplayControll::reciveType::hazmatsuit, reciveHazmatsuit);
-
 	display->addReciveListener(DisplayControll::reciveType::radiation, reciveRadiation);
 	display->addReciveListener(DisplayControll::reciveType::room, reciveRoom);
 
 	rad.setValueChangeCallback(onRawRadiationChange);
+	//--------------------------------------
 }
 
 void loop()
 {
+	//heartbeat();
+
 	cirCtrl.run();
 	rfid.run();
 	bluetooth.run();
 	rad.run();
+	display->run();
 }
 

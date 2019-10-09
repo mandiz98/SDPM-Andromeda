@@ -23,7 +23,6 @@ public:
 	{
 		soundSuccess = 3000,
 		soundFail = 3001,
-		//soundAlarm = 3002,
 		warning = 3002,
 		timeChange = 3003,
 		message=3004,

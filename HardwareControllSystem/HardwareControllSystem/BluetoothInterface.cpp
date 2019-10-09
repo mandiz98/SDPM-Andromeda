@@ -48,30 +48,26 @@ void BluetoothInterface::onCommandRecive(String message)
 {
 	String subMessage[3];
 
-	const int bufferSize = 100;
-	char buffer[bufferSize];
-	message.toCharArray(buffer, bufferSize);
-
+	
 	//breaking upp the raw message into usable substrings
 	int subStringIndex = 0;
-	for (int i = 0; i < bufferSize; i++)
+	for (int i = 0; i < message.length(); i++)
 	{
-		char c = buffer[i];
-		if (c == m_messageSeperator)
+		if (message.charAt(i) == m_messageSeperator)
 			break;
-		else if (c == m_dataSeperator)
+		else if (message.charAt(i) == m_dataSeperator)
 		{
 			subStringIndex++;
 			continue;
 		}
-		subMessage[subStringIndex] += c;
+		subMessage[subStringIndex] += message.charAt(i);
 	}
 	
 	//mappes the substrings into there proper roles
 	ReciveType type = (ReciveType)subMessage[0].toInt();
 	String data = subMessage[2];
 
-	sendToCallback(type, data);
+	//sendToCallback(type, data);
 }
 
 void BluetoothInterface::sendToCallback(ReciveType type, String data)

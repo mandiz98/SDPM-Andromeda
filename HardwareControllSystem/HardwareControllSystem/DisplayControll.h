@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <string>
 #include <vector>
+#include <queue>
 #include <stdlib.h>
 #include <Wire.h>
 
@@ -13,6 +14,8 @@ public:
 	//returnes a singelton instance 
 	static DisplayControll* getInstance();
 	~DisplayControll();
+
+	void run();
 
 	//types if data that can be recived from the display
 	enum reciveType
@@ -49,6 +52,16 @@ private:
 		cmd_timeChange = 3,
 		cmd_radChange = 4,
 	};
+	struct reciveData_s
+	{
+		reciveType type;
+		String data;
+		reciveData_s(reciveType type, String data)
+		{
+			this->type = type;
+			this->data = data;
+		}
+	};
 
 	//callback function that handles messages recived from the display
 	static void reciveListener(int size)
@@ -70,8 +83,13 @@ private:
 		//sends the message to all listners
 		reciveType type = (reciveType)subMessage[0].toInt();
 		String data = subMessage[1];
-		getInstance()->onRecive(type, data);
+		getInstance()->reciveQueue.push(reciveData_s(type, data));
+		//getInstance()->onRecive(type, data);
 	}
+
+	void runReciver();
+	void runTrancmiter();
+
 	//format a command and sends it to the display
 	void sendToDisplay(cmdType_e type,String data);
 
@@ -91,11 +109,14 @@ private:
 		reciveType type;
 	};
 
+	
 	//i2c adress for the external adress
- 	static const int m_externalAdress = 2;
+ 	const int m_externalAdress = 2;
 	//i2s adress for this device
-	static const int m_thisAdress = 1;
+	const int m_thisAdress = 1;
 
+	queue<String> transmitQueue;
+	queue<reciveData_s> reciveQueue;
 	//container for external callbacks
 	vector<reciveListener_s> m_listenerVector;
 };
