@@ -42,13 +42,11 @@ DisplayControll *display;
 void OnRFID_Recive(String message)
 {
 	bluetooth.sendData(BluetoothInterface::TrancmitType::RFID, message);
-	cirCtrl.soundLogin();
 	cirCtrl.addLedCmd(CircuitControll::led_e::blue, CircuitControll::onOff_e::on, 400);
 }
 void onRawRadiationChange(float rad)
 {
-	cirCtrl.soundHighBeep();
-	cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 1000);
+	display->updateRawRadiation(rad);
 }
 void reciveFailListner(String data)
 {
@@ -103,9 +101,6 @@ void reciveRoom(String data)
 	bluetooth.sendData(BluetoothInterface::TrancmitType::roomChange, data);
 }
 void reciveRadiation(String data)
-{
-}
-void reciveHazmatsuit(String data)
 {
 }
 void reciveHazmatsuit(String data)
