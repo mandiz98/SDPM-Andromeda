@@ -4,8 +4,6 @@
  Author:	Pontus
 */
 
-// the setup function runs once when you press reset or power the board
-
 #include <ShiftRegister74HC595.h>
 #include <ArduinoSTL.h>
 #include <require_cpp11.h>
@@ -13,9 +11,8 @@
 #include <MFRC522.h>
 #include <deprecated.h>
 #include <SPI.h>
-#include "SerialComManager.h"
-//#include "SerialComManager.h"
 #include <Wire.h>
+
 #include "RFID.h"
 #include "CircuitControll.h"
 #include "BluetoothInterface.h"
@@ -40,59 +37,72 @@ RFID rfid(RFID_PIN_SS, RFID_PIN_RST);
 BluetoothInterface bluetooth;
 DisplayControll *display;
 
-
-#define EXTERNAL_LCD_ADRESS 2
-#define THIS_ADRESS 1
 	
+
 void OnRFID_Recive(String message)
 {
-
 	bluetooth.sendData(BluetoothInterface::TrancmitType::RFID, message);
-	display->displayClockIn(message);
+	display->displayMessage("RFID scann: \n"+message);
+	tone(6, 200, 500);
 }
-void reciveSuccessListner(String data)
+void onRawRadiationChange(float rad)
 {
+	display->updateRawRadiation(rad);
+}
+
+//recivers from bluetooth
+void reciveSuccessListner(String data)
+{//TODO implement
 }
 void reciveFailListner(String data)
-{
+{//TODO implement
 }
 void reciveAlarmListner(String data)
-{
+{//TODO implement
 }
+
+//bluetooth messages to relay to display
+void reciveWarningListner(String data)
+{
+	display->displayWarning(data);
+}
+void reciveTimeListner(String data)
+{
+	String subData[3];
+	int index = 0;
+
+	for (int i = 0; i < data.length(); i++)
+	{
+		if (data[i] == ':')
+			index++;
+		else subData[index] += data[i];
+	}
+	int hours = subData[0].toInt();
+	int min = subData[1].toInt();
+	int sec = subData[2].toInt();
+	display->updateTime(hours, min, sec);
+}
+void reciveMessageListner(String data)
+{
+	display->displayMessage(data);
+}
+
+//recivers from the external lcd
 void reciveRoom(String data)
 {
-	//TODO implement
-	Serial.println("Room: " + data);
-
+	bluetooth.sendData(BluetoothInterface::TrancmitType::roomChange, data);
 }
 void reciveRadiation(String data)
 {
-	//TODO implement
-	Serial.println("Radiation: " + data);
-
+	bluetooth.sendData(BluetoothInterface::TrancmitType::radiationChange, data);
 }
 void reciveHazmatsuit(String data)
 {
-	//TODO implement
-	Serial.print("Hazmat: ");
-	Serial.print((data == "0") ? "off" : "on");
-	Serial.print("\n");
+	bluetooth.sendData(BluetoothInterface::TrancmitType::hazmatsuit, data);
 }
-void onValueChangeListener(float f) {
-	Serial.println("Float value :" + (String)f);
-	CircuitControll::toneCmd tones[3] = {
-		CircuitControll::toneCmd(f * 1000 + 250, 100),
-		CircuitControll::toneCmd(f * 1000 + 500, 100),
-		CircuitControll::toneCmd(f * 1000 + 750, 100),
-	};
-	cirCtrl.addArrayToQueue(tones, 3);
-	//cirCtrl.addToneToQueue(CircuitControll::toneCmd(0));
-}
+
 void setup() 
 {	
-	Serial.println("---Setup start---");
-
-
 	pinMode(PIN_LATCH, OUTPUT);
 	pinMode(PIN_DATA, OUTPUT);
 	pinMode(PIN_CLOCK, OUTPUT);
@@ -104,28 +114,24 @@ void setup()
 	rfid.setOnReciveEvent(OnRFID_Recive);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundFail, reciveFailListner);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundSuccess, reciveSuccessListner);
-	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundAlarm, reciveAlarmListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::message, reciveMessageListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::timeChange, reciveTimeListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::warning, reciveWarningListner);
+	//bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::soundAlarm, reciveAlarmListner);
 
 	display = DisplayControll::getInstance();
 	display->addReciveListener(DisplayControll::reciveType::hazmatsuit, reciveHazmatsuit);
 	display->addReciveListener(DisplayControll::reciveType::radiation, reciveRadiation);
 	display->addReciveListener(DisplayControll::reciveType::room, reciveRoom);
 
-	rad.setValueChangeCallback(onValueChangeListener);
-
-	cirCtrl.addToneToQueue(CircuitControll::toneCmd(2000,400));
-
-	Serial.println("---Ready---");
-
+	rad.setValueChangeCallback(onRawRadiationChange);
 }
 
 void loop()
 {
 	cirCtrl.run();
-	//rfid.run();
-	//bluetooth.run();
-	//display->run();
-	//delay(100);
+	rfid.run();
+	bluetooth.run();
 	rad.run();
 }
 
