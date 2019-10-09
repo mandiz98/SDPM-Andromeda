@@ -18,6 +18,7 @@
 #include "BluetoothInterface.h"
 #include "DisplayControll.h"
 #include <Arduino.h>
+#include "RadiationPotentiometer.h"
 
 #define RFID_PIN_SS 10
 #define RFID_PIN_RST 9
@@ -28,10 +29,14 @@ int third_LED = 10;
 int state = 0;
 
 CircuitControll cirCtrl = CircuitControll();
+RadiationPotentiometer rad = RadiationPotentiometer();
+
+
 
 RFID rfid(RFID_PIN_SS, RFID_PIN_RST);
 BluetoothInterface bluetooth;
 DisplayControll *display;
+
 	
 
 void OnRFID_Recive(String message)
@@ -101,6 +106,7 @@ void setup()
 	pinMode(PIN_LATCH, OUTPUT);
 	pinMode(PIN_DATA, OUTPUT);
 	pinMode(PIN_CLOCK, OUTPUT);
+	pinMode(PIN_ANALOGRADREAD, INPUT);
 
 	bluetooth.init(9600);
 	rfid.init();
@@ -117,6 +123,8 @@ void setup()
 	display->addReciveListener(DisplayControll::reciveType::hazmatsuit, reciveHazmatsuit);
 	display->addReciveListener(DisplayControll::reciveType::radiation, reciveRadiation);
 	display->addReciveListener(DisplayControll::reciveType::room, reciveRoom);
+
+	rad.setValueChangeCallback(onRawRadiationChange);
 }
 
 void loop()
@@ -124,5 +132,6 @@ void loop()
 	cirCtrl.run();
 	rfid.run();
 	bluetooth.run();
+	rad.run();
 }
 
