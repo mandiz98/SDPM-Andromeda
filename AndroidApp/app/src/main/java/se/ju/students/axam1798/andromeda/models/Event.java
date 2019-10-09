@@ -23,6 +23,9 @@ public class Event {
     @SerializedName("data")
     private String m_data;
 
+    @SerializedName("clockInOutEvent")
+    private ClockInOutEvent m_clockInOutEvent;
+
     public Event(int id, int userId, int eventKey, Date dateCreated, String data) {
         this.m_id = id;
         this.m_userId = userId;
@@ -49,5 +52,11 @@ public class Event {
 
     public String getData() {
         return m_data;
+    }
+
+    public boolean wasClockedIn() {
+        if(m_clockInOutEvent != null)
+            return m_clockInOutEvent.wasClockedIn();
+        return false;
     }
 }

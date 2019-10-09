@@ -56,6 +56,10 @@ public class APIClient {
         this.apiService.createEvent(event).enqueue(callback);
     }
 
+    public void getEventsByKey(int eventKey, int userId, APICallback<List<Event>> callback) {
+        this.apiService.getEventsByKey(eventKey, userId).enqueue(callback);
+    }
+
     public static APIError decodeError(ResponseBody responseBody) {
         Gson gson = new Gson();
         try {
