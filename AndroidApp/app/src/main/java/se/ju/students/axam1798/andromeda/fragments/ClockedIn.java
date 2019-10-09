@@ -64,7 +64,6 @@ public class ClockedIn extends Fragment {
         UserManager userManager = UserManager.getInstance(getContext());
         if(userManager.getUser().getRole() == Role.MANAGER) {
             Menu menu = toolbar.getMenu();
-            menu.getItem(0).setVisible(false); // My history
             menu.getItem(1).setVisible(true); // Employees
         }
 
