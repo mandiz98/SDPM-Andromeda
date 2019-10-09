@@ -42,21 +42,26 @@ DisplayControll *display;
 void OnRFID_Recive(String message)
 {
 	bluetooth.sendData(BluetoothInterface::TrancmitType::RFID, message);
-	display->displayMessage("RFID scann: \n"+message);
-	tone(6, 200, 500);
+	cirCtrl.soundLogin();
+	cirCtrl.addLedCmd(CircuitControll::led_e::blue, CircuitControll::onOff_e::on, 400);
 }
 void onRawRadiationChange(float rad)
 {
-	display->updateRawRadiation(rad);
+	cirCtrl.soundHighBeep();
+	cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 1000);
+}
+void reciveFailListner(String data)
+{
+	cirCtrl.soundLowBeep();
+	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 1000);
+
 }
 
 //recivers from bluetooth
 void reciveSuccessListner(String data)
 {//TODO implement
 }
-void reciveFailListner(String data)
-{//TODO implement
-}
+
 void reciveAlarmListner(String data)
 {//TODO implement
 }
@@ -64,10 +69,15 @@ void reciveAlarmListner(String data)
 //bluetooth messages to relay to display
 void reciveWarningListner(String data)
 {
+	cirCtrl.soundVarning();
+	cirCtrl.blinkWarning();
+	
+
 	display->displayWarning(data);
 }
 void reciveTimeListner(String data)
 {
+
 	String subData[3];
 	int index = 0;
 
@@ -94,7 +104,9 @@ void reciveRoom(String data)
 }
 void reciveRadiation(String data)
 {
-	bluetooth.sendData(BluetoothInterface::TrancmitType::radiationChange, data);
+}
+void reciveHazmatsuit(String data)
+{
 }
 void reciveHazmatsuit(String data)
 {
@@ -123,6 +135,7 @@ void setup()
 	display->addReciveListener(DisplayControll::reciveType::hazmatsuit, reciveHazmatsuit);
 	display->addReciveListener(DisplayControll::reciveType::radiation, reciveRadiation);
 	display->addReciveListener(DisplayControll::reciveType::room, reciveRoom);
+
 
 	rad.setValueChangeCallback(onRawRadiationChange);
 }
