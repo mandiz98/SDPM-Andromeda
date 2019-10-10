@@ -64,20 +64,21 @@ void reciveWarningListner(String data)
 }
 void reciveTimeListner(String data)
 {
+	display->updateTime(data);
 
-	String subData[3];
-	int index = 0;
+	//String subData[3];
+	//int index = 0;
 
-	for (int i = 0; i < data.length(); i++)
-	{
-		if (data[i] == ':')
-			index++;
-		else subData[index] += data[i];
-	}
-	int hours = subData[0].toInt();
-	int min = subData[1].toInt();
-	int sec = subData[2].toInt();
-	display->updateTime(hours, min, sec);
+	//for (int i = 0; i < data.length(); i++)
+	//{
+	//	if (data[i] == ':')
+	//		index++;
+	//	else subData[index] += data[i];
+	//}
+	//int hours = subData[0].toInt();
+	//int min = subData[1].toInt();
+	//int sec = subData[2].toInt();
+	//display->updateTime(hours, min, sec);
 }
 void reciveMessageListner(String data)
 {
@@ -162,7 +163,7 @@ void setup()
 
 void loop()
 {
-	//heartbeat();
+	heartbeat();
 
 	cirCtrl.run();
 	rfid.run();

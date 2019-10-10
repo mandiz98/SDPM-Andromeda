@@ -53,16 +53,20 @@ void DisplayControll::addReciveListener(reciveType type, void(*callback)(String)
 	m_listenerVector.push_back(reciveListener_s(type, callback));
 }
 
-void DisplayControll::updateTime(int hour, int minutes, int secounds)
+void DisplayControll::updateTime(String data)
 {
-	//formats the time into readable string for the display
-	String data = 
-		(abs(hour) < 10 ? "0" : "") + String(hour) + ":" +
-		(abs(minutes) < 10 ? "0" : "") + String(minutes) + ":" +
-		(abs(secounds) < 10 ? "0" : "") + String(secounds);
-
 	sendToDisplay(cmd_timeChange, data);
 }
+//void DisplayControll::updateTime(int hour, int minutes, int secounds)
+//{
+//	//formats the time into readable string for the display
+//	String data = 
+//		(abs(hour) < 10 ? "0" : "") + String(hour) + ":" +
+//		(abs(minutes) < 10 ? "0" : "") + String(minutes) + ":" +
+//		(abs(secounds) < 10 ? "0" : "") + String(secounds);
+//
+//	sendToDisplay(cmd_timeChange, data);
+//}
 
 void DisplayControll::updateRawRadiation(float radiation)
 {
