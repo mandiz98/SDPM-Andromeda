@@ -27,8 +27,8 @@ public class BluetoothProtocolParser
 
     // Format -> 4011;TIMESTAMP;DATA\n
 
-    private final char m_seperator = ';';
-    private final char m_endOfStatement = '\n';
+    private static final char m_seperator = ';';
+    private static final char m_endOfStatement = '\n';
 
     private String m_currentState = new String();
 
@@ -104,7 +104,7 @@ public class BluetoothProtocolParser
         return statement;
     }
 
-    String parse(Statement statement)
+    static String parse(Statement statement)
     {
         String newStatement =
                 "" +

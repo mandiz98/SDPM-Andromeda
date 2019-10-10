@@ -7,6 +7,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -21,6 +23,8 @@ import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
                 setupBTConnection();
             }
         });
+
+        try
+        {
+            setupBTConnection();
+        }
+        catch (Exception e)
+        {
+            Log.e("Bluetooth", e.getMessage());
+        }
     }
 
     @Override
@@ -213,7 +226,54 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 
-            m_connection.cancel();
+            disconnect();
+        }
+
+        MessageQueue.getInstance().addObserver(new Observer() {
+            @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
+            @Override
+            public void update(Observable messageQueue, Object arg) {
+                MessageQueue.Message msg = MessageQueue.getInstance().peekMessage().handle();
+
+                // If it is a bluetooth message it should contain a valid bluetooth message parsed by the bluetooth parser
+                if(msg.first == MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH)
+                {
+                    // TODO: Validate message in our parser
+
+                    // Do the message
+                    if(m_connection != null)
+                        m_connection.write(msg.second.getBytes());
+                }
+           }
+        });
+
+        // Get stored user
+        if(m_userManager.getUser() != null) {
+            // Get current user data from API
+            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new APICallback<User>(this) {
+                @Override
+                public void onSuccess(Call<User> call, Response<User> response, User user) {
+                    if(user == null) {
+                        m_userManager.setStoredUser(null);
+                        return;
+                    }
+                    // Store the user
+                    m_userManager.setStoredUser(user);
+
+                    // Show clock in page if clocked in
+                    if(!user.isClockedIn())
+                        clockIn();
+                }
+
+                @Override
+                public void onError(Call<User> call, Response<User> response, APIError error) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Couldn't get stored user from API: " + error.getMessage(),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            });
         }
     }
 
@@ -340,10 +400,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Send message to do a success sound to the console
-        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                3000,
-                System.currentTimeMillis()
-        )).getBytes());
+        if(m_connection != null)
+            m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                    3000,
+                    System.currentTimeMillis()
+            )).getBytes());
     }
 
     //Go to clocked out fragment
@@ -353,10 +414,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.commit();
 
         // Send message to do a fail sound to the console
-        /*m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
-                3001,
-                System.currentTimeMillis()
-        )).getBytes());*/
+        if(m_connection != null)
+            m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                    3001,
+                    System.currentTimeMillis()
+            )).getBytes());
     }
 
     /**
@@ -394,6 +456,12 @@ public class MainActivity extends AppCompatActivity {
 
                         // Trigger the listener's onReceived function
                         this.m_listener.onReceived(statement);
+
+                        // Send message onto our queue
+                        MessageQueue.getInstance().pushMessage(
+                            MessageQueue.MESSAGE_TYPE.RECIEVE_BLUETOOTH,
+                            m_parser.parse(statement)
+                        );
                     }
                 }
                 catch (Exception e)

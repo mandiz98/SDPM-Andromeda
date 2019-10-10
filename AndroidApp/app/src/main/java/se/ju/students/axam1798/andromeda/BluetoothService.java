@@ -167,9 +167,14 @@ public class BluetoothService {
                     m_socket.close();
                 } catch (IOException closeException) {
                     Log.e(TAG, "Could not close the client socket", closeException);
+                    Log.e(TAG, "BT ERROR: ".concat(closeException.getMessage()));
+                    closeException.printStackTrace();
                 }
 
                 Log.e(TAG, "Could not connect to socket.");
+                Log.e(TAG, "BT ERROR: ".concat(connectException.getMessage()));
+                connectException.printStackTrace();
+
                 if(m_callbacks != null)
                     m_callbacks.onConnect(false);
                 return;
@@ -244,6 +249,8 @@ public class BluetoothService {
         {
             try
             {
+                m_outStream.close();
+                m_inStream.close();
                 m_socket.close();
             }
             catch (IOException e)
