@@ -34,7 +34,7 @@ public class MessageQueue extends Observable
 
     public static MessageQueue getInstance()
     {
-        if(m_instance != null)
+        if(m_instance == null)
             m_instance = new MessageQueue();
 
         return m_instance;

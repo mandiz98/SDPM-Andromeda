@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidConfiguredLogFilters">
+    <filters>
+      <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="" />
+        <option name="name" value="Unnamed-0" />
+        <option name="packageNamePattern" value="" />
+        <option name="pid" value="" />
+      </filter>
+      <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="" />
+        <option name="name" value="Andromeda" />
+        <option name="packageNamePattern" value="se.ju.students.axam1798.andromeda" />
+        <option name="pid" value="" />
+      </filter>
+    </filters>
+  </component>
   <component name="AndroidLayouts">
     <shared>
       <config>
@@ -15,18 +35,16 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Andromeda" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a70e11dd-b9f6-4905-bbd4-6f291c025a9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/rfid_animation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+    <list default="true" id="a70e11dd-b9f6-4905-bbd4-6f291c025a9c" name="Default Changelist" comment="Commented some code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_rfid_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MessageQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MessageQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +55,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_XL_API_24" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="7BKDU17818002859" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -47,28 +65,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
-          <provider editor-type-id="android-designer2" />
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="51" column="45" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
+            <state relative-caret-position="236">
+              <caret line="420" selection-start-line="420" selection-end-line="420" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#9572#10252#0" expanded="true" />
+                <element signature="e#10251#10252#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MessageQueue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-120" />
+            <state relative-caret-position="20">
+              <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+            </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/drawable/rfid_animation.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="3" column="69" selection-start-line="3" selection-start-column="69" selection-end-line="3" selection-end-column="69" />
+            <state relative-caret-position="160">
+              <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothProtocolParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="83" column="98" selection-start-line="83" selection-start-column="98" selection-end-line="83" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -76,32 +109,42 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="204" column="26" lean-forward="true" selection-start-line="204" selection-start-column="26" selection-end-line="204" selection-end-column="26" />
+            <state relative-caret-position="126">
+              <caret line="219" selection-start-line="219" selection-end-line="219" />
               <folding>
-                <element signature="e#4218#4219#0" expanded="true" />
-                <element signature="e#4266#4267#0" expanded="true" />
+                <element signature="e#4219#4220#0" expanded="true" />
+                <element signature="e#4267#4268#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/bluetooth/BluetoothSocket.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="231" column="53" selection-start-line="231" selection-start-column="53" selection-end-line="231" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#9183#10654#0" expanded="true" />
-                <element signature="e#10082#10255#0" expanded="true" />
-                <element signature="e#10254#10255#0" expanded="true" />
-                <element signature="e#10422#10598#0" expanded="true" />
-                <element signature="e#10597#10598#0" expanded="true" />
-                <element signature="e#10653#10654#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="106">
+              <caret line="617" selection-start-line="617" selection-end-line="617" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/API/APICallback.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -122,6 +165,12 @@
       <find>statement</find>
       <find>trans</find>
       <find>setupBT</find>
+      <find>Observa</find>
+      <find>Could not connect to socket.</find>
+      <find>finish</find>
+      <find>close</find>
+      <find>onDes</find>
+      <find>cancel</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -137,7 +186,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerRestarterBroadcastReciever.java" />
-        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/models/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothProtocolParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/ClockedIn.java" />
@@ -148,13 +196,16 @@
         <option value="$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml" />
         <option value="$PROJECT_DIR$/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/src/main/res/drawable/rfid_animation.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MessageQueue.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothService.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="950" />
+    <option name="x" value="348" />
+    <option name="y" value="180" />
     <option name="width" value="980" />
     <option name="height" value="525" />
   </component>
@@ -164,6 +215,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="AndroidApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AndroidApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -185,35 +253,22 @@
             <path>
               <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
               <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="andromeda" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AndroidApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="AndroidApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AndroidApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="AndroidApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AndroidApp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -360,7 +415,7 @@
     <option name="localTasksCounter" value="6" />
     <servers />
   </component>
-  <component name="TodoView" selected-index="4">
+  <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -370,11 +425,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.5005821" side_tool="true" weight="0.3298887" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49941793" visible="true" weight="0.1738255" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49941793" visible="true" weight="0.1738255" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -383,16 +437,17 @@
       <window_info id="Capture Tool" order="7" />
       <window_info id="Resources Explorer" order="8" weight="0.3295302" />
       <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49841017" weight="0.329429" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.4986577" weight="0.4275256" />
-      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49920508" weight="0.3299532" />
-      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49960256" weight="0.3299532" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" sideWeight="0.4986577" visible="true" weight="0.4172767" />
+      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.49920508" weight="0.329429" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49960256" weight="0.329429" />
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5013423" side_tool="true" weight="0.329429" />
       <window_info anchor="bottom" id="Build" order="5" sideWeight="0.4986577" weight="0.043923866" />
       <window_info anchor="bottom" id="Android Profiler" order="6" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.37188873" />
-      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49932885" visible="true" weight="0.329429" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.38506588" />
+      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49932885" weight="0.329429" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.329429" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3299532" />
+      <window_info anchor="right" id="Hierarchy" weight="0.3295302" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -439,9 +494,14 @@
     <MESSAGE value="Added vectors for animation" />
     <option name="LAST_COMMIT_MESSAGE" value="Added vectors for animation" />
   </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="app">
+        <watch expression="decodedBody.m_dateCreated" />
+      </configuration>
+    </watches-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/java/lang/String.java" />
-    <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/appwidget/AppWidgetProvider.java" />
     <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/os/Handler.java" />
     <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/os/Looper.java" />
     <entry file="file://$PROJECT_DIR$/../../../../../Public/Android/Sdk/sources/android-28/android/content/BroadcastReceiver.java" />
@@ -501,13 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="3425" selection-start-line="3425" selection-end-line="3425" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothProtocolParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -584,25 +637,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="860">
           <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_wifi_white_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_2.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_3.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/AlarmReceiver.java">
@@ -616,17 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1855">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="e#2497#5208#0" expanded="true" />
-            <element signature="e#5207#5208#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -671,12 +706,12 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clock_out.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
@@ -684,12 +719,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
           <caret line="51" column="45" selection-start-line="51" selection-start-column="45" selection-end-line="51" selection-end-column="45" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -719,28 +754,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/bluetooth/BluetoothSocket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="617" selection-start-line="617" selection-end-line="617" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/rfid_animation.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="3" column="69" selection-start-line="3" selection-start-column="69" selection-end-line="3" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="204" column="26" lean-forward="true" selection-start-line="204" selection-start-column="26" selection-end-line="204" selection-end-column="26" />
-          <folding>
-            <element signature="e#4218#4219#0" expanded="true" />
-            <element signature="e#4266#4267#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -754,18 +771,75 @@
     <entry file="file://$PROJECT_DIR$/src/main/res/drawable/ic_rfid_4.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/build/generated/source/buildConfig/debug/se/ju/students/axam1798/andromeda/BuildConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_clocked_in.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MessageQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/RadiationTimerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothProtocolParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="83" column="98" selection-start-line="83" selection-start-column="98" selection-end-line="83" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/API/APICallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/bluetooth/BluetoothSocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="617" selection-start-line="617" selection-end-line="617" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/BluetoothService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="219" selection-start-line="219" selection-end-line="219" />
+          <folding>
+            <element signature="e#4219#4220#0" expanded="true" />
+            <element signature="e#4267#4268#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/se/ju/students/axam1798/andromeda/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="231" column="53" selection-start-line="231" selection-start-column="53" selection-end-line="231" selection-end-column="53" />
+        <state relative-caret-position="236">
+          <caret line="420" selection-start-line="420" selection-end-line="420" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9183#10654#0" expanded="true" />
-            <element signature="e#10082#10255#0" expanded="true" />
-            <element signature="e#10254#10255#0" expanded="true" />
-            <element signature="e#10422#10598#0" expanded="true" />
-            <element signature="e#10597#10598#0" expanded="true" />
-            <element signature="e#10653#10654#0" expanded="true" />
+            <element signature="e#9572#10252#0" expanded="true" />
+            <element signature="e#10251#10252#0" expanded="true" />
           </folding>
         </state>
       </provider>

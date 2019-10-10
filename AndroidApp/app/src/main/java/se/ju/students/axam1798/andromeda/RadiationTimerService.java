@@ -126,6 +126,16 @@ public class RadiationTimerService extends Service {
                     notificationText = "You should really leave the power plant, no safety limit left";
                     alert = true;
                     stopTimerTask();
+
+                    // Send bluetooth message to console
+                    BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
+                    statement.eventKey = 3002;
+                    statement.data = "GET OUT!"; // At most 16 chars for console limit
+                    String msg = BluetoothProtocolParser.parse(statement);
+                    MessageQueue.getInstance().pushMessage(
+                            MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH,
+                            msg
+                    );
                 }
 
                 // Trigger the notification
