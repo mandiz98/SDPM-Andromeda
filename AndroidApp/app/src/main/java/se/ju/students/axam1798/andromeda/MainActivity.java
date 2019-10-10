@@ -101,13 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful() && response.body() != null) {
                     // Successful response! Event created.
                     Event eventCreated = response.body();
-                    toastMessage = String.format(
-                            Locale.getDefault(),
-                            "Stored event %d with data \"%s\" on %s",
-                            eventCreated.getEventKey(),
-                            eventCreated.getData(),
-                            eventCreated.getDateCreated()
-                    );
 
                     // eventKey 4010 = clock in/out, get user's clocked in status
                     if(eventCreated.getEventKey() == 4010) {
@@ -122,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
                                     if(user.isClockedIn()) {
                                         clockIn();
+                                    }else{
+                                        clockOut();
                                     }
                                 }
                             }
@@ -136,21 +131,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }else if(response.errorBody() != null){
-                    // Not successful, we got an error body
-                    APIError error = APIClient.decodeError(response.errorBody());
-                    toastMessage = error.getMessage();
-                }else{
-                    // No error body in response, but connection to server was successful
-                    toastMessage = "Unknown error (HTTP code "+response.code()+")";
                 }
-
-                // Display a toast! :^)
-                Toast.makeText(
-                        getApplicationContext(),
-                        toastMessage,
-                        Toast.LENGTH_LONG
-                ).show();
             }
 
             @Override
@@ -236,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void setupBTConnection()
     {
         if(m_bluetoothService.isSupported())
@@ -257,6 +239,16 @@ public class MainActivity extends AppCompatActivity {
     {
         m_connection.cancel();
         m_connection = null;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(
+                        m_context,
+                        "Bluetooth disconnected",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        });
     }
 
     @Override
@@ -286,17 +278,6 @@ public class MainActivity extends AppCompatActivity {
         rfidImage.setBackgroundResource(R.drawable.ic_rfid);
     }
 
-    private boolean isServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i ("isServiceRunning?", true+"");
-                return true;
-            }
-        }
-        Log.i ("isServiceRunning?", false+"");
-        return false;
-    }
 
     //Create the notification
     public void sendWarningNotification(View v){
@@ -357,9 +338,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.replace(R.id.fragment_container, new ClockedIn());
         fragmentManager.commit();
 
-        if (!isServiceRunning(RadiationTimerService.class)){
-            startService(m_serviceIntent);
-        }
 
         // Send message to do a success sound to the console
         m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
@@ -374,15 +352,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.replace(R.id.fragment_container, new ClockOut());
         fragmentManager.commit();
 
-        if (!isServiceRunning(RadiationTimerService.class)){
-            stopService(m_serviceIntent);
-        }
-
         // Send message to do a fail sound to the console
-        m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+        /*m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                 3001,
                 System.currentTimeMillis()
-        )).getBytes());
+        )).getBytes());*/
     }
 
     /**
