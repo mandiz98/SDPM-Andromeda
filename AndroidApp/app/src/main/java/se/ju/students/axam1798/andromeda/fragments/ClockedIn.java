@@ -24,6 +24,8 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.TimeZone;
 
 import retrofit2.Call;
@@ -31,6 +33,9 @@ import retrofit2.Response;
 import se.ju.students.axam1798.andromeda.API.APICallback;
 import se.ju.students.axam1798.andromeda.API.APIClient;
 import se.ju.students.axam1798.andromeda.API.APIError;
+import se.ju.students.axam1798.andromeda.BluetoothProtocolParser;
+import se.ju.students.axam1798.andromeda.MainActivity;
+import se.ju.students.axam1798.andromeda.MessageQueue;
 import se.ju.students.axam1798.andromeda.R;
 import se.ju.students.axam1798.andromeda.RadiationTimerService;
 import se.ju.students.axam1798.andromeda.UserManager;
@@ -122,7 +127,7 @@ public class ClockedIn extends Fragment {
             m_context.startService(m_serviceIntent);
         }
 
-        UserManager userManager = UserManager.getInstance(getContext());
+        final UserManager userManager = UserManager.getInstance(getContext());
         if(userManager.getUser().getRole() == Role.MANAGER) {
             Menu menu = toolbar.getMenu();
             menu.getItem(1).setVisible(true); // Employees
@@ -147,6 +152,35 @@ public class ClockedIn extends Fragment {
 
         txtTimer = view.findViewById(R.id.txt_timer);
 
+        //setup function
+        updateClothes(userManager);
+
+
+        //OBSERVER
+        MessageQueue.getInstance().addObserver(new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                MessageQueue.Message msg = MessageQueue.getInstance().peekMessage();
+
+                if(msg.first == MessageQueue.MESSAGE_TYPE.RECIEVE_BLUETOOTH){
+                    msg.handle();
+                    BluetoothProtocolParser parser = new BluetoothProtocolParser();
+                    BluetoothProtocolParser.Statement statement = parser.parse(msg.second);
+
+                    //ROOM
+                    if(statement.eventKey == 2000){
+                        updateRoom(userManager);
+                    }
+                    //CLOTHES
+                    else if (statement.eventKey == 2001){
+                        updateClothes(userManager);
+                    }
+                }
+
+            }
+        });
+
+
         //Time clocked in
         APIClient.getInstance().getLatestEventByKey(4010, userManager.getUser().getId(), new APICallback<Event>() {
             @Override
@@ -164,12 +198,6 @@ public class ClockedIn extends Fragment {
 
             }
         });
-
-        //Room
-
-
-        //Clothing
-
 
         return view;
     }
@@ -219,5 +247,47 @@ public class ClockedIn extends Fragment {
         }
         Log.i ("isServiceRunning?", false+"");
         return false;
+    }
+
+    private void updateClothes(UserManager userManager){
+        APIClient.getInstance().getLatestEventByKey(2001, userManager.getUser().getId(), new APICallback<Event>() {
+            @Override
+            public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String clothes = decodedBody.getData();
+                        clothes = (clothes.equals("0") ? "Normal clothes" : "Hazmat suit");
+                        ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText(clothes);
+
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Call<Event> call, Response<Event> response, APIError error) {
+                ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText("Could not retrieve clothing status");
+            }
+        });
+    }
+
+    private void updateRoom(UserManager userManager){
+        APIClient.getInstance().getLatestEventByKey(2000, userManager.getUser().getId(), new APICallback<Event>() {
+            @Override
+            public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String room = decodedBody.getData();
+                        ((TextView)getView().findViewById(R.id.txt_room_text)).setText(room);
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Call<Event> call, Response<Event> response, APIError error) {
+                ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText("Could not retrieve room status");
+            }
+        });
     }
 }

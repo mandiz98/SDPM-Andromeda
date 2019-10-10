@@ -81,15 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 setupBTConnection();
             }
         });
-
-        try
-        {
-            setupBTConnection();
-        }
-        catch (Exception e)
-        {
-            Log.e("Bluetooth", e.getMessage());
-        }
     }
 
     @Override
@@ -233,48 +224,22 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
             @Override
             public void update(Observable messageQueue, Object arg) {
-                MessageQueue.Message msg = MessageQueue.getInstance().peekMessage().handle();
+                MessageQueue.Message msg = MessageQueue.getInstance().peekMessage();
+
+                if(msg == null)
+                    return;
 
                 // If it is a bluetooth message it should contain a valid bluetooth message parsed by the bluetooth parser
                 if(msg.first == MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH)
                 {
                     // TODO: Validate message in our parser
-
+                    msg.handle();
                     // Do the message
                     if(m_connection != null)
                         m_connection.write(msg.second.getBytes());
                 }
            }
         });
-
-        // Get stored user
-        if(m_userManager.getUser() != null) {
-            // Get current user data from API
-            APIClient.getInstance().getUserById(m_userManager.getUser().getId(), new APICallback<User>(this) {
-                @Override
-                public void onSuccess(Call<User> call, Response<User> response, User user) {
-                    if(user == null) {
-                        m_userManager.setStoredUser(null);
-                        return;
-                    }
-                    // Store the user
-                    m_userManager.setStoredUser(user);
-
-                    // Show clock in page if clocked in
-                    if(!user.isClockedIn())
-                        clockIn();
-                }
-
-                @Override
-                public void onError(Call<User> call, Response<User> response, APIError error) {
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "Couldn't get stored user from API: " + error.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
-                }
-            });
-        }
     }
 
 
@@ -297,18 +262,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void disconnect()
     {
-        m_connection.cancel();
-        m_connection = null;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(
-                        m_context,
-                        "Bluetooth disconnected",
-                        Toast.LENGTH_LONG
-                ).show();
-            }
-        });
+        if(m_connection != null)
+        {
+            m_connection.cancel();
+            m_connection = null;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(
+                            m_context,
+                            "Bluetooth disconnected",
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            });
+        }
     }
 
     @Override
@@ -401,10 +369,23 @@ public class MainActivity extends AppCompatActivity {
 
         // Send message to do a success sound to the console
         if(m_connection != null)
+        {
+            // Send bluetooth message to console
+            /*BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
+            statement.eventKey = 3004;
+            statement.data = "Clocked in!\n" + m_userManager.getUser().getRFID(); // At most 16 chars for console limit
+            String msg = BluetoothProtocolParser.parse(statement);
+            MessageQueue.getInstance().pushMessage(
+                    MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH,
+                    msg
+            );*/
+
             m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                     3000,
                     System.currentTimeMillis()
             )).getBytes());
+        }
+
     }
 
     //Go to clocked out fragment
@@ -415,10 +396,22 @@ public class MainActivity extends AppCompatActivity {
 
         // Send message to do a fail sound to the console
         if(m_connection != null)
+        {
+            // Send bluetooth message to console
+            /*BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
+            statement.eventKey = 3004;
+            statement.data = "Clocked in!\n" + m_userManager.getUser().getRFID(); // At most 16 chars for console limit
+            String msg = BluetoothProtocolParser.parse(statement);
+            MessageQueue.getInstance().pushMessage(
+                    MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH,
+                    msg
+            );*/
+
             m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                     3001,
                     System.currentTimeMillis()
             )).getBytes());
+        }
     }
 
     /**
