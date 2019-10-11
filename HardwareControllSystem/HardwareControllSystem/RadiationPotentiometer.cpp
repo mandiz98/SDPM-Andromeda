@@ -16,7 +16,7 @@ void RadiationPotentiometer::run()
 
 	readRadValue();
 
-	if (0.02 > abs(m_procentualValue - m_oldValue))
+	if (0.05 > abs(m_procentualValue - m_oldValue))
 	{
 		return;
 	}

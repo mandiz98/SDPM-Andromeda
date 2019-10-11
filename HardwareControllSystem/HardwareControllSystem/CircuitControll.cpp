@@ -165,11 +165,12 @@ void CircuitControll::runLeds()
  */
 void CircuitControll::updateShiftRegister(byte leds)
 {
-	digitalWrite(PIN_LATCH, LOW);
 	//Serial.println("Shift out byte: " + (String)leds);
 	leds ^= 0xff;
 	shiftOut(PIN_DATA, PIN_CLOCK, MSBFIRST, leds);
+
 	digitalWrite(PIN_LATCH, HIGH);
+	digitalWrite(PIN_LATCH, LOW);
 }
 
 void CircuitControll::deleteLedQueue(led_e led)
