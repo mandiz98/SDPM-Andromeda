@@ -15,23 +15,12 @@ public:
 	
 	CircuitControll();
 
-	enum led_e
+	enum led_e 
 	{
-		//one,
-		//two,
-		//three,
-		//four,
-		//five,
-		//six,
-		//seven,
-		//eight,
-		//nine,
-		//ten,
-
 		red = 2, 
 		green = 1,
 		blue = 0,
-	};
+	}; // unum för all the outpins on the shiftregister
 
 	enum onOff_e
 	{
@@ -60,7 +49,7 @@ public:
 
 	//void setShiftRegister(byte);
 
-	void soundLogin();
+	void soundLogin(); // preset sounds, to be accessed from the outside 
 	void soundLogout();
 	void soundBoot();
 	void soundVarning();
@@ -100,13 +89,17 @@ private:
 
 	void setLed(led_e, onOff_e);
 
+	/*
+		We create a cmdArray[x] full of queus
+		cmdArray is every output from the shiftregister
+		and every position has its own queue
+	*/
+
+
 	typedef queue<ledCmd*> ledCmdQueue;
 
-	ledCmdQueue cmdArray[8];
+	ledCmdQueue cmdArray[8]; 
 	
-
-	//unsigned int m_frequency = 2500;
-	//unsigned int m_duration = 1000;
 
 	queue<toneCmd> toneQueue;
 
@@ -118,6 +111,7 @@ private:
 	
 	void updateShiftRegister(byte);
 
+	// Presets in hope to same memory
 	const toneCmd tuneLogin[5] = {
 		toneCmd(1500,200),
 		toneCmd(1750,200),
