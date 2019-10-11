@@ -16,7 +16,7 @@ private:
 
 	void readRadValue();
 
-	float m_procentualValue;
+	float m_mappedValue;
 	float m_oldValue;
 
 };
