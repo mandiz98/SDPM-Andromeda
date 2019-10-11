@@ -4,9 +4,6 @@ CircuitControll::CircuitControll(){}
 
 void CircuitControll::runBuzzer()
 {
-	//Serial.println("Tone size: " + (String)toneQueue.size());
-	//tone(PIN_BUZZER, frequency, duration);
-	//Serial.print("buzz");
 	enum StatesBuzz
 	{
 		s_ready,
@@ -16,34 +13,31 @@ void CircuitControll::runBuzzer()
 
 	static StatesBuzz buzz_state = s_ready;
 	static long mili_start;
-	switch (buzz_state)
+	switch (buzz_state) // state machine, purpose is to be able to buzz without freezing rest of program
 	{
 	case s_ready:
-		//Serial.print("s_ready");
 		if (!toneQueue.empty())
 		{
-			mili_start = millis();
+			mili_start = millis();	// get start value
 			buzz_state = s_running;
 		}
 		break;
 	case s_running:
-		//Serial.print("BUZZ: " + (String)toneQueue.size());
-		if (toneQueue.front().frequency == 0)
+		if (toneQueue.front().frequency == 0) // if the sound/frequency is zero, no reaason to buzz
 		{
 			noTone(PIN_BUZZER);
 		}
 		else
-			tone(PIN_BUZZER, toneQueue.front().frequency);
+			tone(PIN_BUZZER, toneQueue.front().frequency); // active buzz
 		
-		if (millis() >= mili_start + toneQueue.front().duration)
+		if (millis() >= mili_start + toneQueue.front().duration) // buzz until duration is done
 		{
 			buzz_state = s_done;
 		}
 		break;
 	case s_done:
-		//Serial.print("s_done");
-		noTone(PIN_BUZZER);
-		toneQueue.pop();
+		noTone(PIN_BUZZER); // deactivate buzz
+		toneQueue.pop(); // remove the buzzed commande from queue to able to sound next one
 		buzz_state = s_ready;
 		break;
 	default:
@@ -59,7 +53,7 @@ void CircuitControll::clearToneQueue()
 
 void CircuitControll::addToneToQueue(toneCmd tone)
 {
-	clearToneQueue();
+	clearToneQueue(); // clearing memory to not being able to queue to many buzz and cause crash
 	toneQueue.push(tone);
 }
 
@@ -74,10 +68,11 @@ void CircuitControll::addToneArrayToQueue(const toneCmd queue[], int lenght)
 
 void CircuitControll::run()
 {
-	runBuzzer();
+	runBuzzer(); // run both statemachines 
 	runLeds();
 }
 
+// run presets
 void CircuitControll::soundLogin()
 {
 	addToneArrayToQueue(tuneLogin, 5);
@@ -114,21 +109,14 @@ void CircuitControll::soundHighBeep()
 }
 
 
-//void CircuitControll::setLed(ledColor_e color, onOff_e onOff)
-//{
-//	byte myByte = 0;
-//	bitWrite(myByte, (int)color, onOff);
-//	updateShiftRegister(myByte);
-//}
-
 void CircuitControll::setLed(led_e pos, onOff_e onOff)
 {
-	bitWrite(bitPatern, pos, onOff);
-	//Serial.println("bitpattern: " + (String)bitPatern);
+	bitWrite(bitPatern, pos, onOff); // add the selected led to the bitpatern
 }
 
 void CircuitControll::runLeds()
 {
+	// loop through every position in shiftregister output
 	for (ledCmdQueue::size_type i = 0; i < ledArraySize_c; i++)
 	{
 		if (cmdArray[i].empty())
@@ -139,17 +127,15 @@ void CircuitControll::runLeds()
 		switch (currentLed->state)
 		{
 		case ledCmd::state_e::ready:
-
 			currentLed->startTime = millis();
-			setLed((led_e)i, currentLed->onOff);
-			//Serial.println("Led " + (String)i+" is: " + (String)currentLed->onOff);
+			setLed((led_e)i, currentLed->onOff); // setting the currentLed to the prefered state 
 			currentLed->state = ledCmd::state_e::running;
 			break;
 		case ledCmd::state_e::running:
-			if (millis() > currentLed->startTime + currentLed->duration)
+			if (millis() > currentLed->startTime + currentLed->duration) // run the desired duration
 			{
 				setLed((led_e)i, onOff_e::off);
-				cmdArray[i].pop();
+				cmdArray[i].pop();		// when done, removing it from queue
 				delete currentLed;
 			}
 			break;
@@ -157,7 +143,7 @@ void CircuitControll::runLeds()
 			break;
 		}
 	}
-	updateShiftRegister(bitPatern);
+	updateShiftRegister(bitPatern); // always updating the shiftregister with the latest value
 }
 
 /*
@@ -165,7 +151,6 @@ void CircuitControll::runLeds()
  */
 void CircuitControll::updateShiftRegister(byte leds)
 {
-	//Serial.println("Shift out byte: " + (String)leds);
 	leds ^= 0xff;
 	shiftOut(PIN_DATA, PIN_CLOCK, MSBFIRST, leds);
 
@@ -184,7 +169,6 @@ void CircuitControll::deleteLedQueue(led_e led)
 
 void CircuitControll::addLedCmd(led_e led, onOff_e value, int dur)
 {
-	//Serial.println("add to led queue:" + (String)led + ", " + (String)value + ", " + (String)dur);
 	ledCmd *cmd = new ledCmd(value, dur);
 	deleteLedQueue(led);
 	cmdArray[led].push(cmd);
