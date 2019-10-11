@@ -23,6 +23,7 @@ void BluetoothInterface::run()
 {
 	if (!Serial.available())
 		return;
+	
 
 	onCommandRecive(Serial.readString());
 }
@@ -45,34 +46,33 @@ void BluetoothInterface::addOnCommandReciveEvent(ReciveType type, void(*onComman
 }
 
 void BluetoothInterface::onCommandRecive(String message)
-{
-	tone(6, 1000, 200);
+{ 
 
-	String subMessage[3];
+	String subMessage[3] = {"","",""};
 
-	const int bufferSize = 100;
-	char buffer[bufferSize];
-	message.toCharArray(buffer, bufferSize);
-
+	
 	//breaking upp the raw message into usable substrings
 	int subStringIndex = 0;
-	for (int i = 0; i < bufferSize; i++)
+	for (int i = 0; i < message.length(); i++)
 	{
-		char c = buffer[i];
-		if (c == m_messageSeperator)
+		if (message.charAt(i) == m_messageSeperator)
 			break;
-		else if (c == m_dataSeperator)
+		else if (message.charAt(i) == m_dataSeperator)
 		{
 			subStringIndex++;
 			continue;
 		}
-		subMessage[subStringIndex] += c;
+		subMessage[subStringIndex] += message.charAt(i);
 	}
 	
 	//mappes the substrings into there proper roles
 	ReciveType type = (ReciveType)subMessage[0].toInt();
 	String data = subMessage[2];
-
+/*
+	Serial.println("Recived 0:" + subMessage[0]);
+	Serial.println("Recived 1:" + subMessage[1]);
+	Serial.println("Recived 2:" + subMessage[2]);
+*/
 	sendToCallback(type, data);
 }
 

@@ -5,6 +5,7 @@
 DisplayControll::DisplayControll()
 {
 	Wire.begin(m_thisAdress);
+	Wire.setClock(100000);
 	Wire.onReceive(reciveListener);
 }
 DisplayControll *DisplayControll::getInstance()
@@ -18,21 +19,54 @@ DisplayControll *DisplayControll::getInstance()
 DisplayControll::~DisplayControll()
 {
 }
+void DisplayControll::run()
+{
+	runReciver();
+	runTrancmiter();
+}
+void DisplayControll::runReciver()
+{
+	if (reciveQueue.empty())
+		return;
+
+	onRecive(reciveQueue.front().type, reciveQueue.front().data);
+	reciveQueue.pop();
+}
+
+void DisplayControll::runTrancmiter()
+{
+	if (transmitQueue.empty())
+		return;
+	
+	String message = transmitQueue.front();
+	transmitQueue.pop();
+	Wire.beginTransmission(DisplayControll::m_externalAdress);
+	for (int i = 0; i < message.length(); i++)
+	{
+		Wire.write(message[i]);
+	}
+	Wire.endTransmission();
+}
+
 void DisplayControll::addReciveListener(reciveType type, void(*callback)(String))
 {
 	m_listenerVector.push_back(reciveListener_s(type, callback));
 }
 
-void DisplayControll::updateTime(int hour, int minutes, int secounds)
+void DisplayControll::updateTime(String data)
 {
-	//formats the time into readable string for the display
-	String data = 
-		(abs(hour) < 10 ? "0" : "") + String(hour) + ":" +
-		(abs(minutes) < 10 ? "0" : "") + String(minutes) + ":" +
-		(abs(secounds) < 10 ? "0" : "") + String(secounds);
-
 	sendToDisplay(cmd_timeChange, data);
 }
+//void DisplayControll::updateTime(int hour, int minutes, int secounds)
+//{
+//	//formats the time into readable string for the display
+//	String data = 
+//		(abs(hour) < 10 ? "0" : "") + String(hour) + ":" +
+//		(abs(minutes) < 10 ? "0" : "") + String(minutes) + ":" +
+//		(abs(secounds) < 10 ? "0" : "") + String(secounds);
+//
+//	sendToDisplay(cmd_timeChange, data);
+//}
 
 void DisplayControll::updateRawRadiation(float radiation)
 {
@@ -53,13 +87,16 @@ void DisplayControll::displayWarning(String message)
 void DisplayControll::sendToDisplay(cmdType_e type, String data)
 {
 	//formats the command into a readable string and sends it 
-	String message = String(type) + ';' + data;
-	Wire.beginTransmission(DisplayControll::m_externalAdress);
-	for (int i = 0; i < message.length(); i++)
-	{
-		Wire.write(message[i]);
-	}
-	Wire.endTransmission();
+	String message = String(type);
+	message.concat(';');
+	message.concat(data);
+	transmitQueue.push(message);
+	//Wire.beginTransmission(DisplayControll::m_externalAdress);
+	//for (int i = 0; i < message.length(); i++)
+	//{
+	//	Wire.write(message[i]);
+	//}
+	//Wire.endTransmission();
 }
 void DisplayControll::onRecive(reciveType type, String data)
 {
