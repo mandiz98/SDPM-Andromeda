@@ -40,14 +40,14 @@ void onRawRadiationChange(float rad)
 {
 	display->updateRawRadiation(rad);
 }
+
+//recivers from bluetooth
 void reciveFailListner(String data)
 {
 	cirCtrl.soundLogout();
 	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 1000);
 
 }
-
-//recivers from bluetooth
 void reciveSuccessListner(String data)
 {
 	cirCtrl.soundLogin();
@@ -109,14 +109,16 @@ void heartbeat()
 	static long startWait = 0;
 	static const long waitTime_ms = 500;
 
+
 	switch (state)
 	{
 	case toggle:
 		on = !on;
-		digitalWrite(LED_BUILTIN, on? HIGH : LOW);
 		if (on)
+		{
 			cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 100);
-			//tone(6, 750, 100);
+			tone(6, 10, 100);
+		}
 		startWait = millis();
 		state = wait;
 		break;
@@ -131,12 +133,10 @@ void heartbeat()
 
 void setup() 
 {	
-
 	pinMode(PIN_LATCH, OUTPUT);
 	pinMode(PIN_DATA, OUTPUT);
 	pinMode(PIN_CLOCK, OUTPUT);
 	pinMode(PIN_ANALOGRADREAD, INPUT);
-	pinMode(LED_BUILTIN, OUTPUT);
 
 	bluetooth.init(9600);
 	rfid.init();
@@ -161,7 +161,7 @@ void setup()
 
 void loop()
 {
-	heartbeat();
+	//heartbeat();
 
 	cirCtrl.run();
 	rfid.run();
