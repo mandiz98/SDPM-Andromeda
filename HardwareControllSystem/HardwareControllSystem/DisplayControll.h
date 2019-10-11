@@ -30,7 +30,6 @@ public:
 	//updates the displayed time on the display
 	//NOTE: the display automaticly counts down every secound
 	void updateTime(String data);
-	//void updateTime(int hour, int minutes, int secounds);
 
 	//updates the raw radiation (before exposure calculations) 
 	void updateRawRadiation(float radiation);

@@ -74,11 +74,6 @@ void BluetoothInterface::onCommandRecive(String message)
 		String data = subMessage[2];
 		sendToCallback(type, data);
 	}
-/*
-	Serial.println("Recived 0:" + subMessage[0]);
-	Serial.println("Recived 1:" + subMessage[1]);
-	Serial.println("Recived 2:" + subMessage[2]);
-*/
 }
 
 void BluetoothInterface::sendToCallback(ReciveType type, String data)

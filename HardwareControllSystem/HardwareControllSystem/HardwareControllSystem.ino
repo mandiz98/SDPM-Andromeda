@@ -46,11 +46,13 @@ void reciveFailListner(String data)
 {
 	cirCtrl.soundLogout();
 	cirCtrl.addLedCmd(CircuitControll::led_e::red, CircuitControll::onOff_e::on, 1000);
+	cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 1000);
 
 }
 void reciveSuccessListner(String data)
 {
 	cirCtrl.soundLogin();
+	cirCtrl.addLedCmd(CircuitControll::led_e::green , CircuitControll::onOff_e::on, 1000);
 }
 
 //bluetooth messages to send to display
@@ -63,20 +65,6 @@ void reciveWarningListner(String data)
 void reciveTimeListner(String data)
 {
 	display->updateTime(data);
-
-	//String subData[3];
-	//int index = 0;
-
-	//for (int i = 0; i < data.length(); i++)
-	//{
-	//	if (data[i] == ':')
-	//		index++;
-	//	else subData[index] += data[i];
-	//}
-	//int hours = subData[0].toInt();
-	//int min = subData[1].toInt();
-	//int sec = subData[2].toInt();
-	//display->updateTime(hours, min, sec);
 }
 void reciveMessageListner(String data)
 {
@@ -95,40 +83,6 @@ void reciveRadiation(String data)
 void reciveHazmatsuit(String data)
 {
 	bluetooth.sendData(BluetoothInterface::TrancmitType::hazmatsuit, data);
-}
-
-void heartbeat()
-{
-	enum state_s
-	{
-		toggle,
-		wait
-	};
-	static state_s state = toggle;
-	static bool on = false;
-	static long startWait = 0;
-	static const long waitTime_ms = 500;
-
-
-	switch (state)
-	{
-	case toggle:
-		on = !on;
-		if (on)
-		{
-			cirCtrl.addLedCmd(CircuitControll::led_e::green, CircuitControll::onOff_e::on, 100);
-			tone(6, 10, 100);
-		}
-		startWait = millis();
-		state = wait;
-		break;
-	case wait:
-		if (startWait + waitTime_ms < millis())
-			state = toggle;
-		break;
-	default:
-		break;
-	}
 }
 
 void setup() 
@@ -161,8 +115,6 @@ void setup()
 
 void loop()
 {
-	//heartbeat();
-
 	cirCtrl.run();
 	rfid.run();
 	bluetooth.run();
