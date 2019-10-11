@@ -165,7 +165,7 @@ float getCurrentProtectionCoeff()
 float getCurrentRad()
 {
 	//calculation for radiation per secound
-	return rawRadiation * currentRoom.coefficient / getCurrentProtectionCoeff();
+	return (rawRadiation * currentRoom.coefficient) / getCurrentProtectionCoeff();
 }
 time_s getTimeLeft()
 {

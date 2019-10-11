@@ -56,11 +56,9 @@ void reciveSuccessListner(String data)
 //bluetooth messages to send to display
 void reciveWarningListner(String data)
 {
+	display->displayWarning(data);
 	cirCtrl.soundVarning();
 	cirCtrl.blinkWarning();
-	
-
-	display->displayWarning(data);
 }
 void reciveTimeListner(String data)
 {
