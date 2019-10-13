@@ -1,5 +1,6 @@
 package se.ju.students.axam1798.andromeda.fragments;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -53,6 +54,8 @@ public class ClockedIn extends Fragment {
     private RadiationTimerService m_service;
     private boolean m_bound = false;
     private TextView txtTimer;
+
+    private final int DATABASE_DELAY = 200;
 
     private Handler timerTextHandler;
 
@@ -249,89 +252,127 @@ public class ClockedIn extends Fragment {
     }
 
     private void updateClothes(UserManager userManager){
-        APIClient.getInstance().getLatestEventByKey(2001, userManager.getUser().getId(), new APICallback<Event>() {
+        final UserManager mgr = userManager;
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
-                getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                APIClient.getInstance().getLatestEventByKey(2001, mgr.getUser().getId(), new APICallback<Event>() {
                     @Override
-                    public void run() {
-                        try {
-                            String clothes = decodedBody.getData();
-                            clothes = clothes.replaceAll("\n", "");
-                            clothes = clothes.replaceAll(" ", "");
-                            clothes = (clothes.equals("1") ? "Hazmat suit" : "Normal clothes");
-                            ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText(clothes);
-                        } catch(Exception e) {
-                            Log.e("UpdateClothes", e.getMessage());
-                        }
+                    public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
+                        Activity main = getActivity();
+
+                        if(main == null)
+                            return;
+
+                        main.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    String clothes = decodedBody.getData();
+                                    clothes = clothes.replaceAll("\n", "");
+                                    clothes = clothes.replaceAll(" ", "");
+                                    clothes = (clothes.equals("1") ? "Hazmat suit" : "Normal clothes");
+                                    ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText(clothes);
+                                } catch(Exception e) {
+                                    Log.e("UpdateClothes", e.getMessage());
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Call<Event> call, Response<Event> response, APIError error) {
+                        ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText("Could not retrieve clothing status");
                     }
                 });
             }
-
-            @Override
-            public void onError(Call<Event> call, Response<Event> response, APIError error) {
-                ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText("Could not retrieve clothing status");
-            }
-        });
+        }, DATABASE_DELAY);
     }
 
     private void updateRoom(UserManager userManager){
-        APIClient.getInstance().getLatestEventByKey(2000, userManager.getUser().getId(), new APICallback<Event>() {
+        final UserManager mgr = userManager;
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
-                getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                APIClient.getInstance().getLatestEventByKey(2000, mgr.getUser().getId(), new APICallback<Event>() {
                     @Override
-                    public void run() {
-                        try {
-                            String room = decodedBody.getData();
+                    public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
+                        Activity main = getActivity();
 
-                            room = room.replaceAll("\n", "");
+                        if(main == null)
+                            return;
 
-                            ((TextView)getView().findViewById(R.id.txt_room_text)).setText(room);
-                        } catch(Exception e) {
-                            Log.e("UpdateRoom", e.getMessage());
-                        }
+                        main.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    String room = decodedBody.getData();
+
+                                    room = room.replaceAll("\n", "");
+
+                                    ((TextView)getView().findViewById(R.id.txt_room_text)).setText(room);
+                                } catch(Exception e) {
+                                    Log.e("UpdateRoom", e.getMessage());
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Call<Event> call, Response<Event> response, APIError error) {
+                        ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText("Could not retrieve room status");
                     }
                 });
             }
-
-            @Override
-            public void onError(Call<Event> call, Response<Event> response, APIError error) {
-                ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText("Could not retrieve room status");
-            }
-        });
+        }, DATABASE_DELAY);
     }
 
     //Update radiation
     public void updateRadExp(UserManager userManager){
 
-        APIClient.getInstance().getLatestEventByKey(5000, userManager.getUser().getId(), new APICallback<Event>() {
+        final UserManager mgr = userManager;
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
-                getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                APIClient.getInstance().getLatestEventByKey(5000, mgr.getUser().getId(), new APICallback<Event>() {
                     @Override
-                    public void run() {
-                        String rad = decodedBody.getData();
+                    public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
+                        Activity main = getActivity();
 
-                        try {
-                            rad = rad.replaceAll("\n", "");
-                            rad = rad.replaceAll(" ", "");
+                        if(main == null)
+                            return;
 
-                            double asDouble = Double.parseDouble(rad);
-                            m_service.setRads(asDouble);
-                        } catch(Exception e) {
-                            Log.e("UpdateRad",e.getMessage());
-                        }
+                        main.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String rad = decodedBody.getData();
+
+                                try {
+                                    rad = rad.replaceAll("\n", "");
+                                    rad = rad.replaceAll(" ", "");
+
+                                    double asDouble = Double.parseDouble(rad);
+                                    m_service.setRads(asDouble);
+                                } catch(Exception e) {
+                                    Log.e("UpdateRad",e.getMessage());
+                                }
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Call<Event> call, Response<Event> response, APIError error) {
 
                     }
                 });
             }
+        }, DATABASE_DELAY);
 
-            @Override
-            public void onError(Call<Event> call, Response<Event> response, APIError error) {
 
-            }
-        });
     }
 
 }

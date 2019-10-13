@@ -22,8 +22,6 @@ public class RadiationTimerService extends Service {
     private static double m_rads = 0;
     private final static int INTERVAL_SECONDS = 1800;
 
-    private int m_accumilator = 30;
-
     private UserManager m_userManager;
     private NotificationManagerCompat m_notificationManagerCompat;
 
@@ -113,27 +111,6 @@ public class RadiationTimerService extends Service {
                         getSecondString(timeLeft);
                 boolean alert = false;
 
-                {
-                    m_accumilator++;
-                    if(m_accumilator == 30)
-                    {
-                        m_accumilator = 0;
-
-                        // Send bluetooth message to console
-                        String time = getHourString(timeLeft) + ":" +
-                                getMinuteString(timeLeft) + ":" +
-                                getSecondString(timeLeft);
-                        BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
-                        statement.eventKey = 3003;
-                        statement.data = time; // At most 16 chars for console limit
-                        String msg = BluetoothProtocolParser.parse(statement);
-                        MessageQueue.getInstance().pushMessage(
-                                MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH,
-                                msg
-                        );
-                    }
-                }
-
                 // If first time, or each 30 minutes
                 if(((m_alertTimestamp == 0) ||
                     (System.currentTimeMillis() - m_alertTimestamp) / 1000 >= INTERVAL_SECONDS) &&
@@ -192,6 +169,22 @@ public class RadiationTimerService extends Service {
 
     public void setRads(double rads) {
         m_rads = rads;
+
+        double timeLeft = getTimeLeft();
+
+        // Send bluetooth message to console
+        String time = getHourString(timeLeft) + ":" +
+                getMinuteString(timeLeft) + ":" +
+                getSecondString(timeLeft);
+
+        BluetoothProtocolParser.Statement statement = new BluetoothProtocolParser.Statement();
+        statement.eventKey = 3003;
+        statement.data = time; // At most 16 chars for console limit
+        String msg = BluetoothProtocolParser.parse(statement);
+        MessageQueue.getInstance().pushMessage(
+                MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH,
+                msg
+        );
     }
 
     public class LocalBinder extends Binder {
