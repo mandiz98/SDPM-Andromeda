@@ -70,6 +70,10 @@ void reciveMessageListner(String data)
 {
 	display->displayMessage(data);
 }
+void reciveDataDumpReq(String data)
+{
+	display->requestDataDump();
+}
 
 //recivers from the external lcd
 void reciveRoom(String data)
@@ -103,6 +107,7 @@ void setup()
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::message,		reciveMessageListner);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::timeChange,	reciveTimeListner);
 	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::warning,		reciveWarningListner);
+	bluetooth.addOnCommandReciveEvent(BluetoothInterface::ReciveType::dataDump,		reciveDataDumpReq);
 
 	display = DisplayControll::getInstance();
 	display->addReciveListener(DisplayControll::reciveType::hazmatsuit, reciveHazmatsuit);
@@ -111,6 +116,9 @@ void setup()
 
 	rad.setValueChangeCallback(onRawRadiationChange);
 	//--------------------------------------
+
+	//collect data from lcd on startup incase of system restart
+	display->requestDataDump();
 }
 
 void loop()

@@ -576,7 +576,7 @@ void changeRoom(room_s room)
 void changeMenu(menu_e menu)
 {
 	//time limit for a menu to prepare for a menu change
-	//this is to avoid infinie wating
+	//this is to avoid infinie waiting
 	const int timeOutLimit_ms = 10;
 
 	//sets flag for menu change
