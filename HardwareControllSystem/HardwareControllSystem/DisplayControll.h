@@ -41,6 +41,9 @@ public:
 	//sends a warning for the display. the message must manualy closed on the display for it to go away (this is done by the user)
 	void displayWarning(String message);
 
+	//signals the lcd to send all avalible data
+	void requestDataDump();
+
 private:
 	DisplayControll();
 
@@ -51,7 +54,7 @@ private:
 		cmd_message = 2,
 		cmd_timeChange = 3,
 		cmd_radChange = 4,
-		cmd_dataRequest = 5,
+		cmd_dataDump = 5,
 	};
 	struct reciveData_s
 	{

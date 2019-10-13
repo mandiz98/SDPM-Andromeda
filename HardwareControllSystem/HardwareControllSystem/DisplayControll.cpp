@@ -73,6 +73,11 @@ void DisplayControll::displayWarning(String message)
 	sendToDisplay(cmd_warning, message);
 }
 
+void DisplayControll::requestDataDump()
+{
+	sendToDisplay(cmd_dataDump, "");
+}
+
 
 void DisplayControll::sendToDisplay(cmdType_e type, String data)
 {

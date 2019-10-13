@@ -26,6 +26,7 @@ public:
 		warning = 3002,
 		timeChange = 3003,
 		message=3004,
+		dataDump = 3005,
 	};
 
 	void init(unsigned long baud);
