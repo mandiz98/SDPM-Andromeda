@@ -161,7 +161,7 @@ void setup()
 
 void loop()
 {
-	heartbeat();
+	//heartbeat();
 
 	cirCtrl.run();
 	rfid.run();
