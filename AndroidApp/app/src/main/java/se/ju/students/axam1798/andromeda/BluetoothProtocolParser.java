@@ -118,6 +118,13 @@ public class BluetoothProtocolParser
         return newStatement;
     }
 
+    public static boolean isValid(String statementString)
+    {
+        BluetoothProtocolParser parser = new BluetoothProtocolParser();
+        Statement statement = parser.parse(statementString);
+        return statement.isComplete;
+    }
+
     private String parseData(int eventKey, String dataInput)
     {
         if(eventKey == 4010)

@@ -221,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         MessageQueue.getInstance().addObserver(new Observer() {
-            @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
             @Override
             public void update(Observable messageQueue, Object arg) {
                 MessageQueue.Message msg = MessageQueue.getInstance().peekMessage();
@@ -232,10 +231,15 @@ public class MainActivity extends AppCompatActivity {
                 // If it is a bluetooth message it should contain a valid bluetooth message parsed by the bluetooth parser
                 if(msg.first == MessageQueue.MESSAGE_TYPE.SEND_BLUETOOTH)
                 {
-                    // TODO: Validate message in our parser
+                    boolean statementValid = BluetoothProtocolParser.isValid(msg.second);
+
                     msg.handle();
-                    // Do the message
-                    if(m_connection != null)
+
+                    // Send the message
+                    if(
+                            m_connection != null &&
+                            statementValid
+                    )
                         m_connection.write(msg.second.getBytes());
                 }
            }
@@ -382,6 +386,11 @@ public class MainActivity extends AppCompatActivity {
 
             m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
                     3000,
+                    System.currentTimeMillis()
+            )).getBytes());
+
+            m_connection.write(m_parser.parse(new BluetoothProtocolParser.Statement(
+                    3005,
                     System.currentTimeMillis()
             )).getBytes());
         }
