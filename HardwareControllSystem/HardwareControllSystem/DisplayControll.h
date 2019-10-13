@@ -52,6 +52,7 @@ private:
 		cmd_message = 2,
 		cmd_timeChange = 3,
 		cmd_radChange = 4,
+		cmd_dataRequest = 5,
 	};
 	struct reciveData_s
 	{
