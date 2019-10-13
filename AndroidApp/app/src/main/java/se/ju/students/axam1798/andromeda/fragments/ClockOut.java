@@ -72,13 +72,9 @@ public class ClockOut extends Fragment {
     private void timeClockedOut() {
         String m_time;
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            m_time = java.time.LocalTime.now().toString();
-        } else {
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            m_time = sdf.format(calendar.getTime());
-        }
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        m_time = sdf.format(calendar.getTime());
 
         Activity main = getActivity();
 
