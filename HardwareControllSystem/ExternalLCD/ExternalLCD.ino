@@ -57,6 +57,7 @@ enum cmdType_e
 	cmd_message = 2,
 	cmd_timeChange = 3,
 	cmd_radChange = 4,
+	cmd_dataRequest = 5,
 };
 //data dype that can be sent
 enum dataTransmitType_e
@@ -561,6 +562,11 @@ void setNewCmd(command_s cmd)
 		rawRadiation = latestCmd.data.toFloat();
 		send(tx_radiation, String(getCurrentRad()));
 		break;
+	case cmd_dataRequest:
+		//send room, clothes and radiation
+		send(tx_room, String(getCurrentRoom().name));
+		send(tx_hazmatsuit, String(hazmatsuit));
+		send(tx_radiation, String(getCurrentRad()));
 	default:
 		break;
 	}
