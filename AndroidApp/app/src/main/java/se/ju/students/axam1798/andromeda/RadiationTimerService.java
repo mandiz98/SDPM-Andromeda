@@ -19,9 +19,7 @@ public class RadiationTimerService extends Service {
 
     private final static String TAG = RadiationTimerService.class.getName();
 
-    public final static double TEMP_RADIATION_EXPOSURE = 30;
-    public final static double TEMP_ROOM_COEFFICIENT = 0.2;
-    public final static double TEMP_PROTECTIVE_COEFFICIENT = 1;
+    private static double m_rads = 0;
     private final static int INTERVAL_SECONDS = 1800;
 
     private int m_accumilator = 30;
@@ -74,8 +72,10 @@ public class RadiationTimerService extends Service {
         timer.schedule(timerTask,1000,1000);
     }
 
-    public double getTimeLeft(double safetyLimit, double currentExposure){
-        return (safetyLimit / currentExposure) * 1000;
+    public double getTimeLeft(){
+        double safetyLimit = m_userManager.getUser().getSafetyLimit();
+
+        return (safetyLimit / m_rads) * 1000;
     }
 
     public String getHourString(double timeLeft) {
@@ -102,17 +102,11 @@ public class RadiationTimerService extends Service {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                double currentExposure = m_userManager.getUser().getCurrentRadiationExposure(
-                        // TODO: Should be fetched from hardware
-                        TEMP_RADIATION_EXPOSURE, // TODO HardwareManager.getCurrentExposure()
-                        TEMP_ROOM_COEFFICIENT,
-                        m_userManager.getUser().getProtectiveCoefficient()
-                );
                 double safetyLimit = m_userManager.getUser().getSafetyLimit();
 
-                safetyLimit -= currentExposure;
+                safetyLimit -= m_rads;
 
-                double timeLeft = getTimeLeft(safetyLimit, currentExposure);
+                double timeLeft = getTimeLeft();
                 String notificationText = "Expires in " +
                         getHourString(timeLeft) + ":" +
                         getMinuteString(timeLeft) + ":" +
@@ -196,16 +190,20 @@ public class RadiationTimerService extends Service {
         m_notificationManagerCompat.notify(2, m_warningNotificationBuilder.build());
     }
 
+    public void setRads(double rads) {
+        m_rads = rads;
+    }
+
     public class LocalBinder extends Binder {
         public RadiationTimerService getService() {
             // Return this instance of LocalService so clients can call public methods
             return RadiationTimerService.this;
         }
     }
+
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
     }
-
 }
 

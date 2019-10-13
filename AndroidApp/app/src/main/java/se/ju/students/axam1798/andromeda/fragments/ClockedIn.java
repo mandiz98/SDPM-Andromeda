@@ -43,6 +43,7 @@ import se.ju.students.axam1798.andromeda.activities.EmployeeHistoryActivity;
 import se.ju.students.axam1798.andromeda.activities.EmployeeListActivity;
 import se.ju.students.axam1798.andromeda.enums.Role;
 import se.ju.students.axam1798.andromeda.models.Event;
+import se.ju.students.axam1798.andromeda.models.User;
 
 
 public class ClockedIn extends Fragment {
@@ -52,7 +53,6 @@ public class ClockedIn extends Fragment {
     private RadiationTimerService m_service;
     private boolean m_bound = false;
     private TextView txtTimer;
-
 
     private Handler timerTextHandler;
 
@@ -154,6 +154,8 @@ public class ClockedIn extends Fragment {
 
         //setup function
         updateClothes(userManager);
+        updateRoom(userManager);
+        updateRadExp(userManager);
 
 
         //OBSERVER
@@ -174,6 +176,9 @@ public class ClockedIn extends Fragment {
                     //CLOTHES
                     else if (statement.eventKey == 2001){
                         updateClothes(userManager);
+                    }
+                    else if (statement.eventKey == 5000) {
+                        updateRadExp(userManager);
                     }
                 }
 
@@ -206,14 +211,8 @@ public class ClockedIn extends Fragment {
         @Override
         public void run() {
             try {
-                double timeLeft = m_service.getTimeLeft(
-                        UserManager.getInstance(m_context).getUser().getSafetyLimit(),
-                        UserManager.getInstance(m_context).getUser().getCurrentRadiationExposure(
-                                RadiationTimerService.TEMP_RADIATION_EXPOSURE,
-                                RadiationTimerService.TEMP_ROOM_COEFFICIENT,
-                                RadiationTimerService.TEMP_PROTECTIVE_COEFFICIENT
-                        )
-                );
+                double timeLeft = m_service.getTimeLeft();
+
                 String timeLeftTxt = m_service.getHourString(timeLeft) + ":" +
                         m_service.getMinuteString(timeLeft) + ":" +
                         m_service.getSecondString(timeLeft);
@@ -256,10 +255,15 @@ public class ClockedIn extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String clothes = decodedBody.getData();
-                        clothes = (clothes.equals("0") ? "Normal clothes" : "Hazmat suit");
-                        ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText(clothes);
-
+                        try {
+                            String clothes = decodedBody.getData();
+                            clothes = clothes.replaceAll("\n", "");
+                            clothes = clothes.replaceAll(" ", "");
+                            clothes = (clothes.equals("1") ? "Hazmat suit" : "Normal clothes");
+                            ((TextView)getView().findViewById(R.id.txt_clothing_text)).setText(clothes);
+                        } catch(Exception e) {
+                            Log.e("UpdateClothes", e.getMessage());
+                        }
                     }
                 });
             }
@@ -278,8 +282,15 @@ public class ClockedIn extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String room = decodedBody.getData();
-                        ((TextView)getView().findViewById(R.id.txt_room_text)).setText(room);
+                        try {
+                            String room = decodedBody.getData();
+
+                            room = room.replaceAll("\n", "");
+
+                            ((TextView)getView().findViewById(R.id.txt_room_text)).setText(room);
+                        } catch(Exception e) {
+                            Log.e("UpdateRoom", e.getMessage());
+                        }
                     }
                 });
             }
@@ -290,4 +301,37 @@ public class ClockedIn extends Fragment {
             }
         });
     }
+
+    //Update radiation
+    public void updateRadExp(UserManager userManager){
+
+        APIClient.getInstance().getLatestEventByKey(5000, userManager.getUser().getId(), new APICallback<Event>() {
+            @Override
+            public void onSuccess(Call<Event> call, Response<Event> response, final Event decodedBody) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String rad = decodedBody.getData();
+
+                        try {
+                            rad = rad.replaceAll("\n", "");
+                            rad = rad.replaceAll(" ", "");
+
+                            double asDouble = Double.parseDouble(rad);
+                            m_service.setRads(asDouble);
+                        } catch(Exception e) {
+                            Log.e("UpdateRad",e.getMessage());
+                        }
+
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Call<Event> call, Response<Event> response, APIError error) {
+
+            }
+        });
+    }
+
 }

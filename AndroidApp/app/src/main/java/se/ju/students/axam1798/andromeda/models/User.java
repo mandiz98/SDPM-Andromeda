@@ -1,8 +1,17 @@
 package se.ju.students.axam1798.andromeda.models;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 
+import retrofit2.Call;
+import retrofit2.Response;
+import se.ju.students.axam1798.andromeda.API.APICallback;
+import se.ju.students.axam1798.andromeda.API.APIClient;
+import se.ju.students.axam1798.andromeda.API.APIError;
+import se.ju.students.axam1798.andromeda.UserManager;
 import se.ju.students.axam1798.andromeda.enums.Role;
+import se.ju.students.axam1798.andromeda.fragments.ClockedIn;
 
 public class User {
 
@@ -14,6 +23,7 @@ public class User {
     private boolean hazmatSuite;
     @SerializedName("roleId")
     private Role role;
+    double rads;
 
     private double m_safetyLimit;
 
