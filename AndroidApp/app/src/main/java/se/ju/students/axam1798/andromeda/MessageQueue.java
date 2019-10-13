@@ -40,7 +40,7 @@ public class MessageQueue extends Observable
         return m_instance;
     }
 
-    enum MESSAGE_TYPE
+    public enum MESSAGE_TYPE
     {
         SEND_BLUETOOTH,
         RECIEVE_BLUETOOTH
@@ -56,7 +56,9 @@ public class MessageQueue extends Observable
 
     public Message peekMessage()
     {
-        return m_messageQueue.get(0);
+        if(m_messageQueue.size() > 0)
+            return m_messageQueue.get(0);
+        return null;
     }
 
     private void popMessage(Message ref)

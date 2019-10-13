@@ -34,11 +34,11 @@ public class BluetoothProtocolParser
 
     private String TAG = "BluetoothProtocolParser";
 
-    BluetoothProtocolParser()
+    public BluetoothProtocolParser()
     {
     }
 
-    Statement parse(String statementFragment)
+    public Statement parse(String statementFragment)
     {
         m_currentState = m_currentState.concat(statementFragment);
 
@@ -104,7 +104,7 @@ public class BluetoothProtocolParser
         return statement;
     }
 
-    static String parse(Statement statement)
+    public static String parse(Statement statement)
     {
         String newStatement =
                 "" +
